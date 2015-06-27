@@ -1,6 +1,6 @@
 # eslint-nibble
 
-Sometimes running ESLint against an existing project and fixing the hundreds or thousands of errors is biting off more than you can chew.  With this module, you can get a quick overview of which tests are failing your rules, and then pick one at a time to focus on.
+Sometimes running ESLint against an existing project and fixing the hundreds or thousands of errors is biting off more than you can chew.  With this module, you can get a quick overview of your failing rules, and then helps you pick one at a time to focus on.
 
 
 ## Installation
