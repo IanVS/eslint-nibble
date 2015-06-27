@@ -1,0 +1,3 @@
+# eslint-nibble Changelog
+
+### MASTER
