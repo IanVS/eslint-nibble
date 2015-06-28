@@ -1,6 +1,6 @@
 {
   "name": "eslint-nibble",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Ease into ESLint, by fixing one rule at a time",
   "main": "index.js",
   "bin": {"eslint-nibble": "index.js"},
