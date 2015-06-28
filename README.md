@@ -6,18 +6,28 @@ Sometimes running ESLint against an existing project and fixing the hundreds or 
 ## Installation
 
 ```bash
-$ npm install -g eslint-nibble
+$ npm install eslint-nibble
 ```
 
 ## Usage
 
-Just give eslint-nibble a list of files or directories to run ESLint on:
+Add something like the following to your `package.json` file:
 
-```
-$ eslint-nibble [space seperated dirs or files, default='.']
+```json
+scripts: {
+  "nibble": "eslint-nibble lib/ tests/ index.js"
+}
 ```
 
-eslint-nibble will then display a rundown of the rules that are failing, using the [eslint-stats](https://github.com/ganimomer/eslint-stats) format, and will ask you to pick a rule to work on:
+This will run eslint against javascript files in the `lib/` and `tests/` directories, as well as `index.js`.  If you don't provide any arguments, all javascript files in your project will be linted.
+
+Then, to run eslint-nibble, you can use:
+
+```bash
+$ npm run nibble
+```
+
+Eslint-nibble will then display a rundown of the rules that are failing, using the [eslint-stats](https://github.com/ganimomer/eslint-stats) format, and will ask you to pick a rule to work on:
 
 ![eslint-stats-screenshot](docs/eslint-stats-screenshot.png)
 
@@ -28,7 +38,3 @@ Type in the name of the rule, and then a detailed list of the errors will be pre
 ## Notes
 
 This module does not make any decisions about which ESLint rules to run.  Make sure your project has a .eslintrc file if you want something other than the default ESLint rules to execute.
-
-Currently, this module does not work if you use alternative parsers like `babel-eslint`, or shared configs like `eslint-config-standard`.
-
-There are likely to be other bugs, please report them as you find them.  I'd like to make this tool useful for as many people as possible.
