@@ -1,5 +1,8 @@
 node_modules
 
+# Compiled code
+lib/
+
 # Ignore configuration and automatically generated cruft
 *.log
 

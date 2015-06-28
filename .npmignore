@@ -1,4 +1,5 @@
 tests
-.gitignore
 test.js
+.gitignore
 *.sublime*
+src/
