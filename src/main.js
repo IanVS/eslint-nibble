@@ -14,7 +14,7 @@ if (report && report.errorCount > 0) {
   // todo: break this into seperate module
   // If something is totally broken, should be able to tell from first message
   let firstMsg = report.results[0].messages[0];
-  if (firstMsg.fatal) {
+  if (firstMsg && firstMsg.fatal) {
     console.log(chalk.red(firstMsg.message));
   } else {
     console.log(formatter(report.results));
