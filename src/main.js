@@ -11,7 +11,7 @@ let cli = new CLIEngine({});
 let args = (process.argv.slice(2).length > 0) ? process.argv.slice(2) : ['.'];
 let report = cli.executeOnFiles(args);
 
-if (report && report.errorCount > 0) {
+if (report && (report.errorCount > 0 || report.warningCount > 0)) {
   // todo: break this into seperate module
   // If something is totally broken, should be able to tell from first message
   let firstMsg = report.results[0].messages[0];
