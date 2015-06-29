@@ -2,6 +2,8 @@
 
 ### MASTER
 
+### 0.0.5
+- (Fix) Import chalk correctly
 
 ### 0.0.4
 - (Enhance) Eslint-stats now shows warnings as well as errors
