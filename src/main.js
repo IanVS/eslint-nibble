@@ -1,15 +1,16 @@
 import { CLIEngine } from 'eslint';
-import chalk from 'chalk';
+import 'chalk';
 import inquirer from 'inquirer';
 
-let byError = __dirname + '/../node_modules/eslint-stats/byError.js';
-let friendly = __dirname + '/../node_modules/eslint-friendly-formatter/index.js';
+let summaryFormatter = __dirname + '/../node_modules/eslint-summary/summary.js';
+let statsFormatter = __dirname + '/../node_modules/eslint-stats/byErrorAndWarning.js';
+let friendlyFormatter = __dirname + '/../node_modules/eslint-friendly-formatter/index.js';
+let formatter = '';
 
 let cli = new CLIEngine({});
-
 let args = (process.argv.slice(2).length > 0) ? process.argv.slice(2) : ['.'];
 let report = cli.executeOnFiles(args);
-let formatter = cli.getFormatter(byError);
+
 if (report && report.errorCount > 0) {
   // todo: break this into seperate module
   // If something is totally broken, should be able to tell from first message
@@ -17,7 +18,13 @@ if (report && report.errorCount > 0) {
   if (firstMsg && firstMsg.fatal) {
     console.log(chalk.red(firstMsg.message));
   } else {
+    // Display stats by rule
+    formatter = cli.getFormatter(statsFormatter);
     console.log(formatter(report.results));
+    // Display summary
+    formatter = cli.getFormatter(summaryFormatter);
+    console.log(formatter(report.results));
+
     inquirer.prompt([{
       name: 'rule',
       type: 'input',
@@ -37,7 +44,8 @@ if (report && report.errorCount > 0) {
           }
         };
       });
-      formatter = cli.getFormatter(friendly);
+      // Display detailed error reports
+      formatter = cli.getFormatter(friendlyFormatter);
       console.log(formatter(filteredResults));
     });
   }

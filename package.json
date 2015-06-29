@@ -3,10 +3,13 @@
   "version": "0.0.3",
   "description": "Ease into ESLint, by fixing one rule at a time",
   "main": "index.js",
-  "bin": {"eslint-nibble": "index.js"},
+  "bin": {
+    "eslint-nibble": "index.js"
+  },
   "scripts": {
     "test": "echo 'sorry no tests yet'",
-    "compile": "babel -d lib/ src/",
+    "compile": "babel src/ --out-dir lib/ ",
+    "compilew": "babel src/ --out-dir lib/ --watch",
     "prepublish": "npm run compile"
   },
   "keywords": [
@@ -15,26 +18,28 @@
     "linting",
     "linter",
     "eslint-stats",
+    "eslint-summary",
     "eslint-friendly-formatter"
   ],
   "author": "Ian VanSchooten",
   "license": "MIT",
   "bugs": {
-    "url" : "https://github.com/IanVS/eslint-nibble/issues"
+    "url": "https://github.com/IanVS/eslint-nibble/issues"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/IanVS/eslint-nibble.git"
+    "type": "git",
+    "url": "https://github.com/IanVS/eslint-nibble.git"
   },
   "dependencies": {
-    "babel": "^5.6.14",
     "chalk": "^1.0.0",
     "eslint": "^0.24.0",
-    "inquirer": "^0.8.5",
     "eslint-friendly-formatter": "^1.0.8",
-    "eslint-stats": "0.0.3"
+    "eslint-stats": "IanVS/eslint-stats",
+    "eslint-summary": "^1.0.0",
+    "inquirer": "^0.8.5"
   },
   "devDependencies": {
+    "babel": "^5.6.14",
     "eslint-config-standard": "^3.3.0"
   }
 }

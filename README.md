@@ -30,11 +30,11 @@ Then, to run eslint-nibble, you can use:
 $ npm run nibble
 ```
 
-Eslint-nibble will then display a rundown of the rules that are failing, using the [eslint-stats](https://github.com/ganimomer/eslint-stats) format, and will ask you to pick a rule to work on:
+Eslint-nibble will then display a rundown of the rules that are failing and a summary of the results, using [eslint-stats](https://github.com/ganimomer/eslint-stats) and [eslint-summary](https://github.com/davidwaterston/eslint-summary), and will ask you to pick a rule to work on:
 
 ![eslint-stats-screenshot](docs/eslint-stats-screenshot.png)
 
-Type in the name of the rule, and then a detailed list of the errors will be presented, using [eslint-friendly-formatter](https://github.com/royriojas/eslint-friendly-formatter).  If you are using iTerm2 or Guake, you can set them up so that your text editor opens to the right line when you click on the filename.
+Type in the name of the rule, and then a detailed list of the errors will be presented, using [eslint-friendly-formatter](https://github.com/royriojas/eslint-friendly-formatter).  If you are using iTerm2 or Guake, you can set them up so that your text editor opens to the correct line when you click on the filename.
 
 ![eslint-friendly-formatter-screenshot](docs/eslint-friendly-formatter-screenshot.png)
 

@@ -1,7 +1,8 @@
 # eslint-nibble Changelog
 
 ### MASTER
-
+- (Enhance) Eslint-stats now shows warnings as well as errors
+- (Enhance) Added a summary to the report using eslint-summary
 
 ### 0.0.3
 - (Docs) Update usage instructions to avoid global installation
