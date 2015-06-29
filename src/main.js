@@ -1,5 +1,5 @@
 import { CLIEngine } from 'eslint';
-import 'chalk';
+import chalk from 'chalk';
 import inquirer from 'inquirer';
 
 let summaryFormatter = __dirname + '/../node_modules/eslint-summary/summary.js';
