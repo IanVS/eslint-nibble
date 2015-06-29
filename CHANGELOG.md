@@ -2,6 +2,9 @@
 
 ### MASTER
 
+### 0.0.6
+- (Fix) Check for warnings as well as errors, before giving the all clear
+
 ### 0.0.5
 - (Fix) Import chalk correctly
 
