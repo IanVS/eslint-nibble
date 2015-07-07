@@ -9,8 +9,11 @@ Sometimes running ESLint against an existing project and fixing the hundreds or 
 ## Installation
 
 ```bash
-$ npm install eslint-nibble
+npm install eslint-nibble
 ```
+
+You can also install `eslint-nibble` globally, but if your project is using `babel-eslint` or extending a sharable config, you will need to install those globally as well.  I recommend installing `eslint-nibble` in your project without `--save-dev` (as shown above), because this tool is intended only to get you up and running.  Once you're happy with your rules and your code, install eslint itself with `npm install eslint --save-dev` and use that for all your ongoing linting.
+
 
 ## Usage
 
@@ -27,7 +30,7 @@ This will run eslint against javascript files in the `lib/` and `tests/` directo
 Then, to run eslint-nibble, you can use:
 
 ```bash
-$ npm run nibble
+npm run nibble
 ```
 
 Eslint-nibble will then display a rundown of the rules that are failing and a summary of the results, using [eslint-stats](https://github.com/ganimomer/eslint-stats) and [eslint-summary](https://github.com/davidwaterston/eslint-summary), and will ask you to pick a rule to work on:
