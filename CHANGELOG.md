@@ -2,6 +2,12 @@
 
 ### MASTER
 
+### 0.1.1
+- (Fix) Remove require for babel polyfill
+
+### 0.1.0
+- (Fix) Update eslint-stats repo to avoid out-of-date deps notice
+
 ### 0.0.6
 - (Fix) Check for warnings as well as errors, before giving the all clear
 
