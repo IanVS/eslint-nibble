@@ -1,11 +1,9 @@
 import { CLIEngine } from 'eslint';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
+import * as fmt from './config/formatters';
 
-let summaryFormatter = __dirname + '/../node_modules/eslint-summary/summary.js';
-let statsFormatter = __dirname + '/../node_modules/eslint-stats/byErrorAndWarning.js';
-let friendlyFormatter = __dirname + '/../node_modules/eslint-friendly-formatter/index.js';
-let formatter = '';
+var formatter;
 
 let cli = new CLIEngine({});
 let args = (process.argv.slice(2).length > 0) ? process.argv.slice(2) : ['.'];
@@ -19,10 +17,10 @@ if (report && (report.errorCount > 0 || report.warningCount > 0)) {
     console.log(chalk.red(firstMsg.message));
   } else {
     // Display stats by rule
-    formatter = cli.getFormatter(statsFormatter);
+    formatter = cli.getFormatter(fmt.stats);
     console.log(formatter(report.results));
     // Display summary
-    formatter = cli.getFormatter(summaryFormatter);
+    formatter = cli.getFormatter(fmt.summary);
     console.log(formatter(report.results));
 
     inquirer.prompt([{
@@ -45,7 +43,7 @@ if (report && (report.errorCount > 0 || report.warningCount > 0)) {
         };
       });
       // Display detailed error reports
-      formatter = cli.getFormatter(friendlyFormatter);
+      formatter = cli.getFormatter(fmt.detailed);
       console.log(formatter(filteredResults));
     });
   }
