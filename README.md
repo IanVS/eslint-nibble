@@ -25,7 +25,7 @@ scripts: {
 }
 ```
 
-This will run eslint against javascript files in the `lib/` and `tests/` directories, as well as `index.js`.  If you don't provide any arguments, all javascript files in your project will be linted.
+This will run eslint against javascript files in the `lib/` and `tests/` directories, as well as `index.js`.
 
 Then, to run eslint-nibble, you can use:
 
