@@ -1,6 +1,7 @@
 # eslint-nibble Changelog
 
 ### MASTER
+- (Breaking) Use optionator for parsing cli arguments.  Stop defaulting to `cwd`
 
 ### 0.1.1
 - (Fix) Remove require for babel polyfill
