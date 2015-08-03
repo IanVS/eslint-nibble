@@ -1,6 +1,8 @@
 # eslint-nibble Changelog
 
 ### MASTER
+
+### 0.2.0
 - (Breaking) Use optionator for parsing cli arguments.  Stop defaulting to `cwd`
 
 ### 0.1.1
