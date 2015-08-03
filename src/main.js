@@ -21,7 +21,7 @@ try {
 files = currentOptions._;
 
 if (currentOptions.version) { // version from package.json
-  console.log("v" + version);
+  console.log('v' + version);
 } else if (currentOptions.help || (!files.length)) {
   console.log(options.generateHelp());
 } else {
@@ -43,8 +43,8 @@ if (currentOptions.version) { // version from package.json
       console.log(formatter(report.results));
 
       inquirer.prompt([{
-        name: 'rule',
-        type: 'input',
+        name   : 'rule',
+        type   : 'input',
         message: 'Type in the rule you want to focus on'
       }], function gotInput(answers) {
         // todo: create another module here
@@ -54,12 +54,12 @@ if (currentOptions.version) { // version from package.json
           });
           if (filteredMessages) {
             return {
-              filePath: result.filePath,
-              messages: filteredMessages,
-              errorCount: filteredMessages.length,
+              filePath    : result.filePath,
+              messages    : filteredMessages,
+              errorCount  : filteredMessages.length,
               warningCount: result.warningCount
-            }
-          };
+            };
+          }
         });
         // Display detailed error reports
         formatter = cli.getFormatter(fmt.detailed);

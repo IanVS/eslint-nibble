@@ -20,14 +20,14 @@ export default optionator({
   options: [{
     heading: 'Options'
   }, {
-    option: 'help',
-    alias: 'h',
-    type: 'Boolean',
+    option     : 'help',
+    alias      : 'h',
+    type       : 'Boolean',
     description: 'Show help'
   }, {
-    option: "version",
-    alias: "v",
-    type: "Boolean",
-    description: "Outputs the version number"
+    option     : 'version',
+    alias      : 'v',
+    type       : 'Boolean',
+    description: 'Outputs the version number'
   }]
-})
+});
