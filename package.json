@@ -7,11 +7,12 @@
     "eslint-nibble": "./bin/eslint-nibble.js"
   },
   "scripts": {
-    "test": "echo 'sorry no tests yet'",
+    "test": "tape tests/**/*.js | tap-spec",
+    "pretest": "npm run lint && npm run compile",
     "compile": "babel src/ --out-dir lib/ ",
     "compilew": "babel src/ --out-dir lib/ --watch",
     "prepublish": "npm run compile",
-    "lint": "eslint src"
+    "lint": "eslint src tests/lib"
   },
   "keywords": [
     "eslint",
@@ -42,6 +43,9 @@
   },
   "devDependencies": {
     "babel": "^5.6.14",
-    "eslint-config-semistandard": "^4.0.0"
+    "eslint-config-semistandard": "^4.0.0",
+    "tap-spec": "^4.0.2",
+    "tape": "^4.0.2",
+    "tape-catch": "^1.0.4"
   }
 }
