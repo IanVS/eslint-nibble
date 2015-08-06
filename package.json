@@ -4,7 +4,7 @@
   "description": "Ease into ESLint, by fixing one rule at a time",
   "main": "index.js",
   "bin": {
-    "eslint-nibble": "index.js"
+    "eslint-nibble": "./bin/eslint-nibble.js"
   },
   "scripts": {
     "test": "echo 'sorry no tests yet'",
