@@ -39,7 +39,7 @@ module.exports = {
   },
 
   getRuleResults(report, ruleName) {
-    let ruleResults = report;
+    let ruleResults = {};
     let totalErrors = 0;
     let totalWarnings = 0;
 
