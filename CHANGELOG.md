@@ -1,6 +1,7 @@
 # eslint-nibble Changelog
 
 ### MASTER
+- (Breaking) Update to ESLint 1.0.0
 
 ### 0.3.0
 - (Enhance) Improve fatal error handling
