@@ -2,6 +2,10 @@
 
 ### MASTER
 
+### 0.3.0
+- (Enhance) Improve fatal error handling
+- (Enhance) Add tests
+
 ### 0.2.0
 - (Breaking) Use optionator for parsing cli arguments.  Stop defaulting to `cwd`
 
