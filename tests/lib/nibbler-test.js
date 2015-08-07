@@ -2,14 +2,14 @@
 
 var test = require('tape-catch');
 var nibbler = require('../../lib/nibbler');
-
+var path = require('path');
 
 test('getRuleResults :: Returns correct messages', function (outer) {
   outer.plan(5);
 
   outer.test('-- One error', function (t) {
     t.plan(14);
-    var report = require('../fixtures/report/one-file-one-error');
+    var report = require('../fixtures/reports/one-file-one-error');
     var ruleName = 'no-unused-vars';
     var ruleReport = nibbler.getRuleResults(report, ruleName);
     t.ok(ruleReport, 'returns report');
@@ -30,7 +30,7 @@ test('getRuleResults :: Returns correct messages', function (outer) {
 
   outer.test('-- One warning', function (t) {
     t.plan(3);
-    var report = require('../fixtures/report/one-file-one-warning');
+    var report = require('../fixtures/reports/one-file-one-warning');
     var ruleName = 'no-unused-vars';
     var ruleReport = nibbler.getRuleResults(report, ruleName);
     t.ok(ruleReport.warningCount, 'report has a warningCount');
@@ -41,7 +41,7 @@ test('getRuleResults :: Returns correct messages', function (outer) {
 
   outer.test('-- One file, One rule', function (t) {
     t.plan(7);
-    var report = require('../fixtures/report/one-file-two-errors-no-warnings-one-rule');
+    var report = require('../fixtures/reports/one-file-two-errors-no-warnings-one-rule');
     var ruleName = report.results[0].messages[0].ruleId;
     var ruleReport = nibbler.getRuleResults(report, ruleName);
     t.equal(ruleReport.results[0].messages[0].ruleId, ruleName, 'filtered on correct rule');
@@ -55,7 +55,7 @@ test('getRuleResults :: Returns correct messages', function (outer) {
 
   outer.test('-- One file, Two rules', function (t) {
     t.plan(9);
-    var report = require('../fixtures/report/one-file-two-errors-no-warnings-two-rules');
+    var report = require('../fixtures/reports/one-file-two-errors-no-warnings-two-rules');
     var ruleName = report.results[0].messages[0].ruleId;
     var ruleReport = nibbler.getRuleResults(report, ruleName);
     t.equal(ruleReport.results[0].filePath, 'path/to/file.js', 'returned correct filePath');
@@ -71,7 +71,7 @@ test('getRuleResults :: Returns correct messages', function (outer) {
 
   outer.test('-- Two files, Two rules', function (t) {
     t.plan(4);
-    var report = require('../fixtures/report/two-files-two-errors-no-warnings-two-rules');
+    var report = require('../fixtures/reports/two-files-two-errors-no-warnings-two-rules');
     var ruleName = 'no-unused-vars';
     var ruleReport = nibbler.getRuleResults(report, ruleName);
     t.equal(ruleReport.results[1].filePath, 'path/to/another/file.js', 'returned correct filePath');
@@ -87,7 +87,7 @@ test('getRuleResults :: Returns correct number of errors and warnings', function
 
   outer.test('-- One file, One rule', function (t) {
     t.plan(4);
-    var report = require('../fixtures/report/one-file-two-errors-no-warnings-one-rule');
+    var report = require('../fixtures/reports/one-file-two-errors-no-warnings-one-rule');
     var ruleName = report.results[0].messages[0].ruleId;
     var ruleReport = nibbler.getRuleResults(report, ruleName);
     t.equal(ruleReport.results[0].errorCount, 2, '2 errors in file');
@@ -98,7 +98,7 @@ test('getRuleResults :: Returns correct number of errors and warnings', function
 
   outer.test('-- One file, Two rules', function (t) {
     t.plan(4);
-    var report = require('../fixtures/report/one-file-two-errors-no-warnings-two-rules');
+    var report = require('../fixtures/reports/one-file-two-errors-no-warnings-two-rules');
     var ruleName = report.results[0].messages[0].ruleId;
     var ruleReport = nibbler.getRuleResults(report, ruleName);
     t.equal(ruleReport.results[0].errorCount, 1, '1 error in file');
@@ -109,7 +109,7 @@ test('getRuleResults :: Returns correct number of errors and warnings', function
 
   outer.test('-- Two files, One rule', function (t) {
     t.plan(6);
-    var report = require('../fixtures/report/two-files-two-errors-no-warnings-one-rule');
+    var report = require('../fixtures/reports/two-files-two-errors-no-warnings-one-rule');
     var ruleName = report.results[0].messages[0].ruleId;
     var ruleReport = nibbler.getRuleResults(report, ruleName);
     t.equal(ruleReport.results[0].errorCount, 1, '1 error in first file');
@@ -122,7 +122,7 @@ test('getRuleResults :: Returns correct number of errors and warnings', function
 
   outer.test('-- Two files, Two rules', function (t) {
     t.plan(6);
-    var report = require('../fixtures/report/two-files-two-errors-no-warnings-two-rules');
+    var report = require('../fixtures/reports/two-files-two-errors-no-warnings-two-rules');
     var ruleName = report.results[0].messages[0].ruleId;
     var ruleReport = nibbler.getRuleResults(report, ruleName);
     t.equal(ruleReport.results[0].errorCount, 1, '1 error in first file');
@@ -137,7 +137,7 @@ test('getRuleResults :: Returns correct number of errors and warnings', function
 
 test('getFatalResults :: Returns fatal error report', function (t) {
   t.plan(12);
-  var report = require('../fixtures/report/one-file-one-fatal-error');
+  var report = require('../fixtures/reports/one-file-one-fatal-error');
   var fatalReport = nibbler.getFatalResults(report);
   t.ok(fatalReport, 'returns report');
   t.equal(typeof fatalReport, 'object', 'report is an object');
@@ -151,4 +151,39 @@ test('getFatalResults :: Returns fatal error report', function (t) {
   t.ok(fatalReport.errorCount, 'report has an errorCount');
   t.equal(fatalReport.errorCount, 1, 'report errorCount is 1');
   t.equal(fatalReport.warningCount, 0, 'report warningCount is 0');
+});
+
+test('nibbleOnFiles :: Returns correct report for errors', function (t) {
+  t.plan(11);
+  var files = path.resolve(__dirname + '/../fixtures/files/semi-error/');
+  var report = nibbler.nibbleOnFiles([files]);
+  t.ok(report, 'returns report');
+  t.equal(typeof report, 'object', 'report is an object');
+  t.ok(report.results, 'report has results');
+  t.equal(report.results.length, 1, 'results have one element');
+  t.ok(report.results[0].messages, 'result has messages');
+  t.equal(report.results[0].messages.length, 1, 'messages has one element');
+  t.equal(report.results[0].messages[0].severity, 2, 'message severity is 2');
+  t.equal(report.results[0].messages[0].message, 'Missing semicolon.', 'message has correct message');
+  t.ok(report.errorCount, 'report has an errorCount');
+  t.equal(report.errorCount, 1, 'report errorCount is 1');
+  t.equal(report.warningCount, 0, 'report warningCount is 0');
+});
+
+test('nibbleOnFiles :: Returns correct report for warnings', function (t) {
+  t.plan(4);
+  var files = path.resolve(__dirname + '/../fixtures/files/semi-warn/');
+  var report = nibbler.nibbleOnFiles([files]);
+  t.ok(report, 'returns report');
+  t.ok(report.warningCount, 'report has an warningCount');
+  t.equal(report.warningCount, 1, 'report warningCount is 1');
+  t.equal(report.errorCount, 0, 'report errorCount is 0');
+});
+
+test('nibbleOnFiles :: Returns report with no warnings or errors if all rules pass', function (t) {
+  t.plan(2);
+  var files = path.resolve(__dirname + '/../fixtures/files/semi-okay/');
+  var report = nibbler.nibbleOnFiles([files]);
+  t.equal(report.warningCount, 0, 'no warnings');
+  t.equal(report.errorCount, 0, 'no errors');
 });
