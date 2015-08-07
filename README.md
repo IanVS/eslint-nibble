@@ -12,7 +12,9 @@ Sometimes running ESLint against an existing project and fixing the hundreds or 
 npm install eslint-nibble
 ```
 
-You can also install `eslint-nibble` globally, but if your project is using `babel-eslint` or extending a sharable config, you will need to install those globally as well.  I recommend installing `eslint-nibble` in your project without `--save-dev` (as shown above), because this tool is intended only to get you up and running.  Once you're happy with your rules and your code, install eslint itself with `npm install eslint --save-dev` and use that for all your ongoing linting.
+You can also install `eslint-nibble` globally, but if your project is using `babel-eslint` or extending a sharable config, you will need to install those globally as well.
+
+I recommend installing `eslint-nibble` in your project without `--save-dev` (as shown above), because this tool is intended only to get you up and running.  Once you're happy with your rules and your code, install eslint itself with `npm install eslint --save-dev` and use that for all your ongoing linting.
 
 
 ## Usage
@@ -20,7 +22,7 @@ You can also install `eslint-nibble` globally, but if your project is using `bab
 Add something like the following to your `package.json` file:
 
 ```json
-scripts: {
+"scripts": {
   "nibble": "eslint-nibble lib/ tests/ index.js"
 }
 ```
@@ -43,7 +45,7 @@ Type in the name of the rule, and then a detailed list of the errors will be pre
 
 ## Notes
 
-This module does not make any decisions about which ESLint rules to run.  Make sure your project has a .eslintrc file if you want something other than the default ESLint rules to execute.
+This module does not make any decisions about which ESLint rules to run.  Make sure your project has a .eslintrc file if you want ESLint to do anything.  As of version 1.0.0, no rules are enabled by default.
 
 [npm-badge]: https://img.shields.io/npm/v/eslint-nibble.svg
 [npm-badge-url]: https://www.npmjs.com/package/eslint-nibble

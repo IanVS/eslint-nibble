@@ -11,6 +11,7 @@
       "no-use-before-define"             : [2],
       "brace-style"                      : [2, "1tbs"],
       "eqeqeq"                           : [2, "smart"],
+      "indent"                           : [2, 2, { "VariableDeclarator": 2 }],
       "key-spacing"                      : [2, {"align": "colon"}],
       "no-multi-spaces"                  : [2, {exceptions: {"VariableDeclarator": true}}],
       "no-multiple-empty-lines"          : [2, {"max": 2}],

@@ -11,7 +11,7 @@ let cli = {
 
   execute: function (args) {
     let currentOptions,
-    files;
+        files;
 
     // Parse options
     try {
