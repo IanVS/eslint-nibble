@@ -187,3 +187,12 @@ test('nibbleOnFiles :: Returns report with no warnings or errors if all rules pa
   t.equal(report.warningCount, 0, 'no warnings');
   t.equal(report.errorCount, 0, 'no errors');
 });
+
+test('getFormattedResults :: Returns formatted report for built-in formatter', function (t) {
+  t.plan(2);
+  var report = require('../fixtures/reports/one-file-one-error');
+  var formattedResult = nibbler.getFormattedResults(report, 'compact');
+  var expectedResult = 'path/to/error.js: line 1, col 4, Error - foo is defined but never used (no-unused-vars)\n\n1 problem';
+  t.ok(formattedResult, 'returns result');
+  t.equal(formattedResult, expectedResult, 'used the correct formatter');
+});
