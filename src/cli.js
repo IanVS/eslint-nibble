@@ -34,9 +34,11 @@ let cli = {
       if (report && (report.errorCount > 0 || report.warningCount > 0)) {
 
         // Check if there was a fatal error
-        let fatalMsg = nibbler.getFatal(report);
-        if (fatalMsg) {
-          console.error(fatalMsg);
+        let fatalReport = nibbler.getFatalResults(report);
+        if (fatalReport) {
+          let errors = nibbler.getFormattedResults(fatalReport, 'stylish');
+          console.log(errors);
+          console.error('Fatal error(s) were detected.  Please correct and try again.');
           return 1;
         }
         // Show stats
