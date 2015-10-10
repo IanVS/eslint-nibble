@@ -42,8 +42,9 @@ function filterResults(report, msgKey, options) {
       totalErrors += errorCount;
       totalWarnings += warningCount;
       return {
-        filePath    : result.filePath,
-        messages    : filteredMessages,
+        filePath: result.filePath,
+        messages: filteredMessages,
+
         errorCount,
         warningCount
       };
@@ -71,7 +72,6 @@ module.exports = {
   getFormattedResults(report, fmt) {
     let formatter = cli.getFormatter(fmt);
     return formatter(report.results);
-
   },
 
   getRuleResults(report, ruleName) {

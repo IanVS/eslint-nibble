@@ -79,7 +79,6 @@ test('getRuleResults :: Returns correct messages', function (outer) {
     t.equal(ruleReport.results[0].messages.length, 0, 'no messages for other rule');
     t.equal(ruleReport.results.length, 2, 'includes both sets of results (one for each file)');
   });
-
 });
 
 test('getRuleResults :: Returns correct number of errors and warnings', function (outer) {
@@ -132,7 +131,6 @@ test('getRuleResults :: Returns correct number of errors and warnings', function
     t.equal(ruleReport.errorCount, 1, '1 error total');
     t.equal(ruleReport.warningCount, 0, '0 warnings total');
   });
-
 });
 
 test('getFatalResults :: Returns fatal error report', function (t) {

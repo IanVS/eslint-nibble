@@ -32,7 +32,6 @@ let cli = {
     } else {
       let report = nibbler.nibbleOnFiles(files);
       if (report && (report.errorCount > 0 || report.warningCount > 0)) {
-
         // Check if there was a fatal error
         let fatalReport = nibbler.getFatalResults(report);
         if (fatalReport) {
@@ -55,7 +54,6 @@ let cli = {
           type   : 'input',
           message: 'Type in the rule you want to focus on'
         }], function gotInput(answers) {
-
           // Display detailed error reports
           let ruleName = answers.rule;
           let ruleResults = nibbler.getRuleResults(report, ruleName);
