@@ -2,6 +2,11 @@
 
 ### MASTER
 
+### 1.0.1
+- (Build) Add Travis CI
+- (Fix) Prevent formatter resolution error when dependencies are flattened
+- (Dep) Bump inquirer
+
 ### 1.0.0
 - (Breaking) Update to ESLint 1.0.0
 
