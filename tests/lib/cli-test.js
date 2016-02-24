@@ -9,18 +9,18 @@ test('cli :: works with no arguments', function (t) {
   t.plan(2);
 
   var nodeBin = process.argv[0];
-  var nibbleBin = path.resolve(__dirname + '/../bin/eslint-nibble.js');
+  var nibbleBin = path.resolve(path.join(__dirname, '/../bin/eslint-nibble.js'));
 
-  // Temporarily disable console.log
+  // Temporarily disable console
   var origConsoleLog = console.log;
+  var origConsoleErr = console.error;
   console.log = function () {};
+  console.error = function () {};
 
-  var exitCode = cli.execute([nodeBin, nibbleBin]);
+  t.equal(cli.execute([nodeBin, nibbleBin]), 0, 'exits with 0 if no options given (apart from first two of process.argv)');
+  t.equal(cli.execute(), 1, 'exits with 1 if no arguments passed in at all');
 
   // Restore console.log
   console.log = origConsoleLog;
-
-  t.equal(exitCode, 0, 'exits with 0 if no options given (apart from first two of process.argv)');
-  t.equal(cli.execute(), 1, 'exits with 1 if no arguments passed in at all');
+  console.error = origConsoleErr;
 });
-

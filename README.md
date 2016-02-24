@@ -13,9 +13,9 @@ Sometimes running ESLint against an existing project and fixing the hundreds or 
 npm install eslint-nibble
 ```
 
-You can also install `eslint-nibble` globally, but if your project is using `babel-eslint` or extending a sharable config, you will need to install those globally as well.
+You can also install `eslint-nibble` globally, but it is not recommended.
 
-I recommend installing `eslint-nibble` in your project without `--save-dev` (as shown above), because this tool is intended only to get you up and running.  Once you're happy with your rules and your code, install eslint itself with `npm install eslint --save-dev` and use that for all your ongoing linting.
+Instead, try installing `eslint-nibble` in your project without `--save-dev` (as shown above), because this tool is intended only to get you up and running.  Once you're happy with your rules and your code, install eslint itself with `npm install eslint --save-dev` and use that for all your ongoing linting.
 
 
 ## Usage
