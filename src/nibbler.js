@@ -36,6 +36,7 @@ function filterResults(report, msgKey, options) {
       if (options.compareVal) {
         return (msg[msgKey] === options.compareVal);
       }
+      return false;
     });
     if (filteredMessages) {
       let { errorCount, warningCount } = getCounts(filteredMessages);
@@ -49,6 +50,7 @@ function filterResults(report, msgKey, options) {
         warningCount
       };
     }
+    return {};
   });
   newResults.errorCount = totalErrors;
   newResults.warningCount = totalWarnings;
@@ -67,6 +69,7 @@ module.exports = {
     if (fatalResults.errorCount > 0) {
       return fatalResults;
     }
+    return undefined;
   },
 
   getFormattedResults(report, fmt) {

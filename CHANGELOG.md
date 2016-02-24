@@ -1,6 +1,7 @@
 # eslint-nibble Changelog
 
 ### MASTER
+- (Breaking) Update to ESLint ^2.0.0
 
 ### 1.0.1
 - (Build) Add Travis CI

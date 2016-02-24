@@ -153,7 +153,7 @@ test('getFatalResults :: Returns fatal error report', function (t) {
 
 test('nibbleOnFiles :: Returns correct report for errors', function (t) {
   t.plan(11);
-  var files = path.resolve(__dirname + '/../fixtures/files/semi-error/');
+  var files = path.resolve(path.join(__dirname, '/../fixtures/files/semi-error/'));
   var report = nibbler.nibbleOnFiles([files]);
   t.ok(report, 'returns report');
   t.equal(typeof report, 'object', 'report is an object');
@@ -170,7 +170,7 @@ test('nibbleOnFiles :: Returns correct report for errors', function (t) {
 
 test('nibbleOnFiles :: Returns correct report for warnings', function (t) {
   t.plan(4);
-  var files = path.resolve(__dirname + '/../fixtures/files/semi-warn/');
+  var files = path.resolve(path.join(__dirname, '/../fixtures/files/semi-warn/'));
   var report = nibbler.nibbleOnFiles([files]);
   t.ok(report, 'returns report');
   t.ok(report.warningCount, 'report has an warningCount');
@@ -180,7 +180,7 @@ test('nibbleOnFiles :: Returns correct report for warnings', function (t) {
 
 test('nibbleOnFiles :: Returns report with no warnings or errors if all rules pass', function (t) {
   t.plan(2);
-  var files = path.resolve(__dirname + '/../fixtures/files/semi-okay/');
+  var files = path.resolve(path.join(__dirname, '/../fixtures/files/semi-okay/'));
   var report = nibbler.nibbleOnFiles([files]);
   t.equal(report.warningCount, 0, 'no warnings');
   t.equal(report.errorCount, 0, 'no errors');

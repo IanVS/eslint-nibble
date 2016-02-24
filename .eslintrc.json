@@ -1,11 +1,12 @@
 {
-    "ecmaFeatures": {
-      "modules": true
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 6
     },
     "env": {
       "es6": true
     },
-    "extends": "semistandard",
+    "extends": "standard",
     "rules": {
       "consistent-return"                : [2],
       "no-use-before-define"             : [2],
@@ -17,6 +18,9 @@
       "no-multiple-empty-lines"          : [2, {"max": 2}],
       "space-before-function-paren"      : [2, {"anonymous" : "always", "named" : "never"}],
       "spaced-comment"                   : [2, "always", { "exceptions": ["-"]}],
-      "wrap-iife"                        : [2, "inside"]
+      "wrap-iife"                        : [2, "inside"],
+      "semi"                             : [2, "always"],
+      "no-extra-semi"                    : [2],
+      "semi-spacing"                     : [2, { "before": false, "after": true }]
     }
 }
