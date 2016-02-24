@@ -1,6 +1,8 @@
 # eslint-nibble Changelog
 
 ### MASTER
+
+### 2.0.0
 - (Breaking) Update to ESLint ^2.0.0
 
 ### 1.0.1
