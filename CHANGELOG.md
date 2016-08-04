@@ -2,6 +2,10 @@
 
 ### MASTER
 
+### 2.1.0
+- (Enhance)  Add `--ext` option
+- (Build) Drop node `0.10` & `0.12` from CI, and add `4`, `5`, & `6`
+
 ### 2.0.0
 - (Breaking) Update to ESLint ^2.0.0
 
