@@ -29,5 +29,10 @@ export default optionator({
     alias      : 'v',
     type       : 'Boolean',
     description: 'Outputs the version number'
+  }, {
+    option     : 'ext',
+    type       : '[String]',
+    default    : '.js',
+    description: 'Specify JavaScript file extensions'
   }]
 });

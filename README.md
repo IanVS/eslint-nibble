@@ -28,7 +28,7 @@ Add something like the following to your `package.json` file:
 }
 ```
 
-This will run eslint against javascript files in the `lib/` and `tests/` directories, as well as `index.js`.
+This will run eslint against .js files in the `lib/` and `tests/` directories, as well as `index.js`.
 
 Then, to run eslint-nibble, you can use:
 
@@ -43,6 +43,27 @@ Eslint-nibble will then display a rundown of the rules that are failing and a su
 Type in the name of the rule, and then a detailed list of the errors will be presented, using [eslint-friendly-formatter](https://github.com/royriojas/eslint-friendly-formatter).  If you are using iTerm2 or Guake, you can set them up so that your text editor opens to the correct line when you click on the filename.
 
 ![eslint-friendly-formatter-screenshot](docs/eslint-friendly-formatter-screenshot.png)
+
+## Options
+
+### --ext
+
+If your javascript files have an extension other than `.js`, you can use the `--ext` flag to
+specify which extensions to examine.  For example, this will check all files ending in ``.jsx` or ``.js`:
+
+```shell
+eslint-nibble --ext .jsx,.js lib/
+```
+
+### globs
+
+You are not limited to directory and file names as arguments, you can also specify a glob pattern.
+For example, to examine all .jsx files in "test/" directories within "lib/":
+
+```shell
+eslint-nibble lib/**/test/**/*.jsx
+```
+
 
 ## Notes
 

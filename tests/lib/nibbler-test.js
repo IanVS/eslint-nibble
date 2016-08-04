@@ -194,3 +194,24 @@ test('getFormattedResults :: Returns formatted report for built-in formatter', f
   t.ok(formattedResult, 'returns result');
   t.equal(formattedResult, expectedResult, 'used the correct formatter');
 });
+
+test('nibbler :: Examines files with provided extensions', function (t) {
+  t.plan(3);
+  var files = path.resolve(path.join(__dirname, '/../fixtures/files/jsx/'));
+  nibbler.setExtensions(['.jsx']);
+  var report = nibbler.nibbleOnFiles([files]);
+  t.ok(report, 'returns report');
+  t.ok(report.errorCount, 'report has an errorCount');
+  t.equal(report.errorCount, 1, 'report errorCount is 1');
+});
+
+test('nibbler :: Allows multiple extensions', function (t) {
+  t.plan(3);
+  var jsxFiles = path.resolve(path.join(__dirname, '/../fixtures/files/jsx/'));
+  var jsFiles = path.resolve(path.join(__dirname, '/../fixtures/files/semi-error/'));
+  nibbler.setExtensions(['.jsx', '.js']);
+  var report = nibbler.nibbleOnFiles([jsxFiles, jsFiles]);
+  t.ok(report, 'returns report');
+  t.ok(report.errorCount, 'report has an errorCount');
+  t.equal(report.errorCount, 2, 'report errorCount is 2');
+});
