@@ -1,6 +1,8 @@
 # eslint-nibble Changelog
 
 ### MASTER
+- (Breaking) Update to ESLint ^3.0.0
+- (Dep) Bump versions of inquirer & eslint-friendly-formatter
 
 ### 2.1.0
 - (Enhance)  Add `--ext` option
