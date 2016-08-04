@@ -59,6 +59,10 @@ function filterResults(report, msgKey, options) {
 
 module.exports = {
 
+  setExtensions(ext) {
+    cli = new CLIEngine({extensions: ext});
+  },
+
   nibbleOnFiles(files) {
     let report = cli.executeOnFiles(files);
     return report;
