@@ -56,13 +56,14 @@ let cli = {
           name   : 'rule',
           type   : 'input',
           message: 'Type in the rule you want to focus on'
-        }], function gotInput(answers) {
-          // Display detailed error reports
-          let ruleName = answers.rule;
-          let ruleResults = nibbler.getRuleResults(report, ruleName);
-          let detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
-          console.log(detailed);
-        });
+        }])
+          .then(function gotInput(answers) {
+            // Display detailed error reports
+            let ruleName = answers.rule;
+            let ruleResults = nibbler.getRuleResults(report, ruleName);
+            let detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
+            console.log(detailed);
+          });
       // No report or not any errors or warnings
       } else {
         console.log(chalk.green('Great job, all lint rules passed.'));
