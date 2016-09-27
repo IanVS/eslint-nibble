@@ -34,7 +34,12 @@ let cli = {
       // Show help
       console.log(options.generateHelp());
     } else {
-      nibbler.setExtensions(extensions, config);
+      const configuration = { extensions };
+      if (config) {
+        configuration.configFile = config;
+      }
+
+      nibbler.configure(configuration);
       let report = nibbler.nibbleOnFiles(files);
       if (report && (report.errorCount > 0 || report.warningCount > 0)) {
         // Check if there was a fatal error
