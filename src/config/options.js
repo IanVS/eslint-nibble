@@ -34,5 +34,10 @@ export default optionator({
     type       : '[String]',
     default    : '.js',
     description: 'Specify JavaScript file extensions'
+  }, {
+    option     : 'config',
+    alias      : 'c',
+    type       : 'path::String',
+    description: 'Use configuration from this file or shareable config'
   }]
 });

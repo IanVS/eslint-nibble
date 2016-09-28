@@ -12,13 +12,15 @@ let cli = {
   execute: function (args) {
     let currentOptions,
         files,
-        extensions;
+        extensions,
+        config;
 
     // Parse options
     try {
       currentOptions = options.parse(args);
       files = currentOptions._;
       extensions = currentOptions.ext;
+      config = currentOptions.config;
     } catch (error) {
       console.error(error.message);
       return 1;
@@ -32,7 +34,12 @@ let cli = {
       // Show help
       console.log(options.generateHelp());
     } else {
-      nibbler.setExtensions(extensions);
+      const configuration = { extensions };
+      if (config) {
+        configuration.configFile = config;
+      }
+
+      nibbler.configure(configuration);
       let report = nibbler.nibbleOnFiles(files);
       if (report && (report.errorCount > 0 || report.warningCount > 0)) {
         // Check if there was a fatal error
