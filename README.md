@@ -56,6 +56,11 @@ specify which extensions to examine.  For example, this will check all files end
 eslint-nibble --ext .jsx,.js lib/
 ```
 
+### --config
+
+ESLint will automatically detect config files with [standard naming](http://eslint.org/docs/user-guide/configuring#configuration-file-formats).
+Add the `--config` option to specify a different config file for ESLint to use.
+
 ### globs
 
 You are not limited to directory and file names as arguments, you can also specify a glob pattern.
