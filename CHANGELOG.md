@@ -1,6 +1,9 @@
 # eslint-nibble Changelog
 
-### MASTER
+### 3.1.0
+- (Enhance) Allow a custom eslint config file to be specified.
+
+### 3.0.0
 - (Breaking) Update to ESLint ^3.0.0
 - (Dep) Bump versions of inquirer & eslint-friendly-formatter
 
