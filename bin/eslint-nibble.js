@@ -7,6 +7,6 @@ var exitCode = cli.execute(process.argv);
 /*
  * Wait for the stdout buffer to drain.
  */
-process.on("exit", function() {
-    process.exit(exitCode);
+process.on('exit', function () {
+  process.exit(exitCode);
 });

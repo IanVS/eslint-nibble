@@ -16,3 +16,5 @@ Thumbs.db
 
 # Text Editors
 *.sublime*
+
+.vscode/settings.json
