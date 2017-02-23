@@ -7,7 +7,7 @@
     "eslint-nibble": "./bin/eslint-nibble.js"
   },
   "scripts": {
-    "test": "tape tests/**/*.js | tap-spec",
+    "test": "tape -r babel-register tests/**/*.js | tap-spec",
     "pretest": "npm run lint && npm run compile",
     "compile": "babel src --out-dir lib",
     "compilew": "babel src --out-dir lib --watch",
@@ -43,6 +43,8 @@
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-register": "^6.23.0",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.4.2",
     "eslint-plugin-standard": "^2.0.1",
