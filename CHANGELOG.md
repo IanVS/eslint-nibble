@@ -1,5 +1,8 @@
 # eslint-nibble Changelog
 
+### 3.1.1
+- (Dep) Upgrade dependencies (#29)
+
 ### 3.1.0
 - (Enhance) Allow a custom eslint config file to be specified.
 
