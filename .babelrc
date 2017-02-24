@@ -1,4 +1,4 @@
 {
-  "loose": true,
-  "sourceMaps": "inline"
+  "sourceMaps": "inline",
+  "presets": ["env"]
 }
