@@ -1,4 +1,4 @@
 {
   "sourceMaps": "inline",
-  "presets": ["env"]
+  "presets": ["es2015"]
 }
