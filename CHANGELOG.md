@@ -1,5 +1,8 @@
 # eslint-nibble Changelog
 
+### 4.0.0
+- (Breaking) Update to ESLint ^4.1.0
+
 ### 3.1.2
 - (Fix) Fix error about missing function
 
