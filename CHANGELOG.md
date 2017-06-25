@@ -1,5 +1,8 @@
 # eslint-nibble Changelog
 
+### 3.1.2
+- (Fix) Fix error about missing function
+
 ### 3.1.1
 - (Dep) Upgrade dependencies (#29)
 
