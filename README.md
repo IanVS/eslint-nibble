@@ -6,7 +6,7 @@
 
 Sometimes running ESLint against an existing project and fixing the hundreds or thousands of errors is biting off more than you can chew.  This will give a quick overview of your failing rules, and then show the detailed error reports for one rule at a time.
 
-Major versions of this tool correspond to the major version of ESLint.  This means eslint-nibble version `3.X` will use the latest eslint `3.X`.
+Major versions of this tool correspond to the major version of ESLint.  This means eslint-nibble version `4.X` will use the latest eslint `4.X`.
 
 ## Installation
 
