@@ -41,7 +41,7 @@ Eslint-nibble will then display a rundown of the rules that are failing and a su
 
 ![eslint-stats-screenshot](docs/eslint-stats-screenshot.png)
 
-Type in the name of the rule, and then a detailed list of the errors will be presented, using [eslint-friendly-formatter](https://github.com/royriojas/eslint-friendly-formatter).  If you are using iTerm2 or Guake, you can set them up so that your text editor opens to the correct line when you click on the filename.
+Select one of the rules by arrowing up/down and pressing `enter`, and then a detailed list of the errors will be presented, using [eslint-friendly-formatter](https://github.com/royriojas/eslint-friendly-formatter).  If you are using iTerm2 or Guake, you can set them up so that your text editor opens to the correct line when you click on the filename.
 
 ![eslint-friendly-formatter-screenshot](docs/eslint-friendly-formatter-screenshot.png)
 
