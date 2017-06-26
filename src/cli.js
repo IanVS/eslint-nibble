@@ -4,6 +4,7 @@ import nibbler from './nibbler';
 import * as fmt from './config/formatters';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
+import trimStat from './trim-stat';
 import options from './config/options';
 import { version } from '../package.json';
 
@@ -50,19 +51,49 @@ let cli = {
           console.error('Fatal error(s) were detected.  Please correct and try again.');
           return 1;
         }
-        // Show stats
-        let stats = nibbler.getFormattedResults(report, fmt.stats);
-        console.log(stats);
 
         // Show summary
         let summary = nibbler.getFormattedResults(report, fmt.summary);
         console.log(summary);
 
-        // Ask user for rule to narrow in on
+        // Calculate stats array
+        let stats = nibbler.getFormattedResults(report, fmt.stats)
+          .split('\n');
+
+        // Determine the length of the longest stat
+        const maxStatLen = stats.reduce((maxLen, stat) => {
+          return Math.max(maxLen, stat.length);
+        }, 0);
+        // Inquirer adds three characters, so we will need to trim them later
+        const maxAllowedLen = maxStatLen - 3;
+
+        // Create an array of choices from the stats
+        // (filter removes empty stat at end)
+        const results = stats.filter(stat => stat).map(stat => {
+          const ruleName = stat.split(':')[0];
+          // If the stat length is within 3 of max, we need to truncate it
+          // so that the line does not wrap once inquirer adds a select arrow
+          // (This throws off the relative length slightly, but not much)
+          const fullStat = stat.length <= maxAllowedLen
+            // Short enough to return as-is
+            ? stat
+            // Need to remove spaces, while accounting for 10 char ansi escape for color
+            : trimStat(stat, maxAllowedLen);
+
+          return {
+            name : fullStat,
+            value: ruleName,
+            short: ruleName
+          };
+        });
+
+        // Ask user for the rule to narrow in on
         inquirer.prompt([{
-          name   : 'rule',
-          type   : 'input',
-          message: 'Type in the rule you want to focus on'
+          name    : 'rule',
+          type    : 'list',
+          message : 'Which rule would you like to fix?',
+          choices : results,
+          pageSize: results.length
         }])
           .then(function gotInput(answers) {
             // Display detailed error reports
@@ -71,6 +102,7 @@ let cli = {
             let detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
             console.log(detailed);
           });
+
       // No report or not any errors or warnings
       } else {
         console.log(chalk.green('Great job, all lint rules passed.'));
