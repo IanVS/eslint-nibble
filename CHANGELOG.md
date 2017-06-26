@@ -1,5 +1,8 @@
 # eslint-nibble Changelog
 
+### 4.1.0
+- (Feature) Allow arrowing through results
+
 ### 4.0.0
 - (Breaking) Update to ESLint ^4.1.0
 
