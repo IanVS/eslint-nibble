@@ -4,6 +4,7 @@ import nibbler from './nibbler';
 import * as fmt from './config/formatters';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
+import {fix} from 'eslint-filtered-fix';
 import trimStat from './trim-stat';
 import options from './config/options';
 import { version } from '../package.json';
@@ -94,13 +95,51 @@ let cli = {
           message : 'Which rule would you like to fix?',
           choices : results,
           pageSize: results.length
+        },
+        {
+          name   : 'fix',
+          type   : 'confirm',
+          message: 'Would you like to attempt to auto-fix?',
+          default: false,
+          when(answers) {
+            let ruleReport = nibbler.getRuleResults(report, answers.rule);
+            return ruleReport.fixableErrorCount > 0 || ruleReport.fixableWarningCount > 0;
+          }
+        },
+        {
+          name   : 'fixWarnings',
+          type   : 'confirm',
+          message: 'Autofix warnings?',
+          default: true,
+          when(answers) {
+            if (!answers.fix) return false;
+
+            let ruleReport = nibbler.getRuleResults(report, answers.rule);
+            return ruleReport.fixableWarningCount > 0;
+          }
         }])
           .then(function gotInput(answers) {
             // Display detailed error reports
             let ruleName = answers.rule;
-            let ruleResults = nibbler.getRuleResults(report, ruleName);
-            let detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
-            console.log(detailed);
+
+            if (answers.fix) {
+              const fixOptions = {
+                rules   : [ruleName],
+                warnings: answers.fixWarnings
+              };
+              const fixedReport = fix(files, fixOptions, configuration);
+              let ruleResults = nibbler.getRuleResults(fixedReport, ruleName);
+              if (ruleResults.errorCount > 0 || ruleResults.warningCount > 0) {
+                let detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
+                console.log(detailed);
+              } else {
+                console.log(chalk.green(`Fixes applied, ${ruleName} is now passing`));
+              }
+            } else {
+              let ruleResults = nibbler.getRuleResults(report, ruleName);
+              let detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
+              console.log(detailed);
+            }
           });
 
       // No report or not any errors or warnings

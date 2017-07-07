@@ -133,6 +133,32 @@ test('getRuleResults :: Returns correct number of errors and warnings', function
   });
 });
 
+test('getRuleResults :: Returns correct number of fixable errors and warnings', function (outer) {
+  outer.plan(2);
+
+  outer.test('-- One file, One error, One fixable error', function (t) {
+    t.plan(4);
+    var report = require('../fixtures/reports/one-file-one-error-one-fixable-error');
+    var ruleName = report.results[0].messages[0].ruleId;
+    var ruleReport = nibbler.getRuleResults(report, ruleName);
+    t.equal(ruleReport.results[0].errorCount, 1, '1 error in file');
+    t.equal(ruleReport.results[0].fixableErrorCount, 1, '1 fixable error in file');
+    t.equal(ruleReport.errorCount, 1, '1 error total');
+    t.equal(ruleReport.fixableErrorCount, 1, '1 fixable error total');
+  });
+
+  outer.test('-- One file, Two errors, One fixable error', function (t) {
+    t.plan(4);
+    var report = require('../fixtures/reports/one-file-two-errors-one-fixable-error');
+    var ruleName = report.results[0].messages[0].ruleId;
+    var ruleReport = nibbler.getRuleResults(report, ruleName);
+    t.equal(ruleReport.results[0].errorCount, 1, '1 rule error in file');
+    t.equal(ruleReport.results[0].fixableErrorCount, 1, '1 fixable error in file');
+    t.equal(ruleReport.errorCount, 1, '1 error total');
+    t.equal(ruleReport.fixableErrorCount, 1, '1 fixable error total');
+  });
+});
+
 test('getFatalResults :: Returns fatal error report', function (t) {
   t.plan(12);
   var report = require('../fixtures/reports/one-file-one-fatal-error');

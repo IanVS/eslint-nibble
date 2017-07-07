@@ -4,7 +4,10 @@
 [![dependency status][versioneye-badge]][versioneye-badge-url]
 [![Build Status][travis-badge]][travis-badge-url]
 
-Sometimes running ESLint against an existing project and fixing the hundreds or thousands of errors is biting off more than you can chew.  This will give a quick overview of your failing rules, and then show the detailed error reports for one rule at a time.
+Sometimes running ESLint against an existing project and fixing the hundreds or thousands of errors is biting off more than you can chew.  
+This will give a quick overview of your failing rules, and then show the detailed error reports for one rule at a time.
+
+If a rule is able to be automatically fixed by ESLint, `eslint-nibble` will allow you to run autofix on individual rules, allowing you to make more focused commits.
 
 Major versions of this tool correspond to the major version of ESLint.  This means eslint-nibble version `4.X` will use the latest eslint `4.X`.
 
@@ -37,11 +40,20 @@ Then, to run eslint-nibble, you can use:
 npm run nibble
 ```
 
-Eslint-nibble will then display a rundown of the rules that are failing and a summary of the results, using [eslint-stats](https://github.com/ganimomer/eslint-stats) and [eslint-summary](https://github.com/davidwaterston/eslint-summary), and will ask you to pick a rule to work on:
+Eslint-nibble will then display a rundown of the rules that are failing and a summary of the results, 
+using [eslint-stats](https://github.com/ganimomer/eslint-stats) 
+and [eslint-summary](https://github.com/davidwaterston/eslint-summary), and will ask you to pick a rule to work on:
 
 ![eslint-stats-screenshot](docs/eslint-stats-screenshot.png)
 
-Select one of the rules by arrowing up/down and pressing `enter`, and then a detailed list of the errors will be presented, using [eslint-friendly-formatter](https://github.com/royriojas/eslint-friendly-formatter).  If you are using iTerm2 or Guake, you can set them up so that your text editor opens to the correct line when you click on the filename.
+Select one of the rules by arrowing up/down and pressing `enter`.  
+If the rule is able to be automatically fixed by ESLint, you will be asked if you'd like ESLint to attempt to make fixes for that rule.
+If there are lint warnings, you will also be asked whether you want those to be auto-fixed.
+
+<img src="docs/autofix-applied.png" width="500px"/>
+
+If you decide not to make autofixes, or the autofix completes but cannot fix all the errors, then a detailed list of the errors will be presented, using [eslint-friendly-formatter](https://github.com/royriojas/eslint-friendly-formatter).  
+If you are using iTerm2 or Guake, you can set them up so that your text editor opens to the correct line when you click on the filename.
 
 ![eslint-friendly-formatter-screenshot](docs/eslint-friendly-formatter-screenshot.png)
 

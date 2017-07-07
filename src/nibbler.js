@@ -7,12 +7,18 @@ function getCounts(messages) {
   let counts = messages.reduce(function (result, message) {
     if (message.severity === 1) {
       result.warningCount++;
+      if (message.fix) {
+        result.fixableWarningCount++;
+      }
     }
     if (message.severity === 2) {
       result.errorCount++;
+      if (message.fix) {
+        result.fixableErrorCount++;
+      }
     }
     return result;
-  }, { errorCount: 0, warningCount: 0 });
+  }, { errorCount: 0, warningCount: 0, fixableErrorCount: 0, fixableWarningCount: 0 });
 
   return counts;
 }
@@ -28,6 +34,8 @@ function filterResults(report, msgKey, options) {
   let newResults = {};
   let totalErrors = 0;
   let totalWarnings = 0;
+  let totalFixableErrors = 0;
+  let totalFixableWarnings = 0;
   newResults.results = report.results.map(function (result) {
     let filteredMessages = result.messages.filter(function (msg) {
       if (options.present) {
@@ -39,21 +47,28 @@ function filterResults(report, msgKey, options) {
       return false;
     });
     if (filteredMessages) {
-      let { errorCount, warningCount } = getCounts(filteredMessages);
+      let { errorCount, warningCount, fixableErrorCount, fixableWarningCount } = getCounts(filteredMessages);
       totalErrors += errorCount;
       totalWarnings += warningCount;
+      totalFixableErrors += fixableErrorCount;
+      totalFixableWarnings += fixableWarningCount;
+      // fixableErrors += fixableErrors;
       return {
         filePath: result.filePath,
         messages: filteredMessages,
 
         errorCount,
-        warningCount
+        warningCount,
+        fixableErrorCount,
+        fixableWarningCount
       };
     }
     return {};
   });
   newResults.errorCount = totalErrors;
   newResults.warningCount = totalWarnings;
+  newResults.fixableErrorCount = totalFixableErrors;
+  newResults.fixableWarningCount = totalFixableWarnings;
   return newResults;
 }
 
