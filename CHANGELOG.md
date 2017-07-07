@@ -1,5 +1,8 @@
 # eslint-nibble Changelog
 
+### 4.2.0
+- (Feature) Add per-rule autofixing (#35)
+
 ### 4.1.0
 - (Feature) Allow arrowing through results
 
