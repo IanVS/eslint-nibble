@@ -1,5 +1,8 @@
 # eslint-nibble Changelog
 
+### 4.2.1
+- (Dep) Use ESLint version ^4.2.0
+
 ### 4.2.0
 - (Feature) Add per-rule autofixing (#35)
 
