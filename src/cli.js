@@ -15,7 +15,9 @@ let cli = {
     let currentOptions,
         files,
         extensions,
-        config;
+        config,
+        cache,
+        cacheLocation;
 
     // Parse options
     try {
@@ -23,6 +25,8 @@ let cli = {
       files = currentOptions._;
       extensions = currentOptions.ext;
       config = currentOptions.config;
+      cache = currentOptions.cache;
+      cacheLocation = currentOptions.cacheLocation;
     } catch (error) {
       console.error(error.message);
       return 1;
@@ -39,6 +43,12 @@ let cli = {
       const configuration = { extensions };
       if (config) {
         configuration.configFile = config;
+      }
+      if (cache) {
+        configuration.cache = cache;
+      }
+      if (cacheLocation) {
+        configuration.cacheLocation = cacheLocation;
       }
 
       nibbler.configure(configuration);
