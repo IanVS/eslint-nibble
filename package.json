@@ -39,7 +39,7 @@
     "eslint-friendly-formatter": "^2.0.7",
     "eslint-stats": "^1.0.0",
     "eslint-summary": "^1.0.0",
-    "inquirer": "^3.0.4",
+    "inquirer": "^6.2.0",
     "optionator": "^0.8.2"
   },
   "devDependencies": {
