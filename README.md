@@ -1,7 +1,6 @@
 # eslint-nibble
 
 [![npm][npm-badge]][npm-badge-url]
-[![dependency status][versioneye-badge]][versioneye-badge-url]
 [![Build Status][travis-badge]][travis-badge-url]
 
 Sometimes running ESLint against an existing project and fixing the hundreds or thousands of errors is biting off more than you can chew.  
@@ -89,7 +88,5 @@ This module does not make any decisions about which ESLint rules to run.  Make s
 
 [npm-badge]: https://img.shields.io/npm/v/eslint-nibble.svg
 [npm-badge-url]: https://www.npmjs.com/package/eslint-nibble
-[versioneye-badge]: https://www.versioneye.com/user/projects/558f4ff7316338001e000259/badge.svg?style=flat
-[versioneye-badge-url]: https://www.versioneye.com/user/projects/558f4ff7316338001e000259#dialog_dependency_badge
 [travis-badge]: https://travis-ci.org/IanVS/eslint-nibble.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/IanVS/eslint-nibble
