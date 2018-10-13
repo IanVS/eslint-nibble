@@ -6,6 +6,9 @@
   "bin": {
     "eslint-nibble": "./bin/eslint-nibble.js"
   },
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "scripts": {
     "test": "tape -r babel-register tests/**/*.js | tap-spec",
     "pretest": "npm run lint && npm run compile",
