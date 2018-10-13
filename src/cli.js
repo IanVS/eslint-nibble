@@ -5,7 +5,6 @@ import * as fmt from './config/formatters';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import {fix} from 'eslint-filtered-fix';
-import trimStat from './trim-stat';
 import options from './config/options';
 import { version } from '../package.json';
 
@@ -61,28 +60,13 @@ let cli = {
         let stats = nibbler.getFormattedResults(report, fmt.stats)
           .split('\n');
 
-        // Determine the length of the longest stat
-        const maxStatLen = stats.reduce((maxLen, stat) => {
-          return Math.max(maxLen, stat.length);
-        }, 0);
-        // Inquirer adds three characters, so we will need to trim them later
-        const maxAllowedLen = maxStatLen - 3;
-
         // Create an array of choices from the stats
         // (filter removes empty stat at end)
         const results = stats.filter(stat => stat).map(stat => {
           const ruleName = stat.split(':')[0];
-          // If the stat length is within 3 of max, we need to truncate it
-          // so that the line does not wrap once inquirer adds a select arrow
-          // (This throws off the relative length slightly, but not much)
-          const fullStat = stat.length <= maxAllowedLen
-            // Short enough to return as-is
-            ? stat
-            // Need to remove spaces, while accounting for 10 char ansi escape for color
-            : trimStat(stat, maxAllowedLen);
 
           return {
-            name : fullStat,
+            name : stat,
             value: ruleName,
             short: ruleName
           };
