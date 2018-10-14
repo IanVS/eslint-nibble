@@ -4,7 +4,7 @@ import nibbler from './nibbler';
 import * as fmt from './config/formatters';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import {fix} from 'eslint-filtered-fix';
+import { fix } from 'eslint-filtered-fix';
 import options from './config/options';
 import { version } from '../package.json';
 
