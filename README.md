@@ -6,9 +6,7 @@
 Sometimes running ESLint against an existing project and fixing the hundreds or thousands of errors is biting off more than you can chew.  
 This will give a quick overview of your failing rules, and then show the detailed error reports for one rule at a time.
 
-If a rule is able to be automatically fixed by ESLint, `eslint-nibble` will allow you to run autofix on individual rules, allowing you to make more focused commits.
-
-Major versions of this tool correspond to the major version of ESLint.  This means eslint-nibble version `4.X` will use the latest eslint `4.X`.
+If a rule can be automatically fixed by ESLint, `eslint-nibble` will allow you to run autofix on individual rules, allowing you to make more focused commits.
 
 ## Installation
 
@@ -19,6 +17,8 @@ npm install eslint-nibble
 You can also install `eslint-nibble` globally, but it is not recommended.
 
 Instead, try installing `eslint-nibble` in your project without `--save-dev` (as shown above), because this tool is intended only to get you up and running.  Once you're happy with your rules and your code, install eslint itself with `npm install eslint --save-dev`, and use that for all your ongoing linting.
+
+Note: as of version `5.0.0`, `eslint-nibble` no longer comes with its own bundled version of `eslint`.  Instead, you should install `eslint` into your project (see [getting started](https://eslint.org/docs/user-guide/getting-started)), and `eslint-nibble` will use the version you install.  
 
 
 ## Usage

@@ -1,5 +1,11 @@
 # eslint-nibble Changelog
 
+### Unreleased
+- (Breaking) Move eslint to a peer dependency (#52)
+- (Breaking) Drop support for Node < 6 (#51)
+- (Fix) Fix bad formatting of small error stats (#51)
+- (Dep) Upgrade dependencies (#51)
+
 ### 4.2.1
 - (Dep) Use ESLint version ^4.2.0
 
