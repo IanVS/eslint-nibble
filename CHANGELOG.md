@@ -1,5 +1,8 @@
 # eslint-nibble Changelog
 
+### 5.0.0-beta.1
+- (Fix) Fix npx when run without local installation (#53)
+
 ### 5.0.0-beta.0
 - (Breaking) Move eslint to a peer dependency (#52)
 - (Breaking) Drop support for Node < 6 (#51)
