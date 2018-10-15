@@ -1,6 +1,8 @@
 'use strict';
 
-import { CLIEngine } from 'eslint';
+import resolve from 'resolve';
+
+const { CLIEngine } = require(resolve.sync('eslint', { cwd: process.cwd() }));
 let cli = new CLIEngine({});
 
 function getCounts(messages) {
