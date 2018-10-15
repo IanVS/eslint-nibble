@@ -11,12 +11,12 @@ If a rule can be automatically fixed by ESLint, `eslint-nibble` will allow you t
 ## Installation
 
 ```bash
-npm install eslint-nibble
+npm install --no-save eslint-nibble
 ```
 
 You can also install `eslint-nibble` globally, but it is not recommended.
 
-Instead, try installing `eslint-nibble` in your project without `--save-dev` (as shown above), because this tool is intended only to get you up and running.  Once you're happy with your rules and your code, you can remove `eslint-nibble`.
+Instead, try installing `eslint-nibble` in your project with `--no-save` (as shown above), because this tool is intended only to get you up and running.  Once you're happy with your rules and your code, you can remove `eslint-nibble`.
 
 Note: as of version `5.0.0`, `eslint-nibble` no longer comes with its own bundled version of `eslint`.  Instead, you should install `eslint` into your project (see [getting started](https://eslint.org/docs/user-guide/getting-started)), and `eslint-nibble` will use the version you install.  
 
