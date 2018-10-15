@@ -39,5 +39,14 @@ export default optionator({
     alias      : 'c',
     type       : 'path::String',
     description: 'Use configuration from this file or shareable config'
+  }, {
+    option     : 'cache',
+    type       : 'Boolean',
+    default    : 'false',
+    description: 'Only check changed files'
+  }, {
+    option     : 'cache-location',
+    type       : 'path::String',
+    description: 'Path to the cache file or directory'
   }]
 });
