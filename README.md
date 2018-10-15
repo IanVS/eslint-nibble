@@ -92,6 +92,16 @@ eslint-nibble --ext .jsx,.js lib/
 ESLint will automatically detect config files with [standard naming](http://eslint.org/docs/user-guide/configuring#configuration-file-formats).
 Add the `--config` option to specify a different config file for ESLint to use.
 
+### `--cache`
+
+ESLint will cache the results of linting, causing subsequent runs to be much faster.  See the
+[eslint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache) for more details.
+
+### `--cache-location`
+When used in conjunction with the `--cache` flag, controls where the eslint cache
+is written.  See the [eslint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache-location)
+for more details.
+
 ### globs
 
 You are not limited to directory and file names as arguments, you can also specify a glob pattern.
