@@ -4,34 +4,54 @@
 [![Build Status][travis-badge]][travis-badge-url]
 
 Sometimes running ESLint against an existing project and fixing the hundreds or thousands of errors is biting off more than you can chew.  
-This will give a quick overview of your failing rules, and then show the detailed error reports for one rule at a time.
+Instead, `eslint-nibble` will give a quick overview of your failing rules, and then show the detailed error reports for one rule at a time.
 
-If a rule is able to be automatically fixed by ESLint, `eslint-nibble` will allow you to run autofix on individual rules, allowing you to make more focused commits.
-
-Major versions of this tool correspond to the major version of ESLint.  This means eslint-nibble version `4.X` will use the latest eslint `4.X`.
+If a rule can be automatically fixed by ESLint, `eslint-nibble` will allow you to run autofix on individual rules, allowing you to make more focused commits.
 
 ## Installation
 
 ```bash
-npm install eslint-nibble
+npm install --no-save eslint-nibble
 ```
 
 You can also install `eslint-nibble` globally, but it is not recommended.
 
-Instead, try installing `eslint-nibble` in your project without `--save-dev` (as shown above), because this tool is intended only to get you up and running.  Once you're happy with your rules and your code, install eslint itself with `npm install eslint --save-dev`, and use that for all your ongoing linting.
+Instead, try installing `eslint-nibble` in your project with `--no-save` (as shown above), because this tool is intended only to get you up and running.  Once you're happy with your rules and your code, you can remove `eslint-nibble`.
+
+Note: as of version `5.0.0`, `eslint-nibble` no longer comes with its own bundled version of `eslint`.  Instead, you should install `eslint` into your project (see [getting started](https://eslint.org/docs/user-guide/getting-started)), and `eslint-nibble` will use the version you install.  
+
+This module does not make any decisions about which ESLint rules to run.  Make sure your project has an `.eslintrc` file if you want ESLint to do anything.  No linting rules are enabled by default.
 
 
 ## Usage
+
+There are a few methods you can use to run `eslint-nibble`, depending on the package manager you are using.
+
+### npx
+
+If you're using `npm@5.2.0` or later, you can simply run:
+
+```bash
+npx eslint-nibble <directories and files to lint>
+```
+
+### yarn
+
+Similarly, if you are using yarn, you can run:
+
+```bash
+yarn eslint-nibble <directories and files to lint>
+```
+
+### package.json script
 
 Add something like the following to your `package.json` file:
 
 ```json
 "scripts": {
-  "nibble": "eslint-nibble lib/ tests/ index.js"
+  "nibble": "eslint-nibble <directories and files to lint>"
 }
 ```
-
-This will run eslint against `*.js` files in the `lib/` and `tests/` directories, as well as `index.js`.
 
 Then, to run eslint-nibble, you can use:
 
@@ -80,11 +100,6 @@ For example, to examine all `*.jsx` files in all `test/` directories under `lib/
 ```shell
 eslint-nibble lib/**/test/**/*.jsx
 ```
-
-
-## Notes
-
-This module does not make any decisions about which ESLint rules to run.  Make sure your project has an `.eslintrc` file if you want ESLint to do anything.  As of version 1.0.0, no rules are enabled by default.
 
 [npm-badge]: https://img.shields.io/npm/v/eslint-nibble.svg
 [npm-badge-url]: https://www.npmjs.com/package/eslint-nibble
