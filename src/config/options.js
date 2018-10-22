@@ -48,5 +48,10 @@ export default optionator({
     option     : 'cache-location',
     type       : 'path::String',
     description: 'Path to the cache file or directory'
+  }, {
+    option              : 'rule',
+    type                : '[String]',
+    concatRepeatedArrays: true,
+    description         : 'Only show results for specified rule(s)'
   }]
 });

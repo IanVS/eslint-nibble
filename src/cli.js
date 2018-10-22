@@ -16,7 +16,8 @@ let cli = {
         extensions,
         config,
         cache,
-        cacheLocation;
+        cacheLocation,
+        allowedRules;
 
     // Parse options
     try {
@@ -26,6 +27,7 @@ let cli = {
       config = currentOptions.config;
       cache = currentOptions.cache;
       cacheLocation = currentOptions.cacheLocation;
+      allowedRules = currentOptions.rule;
     } catch (error) {
       console.error(error.message);
       return 1;
@@ -62,25 +64,36 @@ let cli = {
           return 1;
         }
 
-        // Show summary
-        let summary = nibbler.getFormattedResults(report, fmt.summary);
-        console.log(summary);
-
         // Calculate stats array
         let stats = nibbler.getFormattedResults(report, fmt.stats)
           .split('\n');
 
         // Create an array of choices from the stats
         // (filter removes empty stat at end)
-        const results = stats.filter(stat => stat).map(stat => {
-          const ruleName = stat.split(':')[0];
+        const results = stats
+          .filter(stat => stat)
+          .map(stat => {
+            const ruleName = stat.split(':')[0];
 
-          return {
-            name : stat,
-            value: ruleName,
-            short: ruleName
-          };
-        });
+            return {
+              name : stat,
+              value: ruleName,
+              short: ruleName
+            };
+          })
+          // Only include allowed rules, if given
+          .filter(stat => allowedRules ? allowedRules.includes(stat.value) : true);
+
+        // If all stats were filtered out due to provided `--rule` options…
+        if (!results.length && allowedRules.length) {
+          console.log(chalk.yellow(`\nNo lint failures found for rule(s): ${allowedRules.join(', ')}`));
+          console.log('Try running again without "--rule"');
+          return 0;
+        }
+
+        // Show summary
+        let summary = nibbler.getFormattedResults(report, fmt.summary);
+        console.log(summary);
 
         // Ask user for the rule to narrow in on
         inquirer.prompt([{

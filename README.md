@@ -102,6 +102,11 @@ When used in conjunction with the `--cache` flag, controls where the eslint cach
 is written.  See the [eslint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache-location)
 for more details.
 
+### `--rule`
+If you have so many failing rules that navigating the list is cumbersome, use this flag to filter down
+the rules that are displayed.  Multiple rules can be included as comma-separated strings (e.g. `--rule semi,quotes`),
+or by using multiple `--rule` flags (e.g. `--rule semi --rule quotes`).
+
 ### globs
 
 You are not limited to directory and file names as arguments, you can also specify a glob pattern.
