@@ -1,5 +1,12 @@
 # eslint-nibble Changelog
 
+### 5.0.0-beta.4
+- (Feature) Add `--rule` flag
+- (Fix) Remove attempts to fix npx without local installation
+
+### 5.0.0-beta.3
+- Added some logging to try to troubleshoot npx
+
 ### 5.0.0-beta.2
 - (Fix) Another attempt for remote npx
 
