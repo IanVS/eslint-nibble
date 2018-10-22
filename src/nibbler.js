@@ -5,6 +5,10 @@ import resolve from 'resolve';
 const { CLIEngine } = require(resolve.sync('eslint', { basedir: process.cwd() }));
 let cli = new CLIEngine({});
 
+console.log('process.cwd:', process.cwd());
+console.log('__basedir', __dirname);
+console.log('resolve.sync dirname', resolve.sync('eslint', { basedir: __dirname }));
+
 function getCounts(messages) {
   let counts = messages.reduce(function (result, message) {
     if (message.severity === 1) {
