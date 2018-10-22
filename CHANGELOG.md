@@ -1,5 +1,8 @@
 # eslint-nibble Changelog
 
+### 5.0.0-beta.2
+- (Fix) Another attempt for remote npx
+
 ### 5.0.0-beta.1
 - (Fix) Fix npx when run without local installation (#53)
 
