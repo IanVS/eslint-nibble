@@ -42,8 +42,7 @@
     "eslint-stats": "ianvs/eslint-stats#cb1ff8251b50c7f0cb431a2b395431ebfdeb10c8",
     "eslint-summary": "^1.0.0",
     "inquirer": "^6.2.0",
-    "optionator": "^0.8.2",
-    "resolve": "^1.8.1"
+    "optionator": "^0.8.2"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
