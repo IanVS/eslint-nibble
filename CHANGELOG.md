@@ -1,5 +1,18 @@
 # eslint-nibble Changelog
 
+### 5.0.0
+Here are the main changes in 5.0.0, for details, see the notes for each beta
+
+- (Breaking) Move eslint to a peer dependency (#52).  You should install eslint
+yourself, and eslint-nibble will use the version that you've installed.  This should
+prevent confusion about which version this tool installed, and avoid potential problems
+when removing this tool and adding eslint itself.
+- (Breaking) Drop support for Node < 6 (#51).
+- A `--cache` option has been added to allow caching the results of linting.
+This should result in _much_ faster operation, even when only running one time,
+because of the way that eslint-nibble works internally.  Highly recommended to use.
+- Added `--rule` flag to the command line, to limit which rules are shown in the list.
+
 ### 5.0.0-beta.4
 - (Feature) Add `--rule` flag
 - (Fix) Remove attempts to fix npx without local installation

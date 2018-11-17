@@ -94,7 +94,7 @@ Add the `--config` option to specify a different config file for ESLint to use.
 
 ### `--cache`
 
-ESLint will cache the results of linting, causing subsequent runs to be much faster.  See the
+Highly recommended.  ESLint will cache the results of linting, causing subsequent runs to be much faster.  See the
 [eslint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache) for more details.
 
 ### `--cache-location`
