@@ -99,5 +99,10 @@ module.exports = {
   getRuleResults(report, ruleName) {
     let ruleResults = filterResults(report, 'ruleId', { compareVal: ruleName });
     return ruleResults;
+  },
+
+  getSeverityResults(report, severity) {
+    let ruleResults = filterResults(report, 'severity', { compareVal: severity });
+    return ruleResults;
   }
 };

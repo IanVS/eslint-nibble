@@ -53,5 +53,10 @@ export default optionator({
     type                : '[String]',
     concatRepeatedArrays: true,
     description         : 'Only show results for specified rule(s)'
+  }, {
+    option     : 'warnings',
+    type       : 'Boolean',
+    default    : 'true',
+    description: 'include warning results'
   }]
 });

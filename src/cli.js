@@ -17,7 +17,8 @@ let cli = {
         config,
         cache,
         cacheLocation,
-        allowedRules;
+        allowedRules,
+        warnings;
 
     // Parse options
     try {
@@ -28,6 +29,7 @@ let cli = {
       cache = currentOptions.cache;
       cacheLocation = currentOptions.cacheLocation;
       allowedRules = currentOptions.rule;
+      warnings = currentOptions.warnings;
     } catch (error) {
       console.error(error.message);
       return 1;
@@ -64,6 +66,10 @@ let cli = {
           return 1;
         }
 
+        if (report && !warnings) {
+          report = nibbler.getSeverityResults(report, 2);
+        }
+
         // Calculate stats array
         let stats = nibbler.getFormattedResults(report, fmt.stats)
           .split('\n');
@@ -84,11 +90,19 @@ let cli = {
           // Only include allowed rules, if given
           .filter(stat => allowedRules ? allowedRules.includes(stat.value) : true);
 
-        // If all stats were filtered out due to provided `--rule` options…
-        if (!results.length && allowedRules.length) {
-          console.log(chalk.yellow(`\nNo lint failures found for rule(s): ${allowedRules.join(', ')}`));
-          console.log('Try running again without "--rule"');
-          return 0;
+        if (!results.length) {
+          // If all stats were filtered out due to provided `--rule` options…
+          if (allowedRules && allowedRules.length) {
+            console.log(chalk.yellow(`\nNo lint failures found for rule(s): ${allowedRules.join(', ')}`));
+            console.log('Try running again without "--rule"');
+            return 0;
+          }
+          // Or maybe they were filtered out because they were all warnings,
+          // and the user didn't want to check warnings
+          if (!warnings) {
+            console.log(chalk.green('Great job, no lint rules reporting errors.'));
+            return 0;
+          }
         }
 
         // Show summary
