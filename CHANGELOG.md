@@ -1,5 +1,8 @@
 # eslint-nibble Changelog
 
+### 5.1.0
+- (Feature) Add `--no-warnings` option
+
 ### 5.0.0
 Here are the main changes in 5.0.0, for details, see the notes for each beta
 
