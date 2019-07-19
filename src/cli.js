@@ -164,7 +164,10 @@ let cli = {
                 console.log(chalk.green(`Fixes applied, ${ruleName} is now passing`));
               }
             } else if (answers.disableFiles) {
-              const files = report.results.map(result => result.filePath);
+              const ruleReport = nibbler.getRuleResults(report, answers.rule);
+              const files = ruleReport.results
+                .filter(result => result.errorCount > 0)
+                .map(result => result.filePath);
 
               files.forEach((filePath) => {
                 console.log(`Disabling ${ruleName} for ${filePath}`);
