@@ -7,6 +7,7 @@ import inquirer from 'inquirer';
 import { fix } from 'eslint-filtered-fix';
 import options from './config/options';
 import { version } from '../package.json';
+import prependFile from 'prepend-file';
 
 let cli = {
 
@@ -138,6 +139,12 @@ let cli = {
             let ruleReport = nibbler.getRuleResults(report, answers.rule);
             return ruleReport.fixableWarningCount > 0;
           }
+        },
+        {
+          name   : 'disableFiles',
+          type   : 'confirm',
+          message: 'Disable rule for files?',
+          default: false
         }])
           .then(function gotInput(answers) {
             // Display detailed error reports
@@ -156,6 +163,13 @@ let cli = {
               } else {
                 console.log(chalk.green(`Fixes applied, ${ruleName} is now passing`));
               }
+            } else if (answers.disableFiles) {
+              const files = report.results.map(result => result.filePath);
+
+              files.forEach((filePath) => {
+                console.log(`Disabling ${ruleName} for ${filePath}`);
+                prependFile.sync(filePath, `/* eslint-disable ${ruleName} */\n`);
+              });
             } else {
               let ruleResults = nibbler.getRuleResults(report, ruleName);
               let detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
