@@ -166,7 +166,7 @@ let cli = {
             } else if (answers.disableFiles) {
               const ruleReport = nibbler.getRuleResults(report, answers.rule);
               const files = ruleReport.results
-                .filter(result => result.errorCount > 0)
+                .filter(result => result.errorCount > 0 || result.warningCount > 0)
                 .map(result => result.filePath);
 
               files.forEach((filePath) => {
