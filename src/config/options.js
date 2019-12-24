@@ -63,5 +63,10 @@ export default optionator({
     type       : 'Boolean',
     default    : 'true',
     description: 'Provide interactive options to see/fix a particular error.  If false, linting results are printed with appropriate exit code, useful for CI.'
+  }, {
+    option     : 'format',
+    alias      : 'f',
+    type       : 'String',
+    description: 'If --no-interactive is used, this formatter will be used to output results.  See https://eslint.org/docs/user-guide/formatters for options.'
   }]
 });

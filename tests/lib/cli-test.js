@@ -78,6 +78,35 @@ test('cli :: returns exit code without menu when --no-interactive is set', funct
   console.error = origConsoleErr;
 });
 
+test('cli :: outputs the results using a provided formatter if not interactive', function (t) {
+  t.plan(2);
+
+  var nodeBin = process.argv[0];
+  var nibbleBin = path.resolve(path.join(__dirname, '/../bin/eslint-nibble.js'));
+  var erroringPath = path.resolve(path.join(__dirname, '../fixtures/files/semi-error/no-semi.js'));
+
+  var origConsoleLog = console.log;
+  var origConsoleErr = console.error;
+  console.error = function () {};
+
+  // Assert that correct formatter is used for console output
+  console.log = function (input) {
+    console.log = origConsoleLog;
+    t.ok(input.includes('1:12  error  Missing semicolon  semi'), 'Default eslint formatter is used if none is specified');
+  };
+  cli.execute([nodeBin, nibbleBin, erroringPath, '--no-interactive']);
+  // Assert that correct formatter is used for console output
+  console.log = function (input) {
+    console.log = origConsoleLog;
+    t.ok(input.includes('semi-error/no-semi.js: line 1, col 12, Error - Missing semicolon. (semi)', 'Specified formatter is used'));
+  };
+  cli.execute([nodeBin, nibbleBin, erroringPath, '--no-interactive', '--format', 'compact']);
+
+  // Restore console
+  console.log = origConsoleLog;
+  console.error = origConsoleErr;
+});
+
 // Helper function that will ignore one console.log, but reset to the original after that.
 // This lets us ignore output from the cli, while allowing through tap results.
 function mockLogOnce(originalConsoleLog) {

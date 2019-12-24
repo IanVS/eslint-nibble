@@ -87,7 +87,7 @@ specify which extensions to examine.  For example, this will check all files end
 eslint-nibble --ext .jsx,.js lib/
 ```
 
-### `--config`
+### `--config, -c`
 
 ESLint will automatically detect config files with [standard naming](http://eslint.org/docs/user-guide/configuring#configuration-file-formats).
 Add the `--config` option to specify a different config file for ESLint to use.
@@ -112,6 +112,9 @@ or by using multiple `--rule` flags (e.g. `--rule semi --rule quotes`).
 
 ### `--no-interactive`
 Potentially useful in CI, or any other situation where you would like to run ESLint using your standard project config (`.eslintrc`), but only on a subset of rules (using the `--rule` flag).  Using `--no-interactive` will prevent eslint-nibble from displaying a menu, but will instead print out any warnings/errors and return an exit code of 1 if there are errors, or 0 otherwise, just like ESLint itself does.
+
+### `--format, -f`
+When used in conjunction with `--no-interactive`, controlls the output [format from ESLint](https://eslint.org/docs/user-guide/formatters).  Has no effect in interactive mode.  The default ESLint formatter will be used if `--format` is not set.
 
 ### globs
 
