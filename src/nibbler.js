@@ -4,7 +4,7 @@ const { CLIEngine } = require('eslint');
 let cli = new CLIEngine({});
 
 function getCounts(messages) {
-  let counts = messages.reduce(function (result, message) {
+  const counts = messages.reduce(function (result, message) {
     if (message.severity === 1) {
       result.warningCount++;
       if (message.fix) {
@@ -31,13 +31,13 @@ function getCounts(messages) {
  * @return {object}          Report object which only contains messages that pass filter
  */
 function filterResults(report, msgKey, options) {
-  let newResults = {};
+  const newResults = {};
   let totalErrors = 0;
   let totalWarnings = 0;
   let totalFixableErrors = 0;
   let totalFixableWarnings = 0;
   newResults.results = report.results.map(function (result) {
-    let filteredMessages = result.messages.filter(function (msg) {
+    const filteredMessages = result.messages.filter(function (msg) {
       if (options.present) {
         return (msg[msgKey]);
       }
@@ -47,7 +47,7 @@ function filterResults(report, msgKey, options) {
       return false;
     });
     if (filteredMessages) {
-      let { errorCount, warningCount, fixableErrorCount, fixableWarningCount } = getCounts(filteredMessages);
+      const { errorCount, warningCount, fixableErrorCount, fixableWarningCount } = getCounts(filteredMessages);
       totalErrors += errorCount;
       totalWarnings += warningCount;
       totalFixableErrors += fixableErrorCount;
@@ -79,12 +79,12 @@ module.exports = {
   },
 
   nibbleOnFiles(files) {
-    let report = cli.executeOnFiles(files);
+    const report = cli.executeOnFiles(files);
     return report;
   },
 
   getFatalResults(report) {
-    let fatalResults = filterResults(report, 'fatal', { present: true });
+    const fatalResults = filterResults(report, 'fatal', { present: true });
     if (fatalResults.errorCount > 0) {
       return fatalResults;
     }
@@ -92,17 +92,17 @@ module.exports = {
   },
 
   getFormattedResults(report, fmt) {
-    let formatter = cli.getFormatter(fmt);
+    const formatter = cli.getFormatter(fmt);
     return formatter(report.results);
   },
 
   getRuleResults(report, ruleName) {
-    let ruleResults = filterResults(report, 'ruleId', { compareVal: ruleName });
+    const ruleResults = filterResults(report, 'ruleId', { compareVal: ruleName });
     return ruleResults;
   },
 
   getSeverityResults(report, severity) {
-    let ruleResults = filterResults(report, 'severity', { compareVal: severity });
+    const ruleResults = filterResults(report, 'severity', { compareVal: severity });
     return ruleResults;
   }
 };

@@ -7,10 +7,10 @@
     "eslint-nibble": "./bin/eslint-nibble.js"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
-    "test": "tape -r babel-register tests/**/*.js | tap-spec",
+    "test": "tape -r @babel/register tests/**/*.js | tap-difflet",
     "pretest": "npm run lint && npm run compile",
     "compile": "babel src --out-dir lib",
     "compilew": "babel src --out-dir lib --watch",
@@ -36,26 +36,27 @@
     "url": "https://github.com/IanVS/eslint-nibble.git"
   },
   "dependencies": {
-    "chalk": "^2.4.1",
+    "chalk": "^2.4.2",
     "eslint-filtered-fix": "^0.1.1",
-    "eslint-formatter-friendly": "^6.0.0",
-    "eslint-stats": "ianvs/eslint-stats#cb1ff8251b50c7f0cb431a2b395431ebfdeb10c8",
+    "eslint-formatter-friendly": "^7.0.0",
+    "eslint-stats": "ianvs/eslint-stats#1648ff07bc3c77d18714ac05aadfd4bb591bdff3",
     "eslint-summary": "^1.0.0",
-    "inquirer": "^6.2.0",
-    "optionator": "^0.8.2"
+    "inquirer": "^7.0.1",
+    "optionator": "^0.8.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.23.0",
-    "babel-preset-env": "^1.1.8",
-    "babel-register": "^6.23.0",
-    "eslint": "^5.7.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.6.3",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "eslint": "^6.0.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "tap-difflet": "^0.7.2",
+    "tape": "^4.12.0",
     "tape-catch": "^1.0.6"
   },
   "peerDependencies": {

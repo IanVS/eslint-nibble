@@ -8,7 +8,7 @@ import { fix } from 'eslint-filtered-fix';
 import options from './config/options';
 import { version } from '../package.json';
 
-let cli = {
+const cli = {
 
   execute: function (args) {
     let currentOptions,
@@ -58,9 +58,9 @@ let cli = {
       let report = nibbler.nibbleOnFiles(files);
       if (report && (report.errorCount > 0 || report.warningCount > 0)) {
         // Check if there was a fatal error
-        let fatalReport = nibbler.getFatalResults(report);
+        const fatalReport = nibbler.getFatalResults(report);
         if (fatalReport) {
-          let errors = nibbler.getFormattedResults(fatalReport, 'stylish');
+          const errors = nibbler.getFormattedResults(fatalReport, 'stylish');
           console.log(errors);
           console.error('Fatal error(s) were detected.  Please correct and try again.');
           return 1;
@@ -71,7 +71,7 @@ let cli = {
         }
 
         // Calculate stats array
-        let stats = nibbler.getFormattedResults(report, fmt.stats)
+        const stats = nibbler.getFormattedResults(report, fmt.stats)
           .split('\n');
 
         // Create an array of choices from the stats
@@ -106,7 +106,7 @@ let cli = {
         }
 
         // Show summary
-        let summary = nibbler.getFormattedResults(report, fmt.summary);
+        const summary = nibbler.getFormattedResults(report, fmt.summary);
         console.log(summary);
 
         // Ask user for the rule to narrow in on
@@ -123,7 +123,7 @@ let cli = {
           message: 'Would you like to attempt to auto-fix?',
           default: false,
           when(answers) {
-            let ruleReport = nibbler.getRuleResults(report, answers.rule);
+            const ruleReport = nibbler.getRuleResults(report, answers.rule);
             return ruleReport.fixableErrorCount > 0 || ruleReport.fixableWarningCount > 0;
           }
         },
@@ -135,13 +135,13 @@ let cli = {
           when(answers) {
             if (!answers.fix) return false;
 
-            let ruleReport = nibbler.getRuleResults(report, answers.rule);
+            const ruleReport = nibbler.getRuleResults(report, answers.rule);
             return ruleReport.fixableWarningCount > 0;
           }
         }])
           .then(function gotInput(answers) {
             // Display detailed error reports
-            let ruleName = answers.rule;
+            const ruleName = answers.rule;
 
             if (answers.fix) {
               const fixOptions = {
@@ -149,16 +149,16 @@ let cli = {
                 warnings: answers.fixWarnings
               };
               const fixedReport = fix(files, fixOptions, configuration);
-              let ruleResults = nibbler.getRuleResults(fixedReport, ruleName);
+              const ruleResults = nibbler.getRuleResults(fixedReport, ruleName);
               if (ruleResults.errorCount > 0 || ruleResults.warningCount > 0) {
-                let detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
+                const detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
                 console.log(detailed);
               } else {
                 console.log(chalk.green(`Fixes applied, ${ruleName} is now passing`));
               }
             } else {
-              let ruleResults = nibbler.getRuleResults(report, ruleName);
-              let detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
+              const ruleResults = nibbler.getRuleResults(report, ruleName);
+              const detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
               console.log(detailed);
             }
           });
