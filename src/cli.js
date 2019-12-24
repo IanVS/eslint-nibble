@@ -14,22 +14,22 @@ const cli = {
     let currentOptions,
         files,
         extensions,
-        config,
+        configFile,
         cache,
         cacheLocation,
         allowedRules,
-        warnings;
+        includeWarnings;
 
     // Parse options
     try {
       currentOptions = options.parse(args);
       files = currentOptions._;
       extensions = currentOptions.ext;
-      config = currentOptions.config;
+      configFile = currentOptions.config;
       cache = currentOptions.cache;
       cacheLocation = currentOptions.cacheLocation;
       allowedRules = currentOptions.rule;
-      warnings = currentOptions.warnings;
+      includeWarnings = currentOptions.warnings;
     } catch (error) {
       console.error(error.message);
       return 1;
@@ -44,8 +44,8 @@ const cli = {
       console.log(options.generateHelp());
     } else {
       const configuration = { extensions };
-      if (config) {
-        configuration.configFile = config;
+      if (configFile) {
+        configuration.configFile = configFile;
       }
       if (cache) {
         configuration.cache = cache;
@@ -66,7 +66,7 @@ const cli = {
           return 1;
         }
 
-        if (report && !warnings) {
+        if (report && !includeWarnings) {
           report = nibbler.getSeverityResults(report, 2);
         }
 
@@ -99,7 +99,7 @@ const cli = {
           }
           // Or maybe they were filtered out because they were all warnings,
           // and the user didn't want to check warnings
-          if (!warnings) {
+          if (!includeWarnings) {
             console.log(chalk.green('Great job, no lint rules reporting errors.'));
             return 0;
           }
