@@ -63,7 +63,7 @@ const cli = {
           const errors = nibbler.getFormattedResults(fatalReport, 'stylish');
           console.log(errors);
           console.error('Fatal error(s) were detected.  Please correct and try again.');
-          return 1;
+          return 2;
         }
 
         if (report && !includeWarnings) {
