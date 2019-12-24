@@ -36,13 +36,13 @@
     "url": "https://github.com/IanVS/eslint-nibble.git"
   },
   "dependencies": {
-    "chalk": "^2.4.1",
+    "chalk": "^2.4.2",
     "eslint-filtered-fix": "^0.1.1",
-    "eslint-formatter-friendly": "^6.0.0",
-    "eslint-stats": "ianvs/eslint-stats#cb1ff8251b50c7f0cb431a2b395431ebfdeb10c8",
+    "eslint-formatter-friendly": "^7.0.0",
+    "eslint-stats": "ianvs/eslint-stats#1648ff07bc3c77d18714ac05aadfd4bb591bdff3",
     "eslint-summary": "^1.0.0",
-    "inquirer": "^6.2.0",
-    "optionator": "^0.8.2"
+    "inquirer": "^7.0.1",
+    "optionator": "^0.8.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
