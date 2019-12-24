@@ -18,7 +18,8 @@ const cli = {
         cache,
         cacheLocation,
         allowedRules,
-        includeWarnings;
+        includeWarnings,
+        isInteractive;
 
     // Parse options
     try {
@@ -30,6 +31,7 @@ const cli = {
       cacheLocation = currentOptions.cacheLocation;
       allowedRules = currentOptions.rule;
       includeWarnings = currentOptions.warnings;
+      isInteractive = currentOptions.interactive;
     } catch (error) {
       console.error(error.message);
       return 1;
@@ -108,6 +110,11 @@ const cli = {
         // Show summary
         const summary = nibbler.getFormattedResults(report, fmt.summary);
         console.log(summary);
+
+        if (!isInteractive) {
+          // Just give an exit code based on having any errors, no interactive menu
+          return report.errorCount > 0 ? 1 : 0;
+        }
 
         // Ask user for the rule to narrow in on
         inquirer.prompt([{

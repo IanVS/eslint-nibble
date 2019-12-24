@@ -95,11 +95,11 @@ Add the `--config` option to specify a different config file for ESLint to use.
 ### `--cache`
 
 Highly recommended.  ESLint will cache the results of linting, causing subsequent runs to be much faster.  See the
-[eslint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache) for more details.
+[ESLint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache) for more details.
 
 ### `--cache-location`
-When used in conjunction with the `--cache` flag, controls where the eslint cache
-is written.  See the [eslint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache-location)
+When used in conjunction with the `--cache` flag, controls where the ESLint cache
+is written.  See the [ESLint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache-location)
 for more details.
 
 ### `--no-warnings`
@@ -109,6 +109,9 @@ Only show results for linting errors, not warnings.
 If you have so many failing rules that navigating the list is cumbersome, use this flag to filter down
 the rules that are displayed.  Multiple rules can be included as comma-separated strings (e.g. `--rule semi,quotes`),
 or by using multiple `--rule` flags (e.g. `--rule semi --rule quotes`).
+
+### `--no-interactive`
+Potentially useful in CI, or any other situation where you would like to run ESLint using your standard project config (`.eslintrc`), but only on a subset of rules (using the `--rule` flag).  Using `--no-interactive` will prevent eslint-nibble from displaying a menu, but will instead print out any warnings/errors and return an exit code of 1 if there are errors, or 0 otherwise, just like ESLint itself does.
 
 ### globs
 

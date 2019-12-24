@@ -57,6 +57,11 @@ export default optionator({
     option     : 'warnings',
     type       : 'Boolean',
     default    : 'true',
-    description: 'include warning results'
+    description: 'Include warning results'
+  }, {
+    option     : 'interactive',
+    type       : 'Boolean',
+    default    : 'true',
+    description: 'Provide interactive options to see/fix a particular error.  If false, linting results are printed with appropriate exit code, useful for CI.'
   }]
 });
