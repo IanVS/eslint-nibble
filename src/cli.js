@@ -14,22 +14,26 @@ const cli = {
     let currentOptions,
         files,
         extensions,
-        config,
+        configFile,
         cache,
         cacheLocation,
         allowedRules,
-        warnings;
+        includeWarnings,
+        isInteractive,
+        format;
 
     // Parse options
     try {
       currentOptions = options.parse(args);
       files = currentOptions._;
       extensions = currentOptions.ext;
-      config = currentOptions.config;
+      configFile = currentOptions.config;
       cache = currentOptions.cache;
       cacheLocation = currentOptions.cacheLocation;
       allowedRules = currentOptions.rule;
-      warnings = currentOptions.warnings;
+      includeWarnings = currentOptions.warnings;
+      isInteractive = currentOptions.interactive;
+      format = currentOptions.format;
     } catch (error) {
       console.error(error.message);
       return 1;
@@ -44,8 +48,8 @@ const cli = {
       console.log(options.generateHelp());
     } else {
       const configuration = { extensions };
-      if (config) {
-        configuration.configFile = config;
+      if (configFile) {
+        configuration.configFile = configFile;
       }
       if (cache) {
         configuration.cache = cache;
@@ -63,10 +67,10 @@ const cli = {
           const errors = nibbler.getFormattedResults(fatalReport, 'stylish');
           console.log(errors);
           console.error('Fatal error(s) were detected.  Please correct and try again.');
-          return 1;
+          return 2;
         }
 
-        if (report && !warnings) {
+        if (report && !includeWarnings) {
           report = nibbler.getSeverityResults(report, 2);
         }
 
@@ -99,10 +103,18 @@ const cli = {
           }
           // Or maybe they were filtered out because they were all warnings,
           // and the user didn't want to check warnings
-          if (!warnings) {
+          if (!includeWarnings) {
             console.log(chalk.green('Great job, no lint rules reporting errors.'));
             return 0;
           }
+        }
+
+        if (!isInteractive) {
+          // Just give an exit code based on having any errors, no interactive menu
+          const output = nibbler.getFormattedResults(report, format);
+          console.log(output);
+
+          return report.errorCount > 0 ? 1 : 0;
         }
 
         // Show summary
