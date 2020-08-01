@@ -39,7 +39,7 @@
     "chalk": "^2.4.2",
     "eslint-filtered-fix": "^0.1.1",
     "eslint-formatter-friendly": "^7.0.0",
-    "eslint-stats": "ianvs/eslint-stats#1648ff07bc3c77d18714ac05aadfd4bb591bdff3",
+    "eslint-stats": "@ianvs/eslint-stats@2.0.0",
     "eslint-summary": "^1.0.0",
     "inquirer": "^7.0.1",
     "optionator": "^0.8.3"
