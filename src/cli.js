@@ -20,6 +20,7 @@ const cli = {
         allowedRules,
         includeWarnings,
         isInteractive,
+        isMulti,
         format;
 
     // Parse options
@@ -33,6 +34,7 @@ const cli = {
       allowedRules = currentOptions.rule;
       includeWarnings = currentOptions.warnings;
       isInteractive = currentOptions.interactive;
+      isMulti = currentOptions.multi;
       format = currentOptions.format;
     } catch (error) {
       console.error(error.message);
@@ -127,8 +129,8 @@ const cli = {
         // Ask user for the rule to narrow in on
         inquirer.prompt([{
           name    : 'rule',
-          type    : 'list',
-          message : 'Which rule would you like to fix?',
+          type    : isMulti ? 'checkbox' : 'list',
+          message : isMulti ? 'Which rule(s) would you like to fix?' : 'Which rule would you like to fix?',
           choices : results,
           pageSize: results.length
         },
@@ -156,23 +158,25 @@ const cli = {
         }])
           .then(function gotInput(answers) {
             // Display detailed error reports
-            const ruleName = answers.rule;
-
             if (answers.fix) {
               const fixOptions = {
-                rules   : [ruleName],
+                rules   : isMulti ? answers.rule : [answers.rule],
                 warnings: answers.fixWarnings
               };
               const fixedReport = fix(files, fixOptions, configuration);
-              const ruleResults = nibbler.getRuleResults(fixedReport, ruleName);
+              const ruleResults = nibbler.getRuleResults(fixedReport, answers.rule);
               if (ruleResults.errorCount > 0 || ruleResults.warningCount > 0) {
                 const detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
                 console.log(detailed);
               } else {
-                console.log(chalk.green(`Fixes applied, ${ruleName} is now passing`));
+                if (isMulti) {
+                  console.log(chalk.green(`Fixes applied: ${answers.rule.join(', ')} now passing`));
+                } else {
+                  console.log(chalk.green(`Fixes applied, ${answers.rule} is now passing`));
+                }
               }
             } else {
-              const ruleResults = nibbler.getRuleResults(report, ruleName);
+              const ruleResults = nibbler.getRuleResults(report, answers.rule);
               const detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
               console.log(detailed);
             }
