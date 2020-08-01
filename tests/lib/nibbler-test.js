@@ -159,6 +159,19 @@ test('getRuleResults :: Returns correct number of fixable errors and warnings', 
   });
 });
 
+test('getRuleResults :: allows more than one rule', function (t) {
+  t.plan(5);
+  var report = require('../fixtures/reports/one-file-two-errors-no-warnings-two-rules');
+  var ruleName1 = report.results[0].messages[0].ruleId;
+  var ruleName2 = report.results[0].messages[1].ruleId;
+  t.notEqual(ruleName1, ruleName2);
+  var ruleReport = nibbler.getRuleResults(report, [ruleName1, ruleName2]);
+  t.equal(ruleReport.results[0].errorCount, 2, '2 errors in file');
+  t.equal(ruleReport.results[0].warningCount, 0, '0 warnings in file');
+  t.equal(ruleReport.errorCount, 2, '2 error total');
+  t.equal(ruleReport.warningCount, 0, '0 warnings total');
+});
+
 test('getFatalResults :: Returns fatal error report', function (t) {
   t.plan(12);
   var report = require('../fixtures/reports/one-file-one-fatal-error');

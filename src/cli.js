@@ -110,8 +110,11 @@ const cli = {
         }
 
         if (!isInteractive) {
+          const finalReport = allowedRules
+            ? nibbler.getRuleResults(report, allowedRules)
+            : report;
           // Just give an exit code based on having any errors, no interactive menu
-          const output = nibbler.getFormattedResults(report, format);
+          const output = nibbler.getFormattedResults(finalReport, format);
           console.log(output);
 
           return report.errorCount > 0 ? 1 : 0;

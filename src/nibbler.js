@@ -44,6 +44,12 @@ function filterResults(report, msgKey, options) {
       if (options.compareVal) {
         return (msg[msgKey] === options.compareVal);
       }
+      if (options.includes) {
+        if (!Array.isArray(options.includes)) {
+          throw new Error('filterResults: `options.includes` must be an array');
+        }
+        return options.includes.includes(msg[msgKey]);
+      }
       return false;
     });
     if (filteredMessages) {
@@ -97,7 +103,9 @@ module.exports = {
   },
 
   getRuleResults(report, ruleName) {
-    const ruleResults = filterResults(report, 'ruleId', { compareVal: ruleName });
+    const ruleResults = Array.isArray(ruleName)
+      ? filterResults(report, 'ruleId', { includes: ruleName })
+      : filterResults(report, 'ruleId', { compareVal: ruleName });
     return ruleResults;
   },
 
