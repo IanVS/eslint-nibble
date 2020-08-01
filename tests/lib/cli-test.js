@@ -49,13 +49,14 @@ test('cli :: returns 2 if it crashes', function (t) {
 });
 
 test('cli :: returns exit code without menu when --no-interactive is set', function (t) {
-  t.plan(4);
+  t.plan(11);
 
   var nodeBin = process.argv[0];
   var nibbleBin = path.resolve(path.join(__dirname, '/../bin/eslint-nibble.js'));
   var erroringPath = path.resolve(path.join(__dirname, '../fixtures/files/semi-error/no-semi.js'));
   var warningPath = path.resolve(path.join(__dirname, '../fixtures/files/semi-warn/no-semi.js'));
   var okayPath = path.resolve(path.join(__dirname, '../fixtures/files/semi-okay/semi.js'));
+  var multiErrorPath = path.resolve(path.join(__dirname, '../fixtures/files/multi-error/no-semi-plusplus.js'));
 
   // Overwrite console methods
   var origConsoleLog = console.log;
@@ -68,10 +69,29 @@ test('cli :: returns exit code without menu when --no-interactive is set', funct
   t.equal(cli.execute([nodeBin, nibbleBin, warningPath, '--no-interactive']), 0, 'exits with 0 if only warnings');
   mockLogOnce(origConsoleLog);
   t.equal(cli.execute([nodeBin, nibbleBin, okayPath, '--no-interactive']), 0, 'exits with 0 if no problems');
-  mockLogOnce(function () {
+  console.log = function (input) {
     console.log = origConsoleLog;
-  });
+    t.ok(input.includes('No lint failures found for rule(s): prefer-const', 'Warns user'));
+    // Ignore second call to console.log
+    mockLogOnce(origConsoleLog);
+  };
   t.equal(cli.execute([nodeBin, nibbleBin, erroringPath, '--no-interactive', '--rule', 'prefer-const']), 0, 'exits with 0 if all problems are filtered out');
+  console.log = function (input) {
+    console.log = origConsoleLog;
+    t.ok(input.includes('1:12  error  Missing semicolon', 'Reports semi error'));
+    t.ok(input.includes('2:1   error  Unary operator \'++\' used', 'Reports plusplus error'));
+  };
+  t.equal(cli.execute([nodeBin, nibbleBin, multiErrorPath, '--no-interactive']), 1, 'exits with 1 if there are multiple errors');
+  console.log = function (input) {
+    console.log = origConsoleLog;
+    t.ok(input.includes('1:12  error  Missing semicolon', 'Reports semi error'));
+    t.ok(!input.includes('Unary operator \'++\' used'), 'Does not report plusplus error');
+  };
+  t.equal(
+    cli.execute([nodeBin, nibbleBin, multiErrorPath, '--no-interactive', '--rule', 'semi']),
+    1,
+    'exits with 1 when some, but not all, rules are filtered out'
+  );
 
   // Restore console
   console.log = origConsoleLog;
