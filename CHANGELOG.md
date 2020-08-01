@@ -1,5 +1,20 @@
 # eslint-nibble Changelog
 
+### 6.0.0-beta.3
+Fixed build
+
+### 6.0.0-beta.2
+Note: do not use, broken build
+
+### 6.0.0-beta.1
+Note: do not use, broken build
+- (Dependency) Use namespaced @ianvs/eslint-stats
+
+### 6.0.0-beta.0
+- (Breaking) Requires node 8 or higher due to upgrades of internal dependencies. (#60)
+- (Feature) Adds `--no-interactive` flag for use in CI environment (#61)
+- (Feature) Adds `--format` flag to control output when using `--no-interactive` (#61)
+
 ### 5.1.0
 - (Feature) Add `--no-warnings` option
 
