@@ -59,6 +59,11 @@ export default optionator({
     default    : 'true',
     description: 'Include warning results'
   }, {
+    option     : 'multi',
+    type       : 'Boolean',
+    default    : 'false',
+    description: 'Allow fixing multiple rules at one time'
+  }, {
     option     : 'interactive',
     type       : 'Boolean',
     default    : 'true',

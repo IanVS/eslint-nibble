@@ -102,6 +102,9 @@ When used in conjunction with the `--cache` flag, controls where the ESLint cach
 is written.  See the [ESLint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache-location)
 for more details.
 
+### `--multi`
+Allows selection of more than one rule at a time in the interactive cli.
+
 ### `--no-warnings`
 Only show results for linting errors, not warnings.
 
