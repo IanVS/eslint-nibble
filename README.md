@@ -8,6 +8,8 @@ Instead, `eslint-nibble` will give a quick overview of your failing rules, and t
 
 If a rule can be automatically fixed by ESLint, `eslint-nibble` will allow you to run autofix on individual rules, allowing you to make more focused commits.
 
+Read this excellent blog post from [Paul Hands](https://github.com/paulhands) for a clear explanation of what eslint-nibble can do for your project: [Hiring a gardener to trim the weeds](https://medium.com/@paul.hands.phd/hiring-a-gardener-to-trim-the-weeds-adding-a-linter-halfway-through-building-an-application-194c527db151).
+
 ## Installation
 
 ```bash
