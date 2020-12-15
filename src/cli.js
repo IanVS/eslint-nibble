@@ -18,6 +18,7 @@ const cli = {
         cache,
         cacheLocation,
         allowedRules,
+        rulesDir,
         includeWarnings,
         isInteractive,
         isMulti,
@@ -32,6 +33,7 @@ const cli = {
       cache = currentOptions.cache;
       cacheLocation = currentOptions.cacheLocation;
       allowedRules = currentOptions.rule;
+      rulesDir = currentOptions.rulesdir;
       includeWarnings = currentOptions.warnings;
       isInteractive = currentOptions.interactive;
       isMulti = currentOptions.multi;
@@ -58,6 +60,9 @@ const cli = {
       }
       if (cacheLocation) {
         configuration.cacheLocation = cacheLocation;
+      }
+      if (rulesDir) {
+        configuration.rulePaths = rulesDir;
       }
 
       nibbler.configure(configuration);
