@@ -1,5 +1,9 @@
 # eslint-nibble Changelog
 
+### 6.1.0
+- (Feature) Adds `--rulesdir` option to load custom rules at runtime (#76)
+- (Build) Update versions of node to run in Travis CI.
+
 ### 6.0.0
 - (Breaking) Requires node 8 or higher due to upgrades of internal dependencies. (#60)
 - (Feature) Adds `--no-interactive` flag for use in CI environment (#61)
