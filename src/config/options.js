@@ -54,6 +54,11 @@ export default optionator({
     concatRepeatedArrays: true,
     description         : 'Only show results for specified rule(s)'
   }, {
+    option              : 'rulesdir',
+    type                : '[String]',
+    concatRepeatedArrays: true,
+    description         : 'Path to custom eslint rules'
+  }, {
     option     : 'warnings',
     type       : 'Boolean',
     default    : 'true',

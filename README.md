@@ -115,6 +115,9 @@ If you have so many failing rules that navigating the list is cumbersome, use th
 the rules that are displayed.  Multiple rules can be included as comma-separated strings (e.g. `--rule semi,quotes`),
 or by using multiple `--rule` flags (e.g. `--rule semi --rule quotes`).
 
+### `--rulesdir`
+This corresponds to the eslint `--rulesdir` [option](https://eslint.org/docs/user-guide/command-line-interface#-rulesdir).  Use it to specify a path to custom eslint rules.
+
 ### `--no-interactive`
 Potentially useful in CI, or any other situation where you would like to run ESLint using your standard project config (`.eslintrc`), but only on a subset of rules (using the `--rule` flag).  Using `--no-interactive` will prevent eslint-nibble from displaying a menu, but will instead print out any warnings/errors and return an exit code of 1 if there are errors, or 0 otherwise, just like ESLint itself does.
 
