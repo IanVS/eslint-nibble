@@ -124,6 +124,9 @@ Potentially useful in CI, or any other situation where you would like to run ESL
 ### `--format, -f`
 When used in conjunction with `--no-interactive`, controlls the output [format from ESLint](https://eslint.org/docs/user-guide/formatters).  Has no effect in interactive mode.  The default ESLint formatter will be used if `--format` is not set.
 
+### `--fixable-only`
+Only show rules that are autofixable.
+
 ### globs
 
 You are not limited to directory and file names as arguments, you can also specify a glob pattern.

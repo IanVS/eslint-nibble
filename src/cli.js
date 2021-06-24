@@ -22,7 +22,8 @@ const cli = {
         includeWarnings,
         isInteractive,
         isMulti,
-        format;
+        format,
+        fixableOnly;
 
     // Parse options
     try {
@@ -38,6 +39,7 @@ const cli = {
       isInteractive = currentOptions.interactive;
       isMulti = currentOptions.multi;
       format = currentOptions.format;
+      fixableOnly = currentOptions.fixableOnly;
     } catch (error) {
       console.error(error.message);
       return 1;
@@ -81,6 +83,10 @@ const cli = {
           report = nibbler.getSeverityResults(report, 2);
         }
 
+        if (report && fixableOnly) {
+          report = nibbler.getFixableResults(report);
+        }
+
         // Calculate stats array
         const stats = nibbler.getFormattedResults(report, fmt.stats)
           .split('\n');
@@ -112,6 +118,12 @@ const cli = {
           // and the user didn't want to check warnings
           if (!includeWarnings) {
             console.log(chalk.green('Great job, no lint rules reporting errors.'));
+            return 0;
+          }
+          // Or if all stats were filtered out due to a provided `--fixable` flag
+          if (fixableOnly) {
+            console.log(chalk.yellow('\nNo fixable lint failures found.'));
+            console.log('Try running again without "--fixable-only"');
             return 0;
           }
         }

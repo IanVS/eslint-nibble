@@ -78,5 +78,9 @@ export default optionator({
     alias      : 'f',
     type       : 'String',
     description: 'If --no-interactive is used, this formatter will be used to output results.  See https://eslint.org/docs/user-guide/formatters for options.'
+  }, {
+    option     : 'fixable-only',
+    type       : 'Boolean',
+    description: 'Only show fixable rules in output results'
   }]
 });

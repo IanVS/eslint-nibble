@@ -254,3 +254,23 @@ test('nibbler :: Allows multiple extensions', function (t) {
   t.ok(report.errorCount, 'report has an errorCount');
   t.equal(report.errorCount, 2, 'report errorCount is 2');
 });
+
+test('getFixableResults :: Ignore non-fixable rules', function (t) {
+  t.plan(14);
+  var report = require('../fixtures/reports/one-file-two-errors-one-fixable-error');
+  var fixableReport = nibbler.getFixableResults(report);
+  t.ok(fixableReport, 'returns report');
+  t.equal(typeof fixableReport, 'object', 'report is an object');
+  t.ok(fixableReport.results, 'report has results');
+  t.equal(fixableReport.results.length, 1, 'results have one element');
+  t.ok(fixableReport.results[0].messages, 'result has messages');
+  t.equal(fixableReport.results[0].messages.length, 1, 'messages has one element');
+  t.equal(fixableReport.results[0].messages[0].severity, 2, 'message severity is 2');
+  t.equal(fixableReport.results[0].messages[0].message, 'Missing semicolon.', 'message has correct message');
+  t.ok(fixableReport.errorCount, 'report has an errorCount');
+  t.ok(fixableReport.fixableErrorCount, 'report has an fixableErrorCount');
+  t.equal(fixableReport.errorCount, 1, 'report errorCount is 1');
+  t.equal(fixableReport.fixableErrorCount, 1, 'report fixableErrorCount is 1');
+  t.equal(fixableReport.warningCount, 0, 'report warningCount is 0');
+  t.equal(fixableReport.fixableWarningCount, 0, 'report fixableWarningCount is 0');
+});
