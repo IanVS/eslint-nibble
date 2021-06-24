@@ -1,5 +1,10 @@
 # eslint-nibble Changelog
 
+### 7.0.0
+- (Breaking) Drop node < 12 (#83)
+- (Feature) Adds `--fixable-only` option to only show fixable results (#82)
+- (Dep) Update dependencies (#83)
+
 ### 6.1.0
 - (Feature) Adds `--rulesdir` option to load custom rules at runtime (#76)
 - (Build) Update versions of node to run in Travis CI.
