@@ -38,6 +38,10 @@ function filterResults(report, msgKey, options) {
   let totalFixableWarnings = 0;
   newResults.results = report.results.map(function (result) {
     const filteredMessages = result.messages.filter(function (msg) {
+      if (msgKey === 'fix' && msg.fix) {
+        return true;
+      }
+
       if (options.present) {
         return (msg[msgKey]);
       }
@@ -111,6 +115,11 @@ module.exports = {
 
   getSeverityResults(report, severity) {
     const ruleResults = filterResults(report, 'severity', { compareVal: severity });
+    return ruleResults;
+  },
+
+  getFixableResults(report) {
+    const ruleResults = filterResults(report, 'fix', {});
     return ruleResults;
   }
 };
