@@ -10,7 +10,7 @@ import { version } from '../package.json';
 
 const cli = {
 
-  execute: function (args) {
+  async execute(args) {
     let currentOptions,
         files,
         extensions,
@@ -68,12 +68,12 @@ const cli = {
       }
 
       nibbler.configure(configuration);
-      let report = nibbler.nibbleOnFiles(files);
+      let report = await nibbler.nibbleOnFiles(files);
       if (report && (report.errorCount > 0 || report.warningCount > 0)) {
         // Check if there was a fatal error
         const fatalReport = nibbler.getFatalResults(report);
         if (fatalReport) {
-          const errors = nibbler.getFormattedResults(fatalReport, 'stylish');
+          const errors = await nibbler.getFormattedResults(fatalReport, 'stylish');
           console.log(errors);
           console.error('Fatal error(s) were detected.  Please correct and try again.');
           return 2;
@@ -88,12 +88,12 @@ const cli = {
         }
 
         // Calculate stats array
-        const stats = nibbler.getFormattedResults(report, fmt.stats)
-          .split('\n');
+        const stats = await nibbler.getFormattedResults(report, fmt.stats);
 
         // Create an array of choices from the stats
         // (filter removes empty stat at end)
         const results = stats
+          .split('\n')
           .filter(stat => stat)
           .map(stat => {
             const ruleName = stat.split(':')[0];
@@ -133,14 +133,14 @@ const cli = {
             ? nibbler.getRuleResults(report, allowedRules)
             : report;
           // Just give an exit code based on having any errors, no interactive menu
-          const output = nibbler.getFormattedResults(finalReport, format);
+          const output = await nibbler.getFormattedResults(finalReport, format);
           console.log(output);
 
           return report.errorCount > 0 ? 1 : 0;
         }
 
         // Show summary
-        const summary = nibbler.getFormattedResults(report, fmt.summary);
+        const summary = await nibbler.getFormattedResults(report, fmt.summary);
         console.log(summary);
 
         // Ask user for the rule to narrow in on
@@ -173,17 +173,17 @@ const cli = {
             return ruleReport.fixableWarningCount > 0;
           }
         }])
-          .then(function gotInput(answers) {
+          .then(async function gotInput(answers) {
             // Display detailed error reports
             if (answers.fix) {
               const fixOptions = {
                 rules   : isMulti ? answers.rule : [answers.rule],
                 warnings: answers.fixWarnings
               };
-              const fixedReport = fix(files, fixOptions, configuration);
+              const fixedReport = await fix(files, fixOptions, configuration);
               const ruleResults = nibbler.getRuleResults(fixedReport, answers.rule);
               if (ruleResults.errorCount > 0 || ruleResults.warningCount > 0) {
-                const detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
+                const detailed = await nibbler.getFormattedResults(ruleResults, fmt.detailed);
                 console.log(detailed);
               } else {
                 if (isMulti) {
@@ -194,7 +194,7 @@ const cli = {
               }
             } else {
               const ruleResults = nibbler.getRuleResults(report, answers.rule);
-              const detailed = nibbler.getFormattedResults(ruleResults, fmt.detailed);
+              const detailed = await nibbler.getFormattedResults(ruleResults, fmt.detailed);
               console.log(detailed);
             }
           });
