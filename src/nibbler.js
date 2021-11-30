@@ -1,7 +1,7 @@
 'use strict';
 
-const { CLIEngine } = require('eslint');
-let cli = new CLIEngine({});
+const { ESLint } = require('eslint');
+let cli = new ESLint({});
 
 function getCounts(messages) {
   const counts = messages.reduce(function (result, message) {
@@ -21,6 +21,29 @@ function getCounts(messages) {
   }, { errorCount: 0, warningCount: 0, fixableErrorCount: 0, fixableWarningCount: 0 });
 
   return counts;
+}
+
+// Extracted from Eslint https://github.com/eslint/eslint/blob/ba58d94cb51d4d2644c024446d5750eaf4853129/lib/cli-engine/cli-engine.js#L181-L202
+/**
+ * It will calculate the error and warning count for collection of results from all files
+ * @param  {array}  results  Collection of messages from all the files
+ * @return {object}          Contains the stats
+ */
+function calculateStatsPerRun(results) {
+  return results.reduce((stat, result) => {
+    stat.errorCount += result.errorCount;
+    stat.fatalErrorCount += result.fatalErrorCount;
+    stat.warningCount += result.warningCount;
+    stat.fixableErrorCount += result.fixableErrorCount;
+    stat.fixableWarningCount += result.fixableWarningCount;
+    return stat;
+  }, {
+    errorCount         : 0,
+    fatalErrorCount    : 0,
+    warningCount       : 0,
+    fixableErrorCount  : 0,
+    fixableWarningCount: 0
+  });
 }
 
 /**
@@ -62,7 +85,6 @@ function filterResults(report, msgKey, options) {
       totalWarnings += warningCount;
       totalFixableErrors += fixableErrorCount;
       totalFixableWarnings += fixableWarningCount;
-      // fixableErrors += fixableErrors;
       return {
         filePath: result.filePath,
         messages: filteredMessages,
@@ -85,11 +107,15 @@ function filterResults(report, msgKey, options) {
 module.exports = {
 
   configure(configuration) {
-    cli = new CLIEngine(configuration);
+    cli = new ESLint(configuration);
   },
 
-  nibbleOnFiles(files) {
-    const report = cli.executeOnFiles(files);
+  async nibbleOnFiles(files) {
+    const results = await cli.lintFiles(files);
+    const report = {
+      results,
+      ...calculateStatsPerRun(results)
+    };
     return report;
   },
 
@@ -101,9 +127,9 @@ module.exports = {
     return undefined;
   },
 
-  getFormattedResults(report, fmt) {
-    const formatter = cli.getFormatter(fmt);
-    return formatter(report.results);
+  async getFormattedResults(report, fmt) {
+    const formatter = await cli.loadFormatter(fmt);
+    return formatter.format(report.results);
   },
 
   getRuleResults(report, ruleName) {

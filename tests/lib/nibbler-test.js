@@ -190,10 +190,10 @@ test('getFatalResults :: Returns fatal error report', function (t) {
   t.equal(fatalReport.warningCount, 0, 'report warningCount is 0');
 });
 
-test('nibbleOnFiles :: Returns correct report for errors', function (t) {
+test('nibbleOnFiles :: Returns correct report for errors', async function (t) {
   t.plan(11);
   var files = path.resolve(path.join(__dirname, '/../fixtures/files/semi-error/'));
-  var report = nibbler.nibbleOnFiles([files]);
+  var report = await nibbler.nibbleOnFiles([files]);
   t.ok(report, 'returns report');
   t.equal(typeof report, 'object', 'report is an object');
   t.ok(report.results, 'report has results');
@@ -207,49 +207,49 @@ test('nibbleOnFiles :: Returns correct report for errors', function (t) {
   t.equal(report.warningCount, 0, 'report warningCount is 0');
 });
 
-test('nibbleOnFiles :: Returns correct report for warnings', function (t) {
+test('nibbleOnFiles :: Returns correct report for warnings', async function (t) {
   t.plan(4);
   var files = path.resolve(path.join(__dirname, '/../fixtures/files/semi-warn/'));
-  var report = nibbler.nibbleOnFiles([files]);
+  var report = await nibbler.nibbleOnFiles([files]);
   t.ok(report, 'returns report');
   t.ok(report.warningCount, 'report has an warningCount');
   t.equal(report.warningCount, 1, 'report warningCount is 1');
   t.equal(report.errorCount, 0, 'report errorCount is 0');
 });
 
-test('nibbleOnFiles :: Returns report with no warnings or errors if all rules pass', function (t) {
+test('nibbleOnFiles :: Returns report with no warnings or errors if all rules pass', async function (t) {
   t.plan(2);
   var files = path.resolve(path.join(__dirname, '/../fixtures/files/semi-okay/'));
-  var report = nibbler.nibbleOnFiles([files]);
+  var report = await nibbler.nibbleOnFiles([files]);
   t.equal(report.warningCount, 0, 'no warnings');
   t.equal(report.errorCount, 0, 'no errors');
 });
 
-test('getFormattedResults :: Returns formatted report for built-in formatter', function (t) {
+test('getFormattedResults :: Returns formatted report for built-in formatter', async function (t) {
   t.plan(2);
   var report = require('../fixtures/reports/one-file-one-error');
-  var formattedResult = nibbler.getFormattedResults(report, 'compact');
+  var formattedResult = await nibbler.getFormattedResults(report, 'compact');
   var expectedResult = 'path/to/error.js: line 1, col 4, Error - foo is defined but never used (no-unused-vars)\n\n1 problem';
   t.ok(formattedResult, 'returns result');
   t.equal(formattedResult, expectedResult, 'used the correct formatter');
 });
 
-test('nibbler :: Examines files with provided extensions', function (t) {
+test('nibbler :: Examines files with provided extensions', async function (t) {
   t.plan(3);
   var files = path.resolve(path.join(__dirname, '/../fixtures/files/jsx/'));
   nibbler.configure({ extensions: ['.jsx'] });
-  var report = nibbler.nibbleOnFiles([files]);
+  var report = await nibbler.nibbleOnFiles([files]);
   t.ok(report, 'returns report');
   t.ok(report.errorCount, 'report has an errorCount');
   t.equal(report.errorCount, 1, 'report errorCount is 1');
 });
 
-test('nibbler :: Allows multiple extensions', function (t) {
+test('nibbler :: Allows multiple extensions', async function (t) {
   t.plan(3);
   var jsxFiles = path.resolve(path.join(__dirname, '/../fixtures/files/jsx/'));
   var jsFiles = path.resolve(path.join(__dirname, '/../fixtures/files/semi-error/'));
   nibbler.configure({ extensions: ['.jsx', '.js'] });
-  var report = nibbler.nibbleOnFiles([jsxFiles, jsFiles]);
+  var report = await nibbler.nibbleOnFiles([jsxFiles, jsFiles]);
   t.ok(report, 'returns report');
   t.ok(report.errorCount, 'report has an errorCount');
   t.equal(report.errorCount, 2, 'report errorCount is 2');
