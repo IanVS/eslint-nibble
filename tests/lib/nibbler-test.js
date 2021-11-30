@@ -1,7 +1,7 @@
 'use strict';
 
 var test = require('tape-catch');
-var nibbler = require('../../lib/nibbler');
+var nibbler = require('../../src/nibbler');
 var path = require('path');
 
 test('getRuleResults :: Returns correct messages', function (outer) {

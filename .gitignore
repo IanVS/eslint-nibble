@@ -1,6 +1,6 @@
 node_modules
 
-# Compiled code
+# (previously) Compiled code
 /lib/
 
 # Ignore configuration and automatically generated cruft
