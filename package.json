@@ -10,12 +10,9 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "test": "tape -r @babel/register tests/**/*.js | tap-difflet",
-    "pretest": "npm run lint && npm run compile",
-    "compile": "babel src --out-dir lib",
-    "compilew": "babel src --out-dir lib --watch",
-    "prepublish": "npm run compile",
-    "lint": "eslint src tests/lib"
+    "pretest": "npm run lint",
+    "test": "tape tests/src/*.js | tap-difflet",
+    "lint": "eslint src tests/src"
   },
   "keywords": [
     "eslint",
@@ -45,13 +42,7 @@
     "optionator": "^0.9.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/register": "^7.0.0",
-    "@babel/runtime": "^7.0.0",
-    "eslint": ">=7.0.0",
+    "eslint": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-node": "^11.1.0",

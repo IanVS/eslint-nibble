@@ -1,7 +1,8 @@
 'use strict';
 
+
 var test = require('tape-catch');
-var cli = require('../../lib/cli');
+var cli = require('../../src/cli');
 var path = require('path');
 
 
@@ -38,7 +39,7 @@ test('cli :: returns 2 if it crashes', async function (t) {
   // Overwrite console methods
   var origConsoleLog = console.log;
   var origConsoleErr = console.error;
-  console.error = function () {};
+  console.error = function () { };
   mockLogOnce(origConsoleLog);
 
   t.equal(await cli.execute([nodeBin, nibbleBin, pathToTest]), 2, 'exits with 2 if there are fatal errors');
@@ -61,7 +62,7 @@ test('cli :: returns exit code without menu when --no-interactive is set', async
   // Overwrite console methods
   var origConsoleLog = console.log;
   var origConsoleErr = console.error;
-  console.error = function () {};
+  console.error = function () { };
 
   mockLogOnce(origConsoleLog);
   t.equal(await cli.execute([nodeBin, nibbleBin, erroringPath, '--no-interactive']), 1, 'exits with 1 if there are errors');
@@ -107,7 +108,7 @@ test('cli :: outputs the results using a provided formatter if not interactive',
 
   var origConsoleLog = console.log;
   var origConsoleErr = console.error;
-  console.error = function () {};
+  console.error = function () { };
 
   // Assert that correct formatter is used for console output
   console.log = function (input) {

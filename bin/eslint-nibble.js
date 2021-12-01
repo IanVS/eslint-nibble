@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var cli = require('../lib/cli');
+var cli = require('../src/cli');
 
 (async function () {
   var exitCode = await cli.execute(process.argv);

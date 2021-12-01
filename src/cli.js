@@ -1,12 +1,12 @@
 'use strict';
 
-import nibbler from './nibbler';
-import * as fmt from './config/formatters';
-import chalk from 'chalk';
-import inquirer from 'inquirer';
-import { fix } from 'eslint-filtered-fix';
-import options from './config/options';
-import { version } from '../package.json';
+const nibbler = require('./nibbler');
+const fmt = require('./config/formatters');
+const chalk = require('chalk');
+const inquirer = require('inquirer');
+const { fix } = require('eslint-filtered-fix');
+const options = require('./config/options');
+const { version } = require('../package.json');
 
 const cli = {
 
