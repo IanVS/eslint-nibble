@@ -147,7 +147,7 @@ const cli = {
         inquirer.prompt([{
           name    : 'rule',
           type    : isMulti ? 'checkbox' : 'list',
-          message : isMulti ? 'Which rule(s) would you like to fix?' : 'Which rule would you like to fix?',
+          message : isMulti ? 'Which rule(s) would you like to view?' : 'Which rule would you like to view?',
           choices : results,
           pageSize: results.length
         },
