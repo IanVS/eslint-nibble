@@ -11,8 +11,8 @@
   },
   "scripts": {
     "pretest": "npm run lint",
-    "test": "tape tests/lib/*.js | tap-difflet",
-    "lint": "eslint src tests/lib"
+    "test": "tape tests/src/*.js | tap-difflet",
+    "lint": "eslint src tests/src"
   },
   "keywords": [
     "eslint",
