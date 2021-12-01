@@ -1,5 +1,9 @@
 # eslint-nibble Changelog
 
+### 8.0.0
+- (Breaking) Require ESLint >= 7 (to support ESLint 8) (#88)
+- (Build) Remove babel compilation step (#89)
+
 ### 7.0.0
 - (Breaking) Drop node < 12 (#83)
 - (Feature) Adds `--fixable-only` option to only show fixable results (#82)
