@@ -1,6 +1,7 @@
 'use strict';
 
 const { ESLint } = require('eslint');
+const { fix } = require('eslint-filtered-fix');
 let cli = new ESLint({});
 
 function getCounts(messages) {
@@ -112,6 +113,15 @@ module.exports = {
 
   async nibbleOnFiles(files) {
     const results = await cli.lintFiles(files);
+    const report = {
+      results,
+      ...calculateStatsPerRun(results)
+    };
+    return report;
+  },
+
+  async fixNibbles(files, fixOptions, configuration) {
+    const results = await fix(files, fixOptions, configuration);
     const report = {
       results,
       ...calculateStatsPerRun(results)

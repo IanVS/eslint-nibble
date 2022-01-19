@@ -4,7 +4,6 @@ const nibbler = require('./nibbler');
 const fmt = require('./config/formatters');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
-const { fix } = require('eslint-filtered-fix');
 const options = require('./config/options');
 const { version } = require('../package.json');
 
@@ -180,7 +179,7 @@ const cli = {
                 rules   : isMulti ? answers.rule : [answers.rule],
                 warnings: answers.fixWarnings
               };
-              const fixedReport = await fix(files, fixOptions, configuration);
+              const fixedReport = await nibbler.fixNibbles(files, fixOptions, configuration);
               const ruleResults = nibbler.getRuleResults(fixedReport, answers.rule);
               if (ruleResults.errorCount > 0 || ruleResults.warningCount > 0) {
                 const detailed = await nibbler.getFormattedResults(ruleResults, fmt.detailed);
