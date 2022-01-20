@@ -1,5 +1,8 @@
 # eslint-nibble Changelog
 
+### 8.0.1
+- (Fix) Correctly report results of autofix (#91)
+
 ### 8.0.0
 - (Breaking) Require ESLint >= 7 (to support ESLint 8) (#88)
 - (Build) Remove babel compilation step (#89)
