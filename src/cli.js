@@ -54,7 +54,7 @@ const cli = {
     } else {
       const configuration = { extensions };
       if (configFile) {
-        configuration.configFile = configFile;
+        configuration.overrideConfigFile = configFile;
       }
       if (cache) {
         configuration.cache = cache;
