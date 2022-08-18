@@ -40,6 +40,10 @@ module.exports = optionator({
     type       : 'path::String',
     description: 'Use configuration from this file or shareable config'
   }, {
+    option     : 'resolve-plugins-relative-to',
+    type       : 'path::String',
+    description: 'Changes the folder where plugins are resolved from'
+  }, {
     option     : 'cache',
     type       : 'Boolean',
     default    : 'false',
@@ -82,5 +86,8 @@ module.exports = optionator({
     option     : 'fixable-only',
     type       : 'Boolean',
     description: 'Only show fixable rules in output results'
-  }]
+  }],
+  helpStyle: {
+    maxPadFactor: 2.5
+  }
 });

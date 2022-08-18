@@ -14,6 +14,7 @@ const cli = {
         files,
         extensions,
         configFile,
+        resolvePluginsRelativeTo,
         cache,
         cacheLocation,
         allowedRules,
@@ -30,6 +31,7 @@ const cli = {
       files = currentOptions._;
       extensions = currentOptions.ext;
       configFile = currentOptions.config;
+      resolvePluginsRelativeTo = currentOptions.resolvePluginsRelativeTo;
       cache = currentOptions.cache;
       cacheLocation = currentOptions.cacheLocation;
       allowedRules = currentOptions.rule;
@@ -55,6 +57,9 @@ const cli = {
       const configuration = { extensions };
       if (configFile) {
         configuration.overrideConfigFile = configFile;
+      }
+      if (resolvePluginsRelativeTo) {
+        configuration.resolvePluginsRelativeTo = resolvePluginsRelativeTo;
       }
       if (cache) {
         configuration.cache = cache;
