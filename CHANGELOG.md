@@ -2,7 +2,7 @@
 
 ### 8.1.0
 - (Feature) Add --resolve-plugins-relative-to option by @ehoogeveen-medweb in #99
-- 
+- (Dep) Update dependencies
 
 ### 8.0.2
 - (Fix) Update cli.js with latest ESLint API changes by @brunoselvacj in #97
