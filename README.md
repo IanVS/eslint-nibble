@@ -94,6 +94,12 @@ eslint-nibble --ext .jsx,.js lib/
 ESLint will automatically detect config files with [standard naming](http://eslint.org/docs/user-guide/configuring#configuration-file-formats).
 Add the `--config` option to specify a different config file for ESLint to use.
 
+### `--resolve-plugins-relative-to`
+
+Changes the folder where plugins are resolved from.  See the
+[ESLint docs](https://eslint.org/docs/user-guide/command-line-interface#--resolve-plugins-relative-to)
+for more details.
+
 ### `--cache`
 
 Highly recommended.  ESLint will cache the results of linting, causing subsequent runs to be much faster.  See the
