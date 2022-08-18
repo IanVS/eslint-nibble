@@ -1,5 +1,13 @@
 # eslint-nibble Changelog
 
+### 8.1.0
+- (Feature) Add --resolve-plugins-relative-to option by @ehoogeveen-medweb in #99
+- 
+
+### 8.0.2
+- (Fix) Update cli.js with latest ESLint API changes by @brunoselvacj in #97
+- (Dep) Bump hosted-git-info from 2.8.5 to 2.8.9 by @dependabot in #80
+
 ### 8.0.1
 - (Fix) Correctly report results of autofix (#91)
 
