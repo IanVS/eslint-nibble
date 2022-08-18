@@ -80,25 +80,10 @@ If you are using iTerm2 or Guake, you can set them up so that your text editor o
 
 ## Options
 
-### `--ext`
-
-If your Javascript files have an extension other than `.js`, you can use the `--ext` flag to
-specify which extensions to examine.  For example, this will check all files ending in `.jsx` or `.js`:
-
-```shell
-eslint-nibble --ext .jsx,.js lib/
-```
-
 ### `--config, -c`
 
 ESLint will automatically detect config files with [standard naming](http://eslint.org/docs/user-guide/configuring#configuration-file-formats).
 Add the `--config` option to specify a different config file for ESLint to use.
-
-### `--resolve-plugins-relative-to`
-
-Changes the folder where plugins are resolved from.  See the
-[ESLint docs](https://eslint.org/docs/user-guide/command-line-interface#--resolve-plugins-relative-to)
-for more details.
 
 ### `--cache`
 
@@ -110,11 +95,36 @@ When used in conjunction with the `--cache` flag, controls where the ESLint cach
 is written.  See the [ESLint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache-location)
 for more details.
 
+### `--ext`
+
+If your Javascript files have an extension other than `.js`, you can use the `--ext` flag to
+specify which extensions to examine.  For example, this will check all files ending in `.jsx` or `.js`:
+
+```shell
+eslint-nibble --ext .jsx,.js lib/
+```
+
+### `--format, -f`
+When used in conjunction with `--no-interactive`, controlls the output [format from ESLint](https://eslint.org/docs/user-guide/formatters).  Has no effect in interactive mode.  The default ESLint formatter will be used if `--format` is not set.
+
+### `--fixable-only`
+Only show rules that are autofixable.
+
+
 ### `--multi`
 Allows selection of more than one rule at a time in the interactive cli.
 
+### `--no-interactive`
+Potentially useful in CI, or any other situation where you would like to run ESLint using your standard project config (`.eslintrc`), but only on a subset of rules (using the `--rule` flag).  Using `--no-interactive` will prevent eslint-nibble from displaying a menu, but will instead print out any warnings/errors and return an exit code of 1 if there are errors, or 0 otherwise, just like ESLint itself does.
+
 ### `--no-warnings`
 Only show results for linting errors, not warnings.
+
+### `--resolve-plugins-relative-to`
+
+Changes the folder where plugins are resolved from.  See the
+[ESLint docs](https://eslint.org/docs/user-guide/command-line-interface#--resolve-plugins-relative-to)
+for more details.
 
 ### `--rule`
 If you have so many failing rules that navigating the list is cumbersome, use this flag to filter down
@@ -124,14 +134,6 @@ or by using multiple `--rule` flags (e.g. `--rule semi --rule quotes`).
 ### `--rulesdir`
 This corresponds to the eslint `--rulesdir` [option](https://eslint.org/docs/user-guide/command-line-interface#-rulesdir).  Use it to specify a path to custom eslint rules.
 
-### `--no-interactive`
-Potentially useful in CI, or any other situation where you would like to run ESLint using your standard project config (`.eslintrc`), but only on a subset of rules (using the `--rule` flag).  Using `--no-interactive` will prevent eslint-nibble from displaying a menu, but will instead print out any warnings/errors and return an exit code of 1 if there are errors, or 0 otherwise, just like ESLint itself does.
-
-### `--format, -f`
-When used in conjunction with `--no-interactive`, controlls the output [format from ESLint](https://eslint.org/docs/user-guide/formatters).  Has no effect in interactive mode.  The default ESLint formatter will be used if `--format` is not set.
-
-### `--fixable-only`
-Only show rules that are autofixable.
 
 ### globs
 
