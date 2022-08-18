@@ -35,10 +35,10 @@
   "dependencies": {
     "@ianvs/eslint-stats": "^2.0.0",
     "chalk": "^4.1.1",
-    "eslint-filtered-fix": "^0.2.0",
+    "eslint-filtered-fix": "^0.3.0",
     "eslint-formatter-friendly": "^7.0.0",
     "eslint-summary": "^1.0.0",
-    "inquirer": "8.1.1",
+    "inquirer": "^8.2.3",
     "optionator": "^0.9.1"
   },
   "devDependencies": {
