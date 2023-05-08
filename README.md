@@ -62,8 +62,7 @@ npm run nibble
 ```
 
 Eslint-nibble will then display a rundown of the rules that are failing and a summary of the results, 
-using [eslint-stats](https://github.com/ganimomer/eslint-stats) 
-and [eslint-summary](https://github.com/davidwaterston/eslint-summary), and will ask you to pick a rule to work on:
+using [eslint-stats](https://github.com/ganimomer/eslint-stats) and will ask you to pick a rule to work on:
 
 ![eslint-stats-screenshot](docs/eslint-stats-screenshot.png)
 
