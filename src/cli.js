@@ -54,7 +54,10 @@ const cli = {
       // Show help
       console.log(options.generateHelp());
     } else {
-      const configuration = { extensions };
+      const configuration = { };
+      if (extensions) {
+        configuration.extensions = extensions;
+      }
       if (configFile) {
         configuration.overrideConfigFile = configFile;
       }
