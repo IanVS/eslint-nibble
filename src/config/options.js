@@ -32,7 +32,7 @@ module.exports = optionator({
   }, {
     option     : 'ext',
     type       : '[String]',
-    default    : '.js',
+    default    : '',
     description: 'Specify JavaScript file extensions'
   }, {
     option     : 'config',
