@@ -228,27 +228,25 @@ test('nibbleOnFiles :: Returns report with no warnings or errors if all rules pa
 test('getFormattedResults :: Returns formatted report for built-in formatter', async function (t) {
   t.plan(2);
   var report = require('../fixtures/reports/one-file-one-error');
-  var formattedResult = await nibbler.getFormattedResults(report, 'compact');
-  var expectedResult = 'path/to/error.js: line 1, col 4, Error - foo is defined but never used (no-unused-vars)\n\n1 problem';
+  var formattedResult = await nibbler.getFormattedResults(report, 'json');
+  var expectedResult = '[{"filePath":"path/to/error.js","messages":[{"ruleId":"no-unused-vars","severity":2,"message":"foo is defined but never used","line":1,"column":4,"nodeType":"Identifier","source":"var foo;"}],"errorCount":1,"warningCount":0}]';
   t.ok(formattedResult, 'returns result');
   t.equal(formattedResult, expectedResult, 'used the correct formatter');
 });
 
-test('nibbler :: Examines files with provided extensions', async function (t) {
+test('nibbler :: Examines files with non-js extensions specified in eslint.config.js', async function (t) {
   t.plan(3);
   var files = path.resolve(path.join(__dirname, '/../fixtures/files/jsx/'));
-  nibbler.configure({ extensions: ['.jsx'] });
   var report = await nibbler.nibbleOnFiles([files]);
   t.ok(report, 'returns report');
   t.ok(report.errorCount, 'report has an errorCount');
   t.equal(report.errorCount, 1, 'report errorCount is 1');
 });
 
-test('nibbler :: Allows multiple extensions', async function (t) {
+test('nibbler :: Allows mixed extensions', async function (t) {
   t.plan(3);
   var jsxFiles = path.resolve(path.join(__dirname, '/../fixtures/files/jsx/'));
   var jsFiles = path.resolve(path.join(__dirname, '/../fixtures/files/semi-error/'));
-  nibbler.configure({ extensions: ['.jsx', '.js'] });
   var report = await nibbler.nibbleOnFiles([jsxFiles, jsFiles]);
   t.ok(report, 'returns report');
   t.ok(report.errorCount, 'report has an errorCount');
