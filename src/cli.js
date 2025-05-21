@@ -182,6 +182,7 @@ const cli = {
         }])
           .then(async function gotInput(answers) {
             // Display detailed error reports
+            // eslint-disable-next-line promise/always-return
             if (answers.fix) {
               const fixOptions = {
                 rules   : isMulti ? answers.rule : [answers.rule],
@@ -204,6 +205,9 @@ const cli = {
               const detailed = await nibbler.getFormattedResults(ruleResults, fmt.detailed);
               console.log(detailed);
             }
+          })
+          .catch((err) => {
+            console.error(err)
           });
 
       // No report or not any errors or warnings
