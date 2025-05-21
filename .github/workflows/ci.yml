@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        nodeVersion: [18, 20, 22, 24]
+    runs-on: ubuntu-latest
+    steps:
+      # Setup and dependencies
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Setup Node.js
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4
+        with:
+          node-version: ${{ matrix.nodeVersion }}
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+
+      # Checks
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm test
+
+      
