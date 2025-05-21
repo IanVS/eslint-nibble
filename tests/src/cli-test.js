@@ -119,9 +119,9 @@ test('cli :: outputs the results using a provided formatter if not interactive',
   // Assert that correct formatter is used for console output
   console.log = function (input) {
     console.log = origConsoleLog;
-    t.ok(input.includes('semi-error/no-semi.js: line 1, col 12, Error - Missing semicolon. (semi)', 'Specified formatter is used'));
+    t.ok(input.includes('"messages":[{"ruleId":"semi","severity":2,"message":"Missing semicolon.","line":1,"column":12,"nodeType":"VariableDeclaration","messageId":"missingSemi","endLine":2,"endColumn":1,"fix":{"range":[11,11],"text":";"}}]'));
   };
-  await cli.execute([nodeBin, nibbleBin, erroringPath, '--no-interactive', '--format', 'compact']);
+  await cli.execute([nodeBin, nibbleBin, erroringPath, '--no-interactive', '--format', 'json']);
 
   // Restore console
   console.log = origConsoleLog;

@@ -40,11 +40,10 @@
     "text-table": "^0.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.31.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.27.4",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1",
+    "eslint": "^9.27.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-promise": "^7.2.1",
+    "globals": "^16.1.0",
     "tap-difflet": "^0.7.2",
     "tape": "^5.6.0",
     "tape-catch": "^1.0.6"
