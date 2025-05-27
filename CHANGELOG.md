@@ -1,5 +1,15 @@
 # eslint-nibble Changelog
 
+### 8.2.0
+
+- (Breaking) Change default extension to run on all files in #117
+- (Breaking) Update eslint peer dependency range in #126
+- (Dep) Vendorize eslint-summary in #108
+- (Dep) Update internal eslint to 9.27.0 in #122
+- (Dep) Update inquirer.js in #124
+- (Dep) Add prettier for formatting in #125
+- (Build) Set up GitHub CI in #123
+
 ### 8.1.0
 
 - (Feature) Add --resolve-plugins-relative-to option by @ehoogeveen-medweb in #99
