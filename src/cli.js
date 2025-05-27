@@ -3,7 +3,7 @@
 const nibbler = require('./nibbler');
 const fmt = require('./config/formatters');
 const chalk = require('chalk');
-const inquirer = require('inquirer');
+const inquirer = require('@inquirer/prompts');
 const options = require('./config/options');
 const { version } = require('../package.json');
 
@@ -151,65 +151,53 @@ const cli = {
         console.log(summary);
 
         // Ask user for the rule to narrow in on
-        inquirer.prompt([{
-          name    : 'rule',
-          type    : isMulti ? 'checkbox' : 'list',
-          message : isMulti ? 'Which rule(s) would you like to view?' : 'Which rule would you like to view?',
-          choices : results,
+        const ruleAnswer = isMulti ? await inquirer.checkbox({
+          message: 'Which rule(s) would you like to view?',
+          choices: results,
           pageSize: results.length
-        },
-        {
-          name   : 'fix',
-          type   : 'confirm',
+        }) : await inquirer.select({
+           message: 'Which rule would you like to view?',
+          choices: results,
+          pageSize: results.length
+        });
+
+        const ruleReport = nibbler.getRuleResults(report, ruleAnswer);
+        const hasFixableLints = ruleReport.fixableErrorCount > 0 || ruleReport.fixableWarningCount > 0;
+        const fixAnswer = hasFixableLints ? await inquirer.confirm({
           message: 'Would you like to attempt to auto-fix?',
           default: false,
-          when(answers) {
-            const ruleReport = nibbler.getRuleResults(report, answers.rule);
-            return ruleReport.fixableErrorCount > 0 || ruleReport.fixableWarningCount > 0;
-          }
-        },
-        {
-          name   : 'fixWarnings',
-          type   : 'confirm',
+        }) : false;
+
+        const hasFixableWarnings = nibbler.getRuleResults(report, ruleAnswer).fixableWarningCount > 0;
+        const fixWarningsAnswer = hasFixableWarnings && fixAnswer ? await inquirer.confirm({
           message: 'Autofix warnings?',
           default: true,
-          when(answers) {
-            if (!answers.fix) return false;
+        }) : false;
 
-            const ruleReport = nibbler.getRuleResults(report, answers.rule);
-            return ruleReport.fixableWarningCount > 0;
-          }
-        }])
-          .then(async function gotInput(answers) {
-            // Display detailed error reports
-            // eslint-disable-next-line promise/always-return
-            if (answers.fix) {
-              const fixOptions = {
-                rules   : isMulti ? answers.rule : [answers.rule],
-                warnings: answers.fixWarnings
-              };
-              const fixedReport = await nibbler.fixNibbles(files, fixOptions, configuration);
-              const ruleResults = nibbler.getRuleResults(fixedReport, answers.rule);
-              if (ruleResults.errorCount > 0 || ruleResults.warningCount > 0) {
-                const detailed = await nibbler.getFormattedResults(ruleResults, fmt.detailed);
-                console.log(detailed);
-              } else {
-                if (isMulti) {
-                  console.log(chalk.green(`Fixes applied: ${answers.rule.join(', ')} now passing`));
-                } else {
-                  console.log(chalk.green(`Fixes applied, ${answers.rule} is now passing`));
-                }
-              }
+        // Display detailed error reports
+        if (fixAnswer) {
+          const fixOptions = {
+            rules   : isMulti ? ruleAnswer : [ruleAnswer],
+            warnings: fixWarningsAnswer
+          };
+          const fixedReport = await nibbler.fixNibbles(files, fixOptions, configuration);
+          const ruleResults = nibbler.getRuleResults(fixedReport, ruleAnswer);
+          if (ruleResults.errorCount > 0 || ruleResults.warningCount > 0) {
+            const detailed = await nibbler.getFormattedResults(ruleResults, fmt.detailed);
+            console.log(detailed);
+          } else {
+            if (isMulti) {
+              console.log(chalk.green(`Fixes applied: ${ruleAnswer.join(', ')} now passing`));
             } else {
-              const ruleResults = nibbler.getRuleResults(report, answers.rule);
-              const detailed = await nibbler.getFormattedResults(ruleResults, fmt.detailed);
-              console.log(detailed);
+              console.log(chalk.green(`Fixes applied, ${ruleAnswer} is now passing`));
             }
-          })
-          .catch((err) => {
-            console.error(err)
-          });
-
+          }
+        } else {
+          const ruleResults = nibbler.getRuleResults(report, ruleAnswer);
+          const detailed = await nibbler.getFormattedResults(ruleResults, fmt.detailed);
+          console.log(detailed);
+        }
+        
       // No report or not any errors or warnings
       } else {
         console.log(chalk.green('Great job, all lint rules passed.'));
