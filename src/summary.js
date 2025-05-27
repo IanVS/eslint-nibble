@@ -35,7 +35,7 @@ module.exports = function (results) {
   const summaryLineArray = [
     chalk.bold(fileCount + ' ' + pluralize('file', fileCount) + ' checked.'),
     chalk.bold(passCount + ' passed.'),
-    chalk.bold(failureCount + ' failed.')
+    chalk.bold(failureCount + ' failed.'),
   ];
 
   if (warningCount || errorCount) {
@@ -43,7 +43,5 @@ module.exports = function (results) {
     summaryLineArray.push(chalk[errorColor].bold(errorCount + ' ' + pluralize('error', errorCount) + '.'));
   }
 
-  return '\n' +
-            table([summaryLineArray]) +
-            '\n';
+  return '\n' + table([summaryLineArray]) + '\n';
 };

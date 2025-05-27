@@ -18,12 +18,11 @@ npm install --no-save eslint-nibble
 
 You can also install `eslint-nibble` globally, but it is not recommended.
 
-Instead, try installing `eslint-nibble` in your project with `--no-save` (as shown above), because this tool is intended only to get you up and running.  Once you're happy with your rules and your code, you can remove `eslint-nibble`.
+Instead, try installing `eslint-nibble` in your project with `--no-save` (as shown above), because this tool is intended only to get you up and running. Once you're happy with your rules and your code, you can remove `eslint-nibble`.
 
-Note: as of version `5.0.0`, `eslint-nibble` no longer comes with its own bundled version of `eslint`.  Instead, you should install `eslint` into your project (see [getting started](https://eslint.org/docs/user-guide/getting-started)), and `eslint-nibble` will use the version you install.  
+Note: as of version `5.0.0`, `eslint-nibble` no longer comes with its own bundled version of `eslint`. Instead, you should install `eslint` into your project (see [getting started](https://eslint.org/docs/user-guide/getting-started)), and `eslint-nibble` will use the version you install.
 
-This module does not make any decisions about which ESLint rules to run.  Make sure your project has an `.eslintrc` file if you want ESLint to do anything.  No linting rules are enabled by default.
-
+This module does not make any decisions about which ESLint rules to run. Make sure your project has an `.eslintrc` file if you want ESLint to do anything. No linting rules are enabled by default.
 
 ## Usage
 
@@ -61,7 +60,7 @@ Then, to run eslint-nibble, you can use:
 npm run nibble
 ```
 
-Eslint-nibble will then display a rundown of the rules that are failing and a summary of the results, 
+Eslint-nibble will then display a rundown of the rules that are failing and a summary of the results,
 using [eslint-stats](https://github.com/ganimomer/eslint-stats) and will ask you to pick a rule to work on:
 
 ![eslint-stats-screenshot](docs/eslint-stats-screenshot.png)
@@ -86,53 +85,59 @@ Add the `--config` option to specify a different config file for ESLint to use.
 
 ### `--cache`
 
-Highly recommended.  ESLint will cache the results of linting, causing subsequent runs to be much faster.  See the
+Highly recommended. ESLint will cache the results of linting, causing subsequent runs to be much faster. See the
 [ESLint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache) for more details.
 
 ### `--cache-location`
+
 When used in conjunction with the `--cache` flag, controls where the ESLint cache
-is written.  See the [ESLint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache-location)
+is written. See the [ESLint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache-location)
 for more details.
 
 ### `--ext`
 
 If your Javascript files have an extension other than `.js`, you can use the `--ext` flag to
-specify which extensions to examine.  For example, this will check all files ending in `.jsx` or `.js`:
+specify which extensions to examine. For example, this will check all files ending in `.jsx` or `.js`:
 
 ```shell
 eslint-nibble --ext .jsx,.js lib/
 ```
 
 ### `--format, -f`
-When used in conjunction with `--no-interactive`, controlls the output [format from ESLint](https://eslint.org/docs/user-guide/formatters).  Has no effect in interactive mode.  The default ESLint formatter will be used if `--format` is not set.
+
+When used in conjunction with `--no-interactive`, controlls the output [format from ESLint](https://eslint.org/docs/user-guide/formatters). Has no effect in interactive mode. The default ESLint formatter will be used if `--format` is not set.
 
 ### `--fixable-only`
+
 Only show rules that are autofixable.
 
-
 ### `--multi`
+
 Allows selection of more than one rule at a time in the interactive cli.
 
 ### `--no-interactive`
-Potentially useful in CI, or any other situation where you would like to run ESLint using your standard project config (`.eslintrc`), but only on a subset of rules (using the `--rule` flag).  Using `--no-interactive` will prevent eslint-nibble from displaying a menu, but will instead print out any warnings/errors and return an exit code of 1 if there are errors, or 0 otherwise, just like ESLint itself does.
+
+Potentially useful in CI, or any other situation where you would like to run ESLint using your standard project config (`.eslintrc`), but only on a subset of rules (using the `--rule` flag). Using `--no-interactive` will prevent eslint-nibble from displaying a menu, but will instead print out any warnings/errors and return an exit code of 1 if there are errors, or 0 otherwise, just like ESLint itself does.
 
 ### `--no-warnings`
+
 Only show results for linting errors, not warnings.
 
 ### `--resolve-plugins-relative-to`
 
-Changes the folder where plugins are resolved from.  See the
+Changes the folder where plugins are resolved from. See the
 [ESLint docs](https://eslint.org/docs/user-guide/command-line-interface#--resolve-plugins-relative-to)
 for more details.
 
 ### `--rule`
+
 If you have so many failing rules that navigating the list is cumbersome, use this flag to filter down
-the rules that are displayed.  Multiple rules can be included as comma-separated strings (e.g. `--rule semi,quotes`),
+the rules that are displayed. Multiple rules can be included as comma-separated strings (e.g. `--rule semi,quotes`),
 or by using multiple `--rule` flags (e.g. `--rule semi --rule quotes`).
 
 ### `--rulesdir`
-This corresponds to the eslint `--rulesdir` [option](https://eslint.org/docs/user-guide/command-line-interface#-rulesdir).  Use it to specify a path to custom eslint rules.
 
+This corresponds to the eslint `--rulesdir` [option](https://eslint.org/docs/user-guide/command-line-interface#-rulesdir). Use it to specify a path to custom eslint rules.
 
 ### globs
 

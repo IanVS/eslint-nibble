@@ -1,10 +1,8 @@
 'use strict';
 
-
 var test = require('tape-catch');
 var cli = require('../../src/cli');
 var path = require('path');
-
 
 test('cli :: works with no arguments', async function (t) {
   t.plan(3);
@@ -17,11 +15,15 @@ test('cli :: works with no arguments', async function (t) {
   var origConsoleErr = console.error;
   console.error = function (input) {
     console.error = origConsoleErr;
-    t.equal(input, 'Invalid argument to \'parse\': undefined.');
+    t.equal(input, "Invalid argument to 'parse': undefined.");
   };
 
   mockLogOnce(origConsoleLog);
-  t.equal(await cli.execute([nodeBin, nibbleBin]), 0, 'exits with 0 if no options given (apart from first two of process.argv)');
+  t.equal(
+    await cli.execute([nodeBin, nibbleBin]),
+    0,
+    'exits with 0 if no options given (apart from first two of process.argv)'
+  );
   t.equal(await cli.execute(), 1, 'exits with 1 if no arguments passed in at all');
 
   // Restore console
@@ -39,7 +41,7 @@ test('cli :: returns 2 if it crashes', async function (t) {
   // Overwrite console methods
   var origConsoleLog = console.log;
   var origConsoleErr = console.error;
-  console.error = function () { };
+  console.error = function () {};
   mockLogOnce(origConsoleLog);
 
   t.equal(await cli.execute([nodeBin, nibbleBin, pathToTest]), 2, 'exits with 2 if there are fatal errors');
@@ -62,10 +64,14 @@ test('cli :: returns exit code without menu when --no-interactive is set', async
   // Overwrite console methods
   var origConsoleLog = console.log;
   var origConsoleErr = console.error;
-  console.error = function () { };
+  console.error = function () {};
 
   mockLogOnce(origConsoleLog);
-  t.equal(await cli.execute([nodeBin, nibbleBin, erroringPath, '--no-interactive']), 1, 'exits with 1 if there are errors');
+  t.equal(
+    await cli.execute([nodeBin, nibbleBin, erroringPath, '--no-interactive']),
+    1,
+    'exits with 1 if there are errors'
+  );
   mockLogOnce(origConsoleLog);
   t.equal(await cli.execute([nodeBin, nibbleBin, warningPath, '--no-interactive']), 0, 'exits with 0 if only warnings');
   mockLogOnce(origConsoleLog);
@@ -76,17 +82,25 @@ test('cli :: returns exit code without menu when --no-interactive is set', async
     // Ignore second call to console.log
     mockLogOnce(origConsoleLog);
   };
-  t.equal(await cli.execute([nodeBin, nibbleBin, erroringPath, '--no-interactive', '--rule', 'prefer-const']), 0, 'exits with 0 if all problems are filtered out');
+  t.equal(
+    await cli.execute([nodeBin, nibbleBin, erroringPath, '--no-interactive', '--rule', 'prefer-const']),
+    0,
+    'exits with 0 if all problems are filtered out'
+  );
   console.log = function (input) {
     console.log = origConsoleLog;
     t.ok(input.includes('1:12  error  Missing semicolon', 'Reports semi error'));
-    t.ok(input.includes('2:1   error  Unary operator \'++\' used', 'Reports plusplus error'));
+    t.ok(input.includes("2:1   error  Unary operator '++' used", 'Reports plusplus error'));
   };
-  t.equal(await cli.execute([nodeBin, nibbleBin, multiErrorPath, '--no-interactive']), 1, 'exits with 1 if there are multiple errors');
+  t.equal(
+    await cli.execute([nodeBin, nibbleBin, multiErrorPath, '--no-interactive']),
+    1,
+    'exits with 1 if there are multiple errors'
+  );
   console.log = function (input) {
     console.log = origConsoleLog;
     t.ok(input.includes('1:12  error  Missing semicolon', 'Reports semi error'));
-    t.ok(!input.includes('Unary operator \'++\' used'), 'Does not report plusplus error');
+    t.ok(!input.includes("Unary operator '++' used"), 'Does not report plusplus error');
   };
   t.equal(
     await cli.execute([nodeBin, nibbleBin, multiErrorPath, '--no-interactive', '--rule', 'semi']),
@@ -108,18 +122,25 @@ test('cli :: outputs the results using a provided formatter if not interactive',
 
   var origConsoleLog = console.log;
   var origConsoleErr = console.error;
-  console.error = function () { };
+  console.error = function () {};
 
   // Assert that correct formatter is used for console output
   console.log = function (input) {
     console.log = origConsoleLog;
-    t.ok(input.includes('1:12  error  Missing semicolon  semi'), 'Default eslint formatter is used if none is specified');
+    t.ok(
+      input.includes('1:12  error  Missing semicolon  semi'),
+      'Default eslint formatter is used if none is specified'
+    );
   };
   await cli.execute([nodeBin, nibbleBin, erroringPath, '--no-interactive']);
   // Assert that correct formatter is used for console output
   console.log = function (input) {
     console.log = origConsoleLog;
-    t.ok(input.includes('"messages":[{"ruleId":"semi","severity":2,"message":"Missing semicolon.","line":1,"column":12,"nodeType":"VariableDeclaration","messageId":"missingSemi","endLine":2,"endColumn":1,"fix":{"range":[11,11],"text":";"}}]'));
+    t.ok(
+      input.includes(
+        '"messages":[{"ruleId":"semi","severity":2,"message":"Missing semicolon.","line":1,"column":12,"nodeType":"VariableDeclaration","messageId":"missingSemi","endLine":2,"endColumn":1,"fix":{"range":[11,11],"text":";"}}]'
+      )
+    );
   };
   await cli.execute([nodeBin, nibbleBin, erroringPath, '--no-interactive', '--format', 'json']);
 
