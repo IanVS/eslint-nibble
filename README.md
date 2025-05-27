@@ -94,7 +94,7 @@ When used in conjunction with the `--cache` flag, controls where the ESLint cach
 is written. See the [ESLint docs](https://eslint.org/docs/user-guide/command-line-interface#--cache-location)
 for more details.
 
-### `--ext`
+### `--ext` (ESLint 7 & 8 only)
 
 If your Javascript files have an extension other than `.js`, you can use the `--ext` flag to
 specify which extensions to examine. For example, this will check all files ending in `.jsx` or `.js`:
@@ -102,6 +102,8 @@ specify which extensions to examine. For example, this will check all files endi
 ```shell
 eslint-nibble --ext .jsx,.js lib/
 ```
+
+This option will cause an exception if used with ESLint 9 or above.
 
 ### `--format, -f`
 
