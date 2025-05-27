@@ -22,12 +22,12 @@ jobs:
           node-version: ${{ matrix.nodeVersion }}
           cache: 'npm'
       - name: Install dependencies
-        run: npm install
+        run: npm install --force
 
       # Checks
       - name: Lint
         run: npm run lint
       - name: Test
         run: npm test
-
-      
+      - name: Format
+        run: npm run format:check

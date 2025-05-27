@@ -5,21 +5,24 @@ const { fix } = require('eslint-filtered-fix');
 let cli = new ESLint({});
 
 function getCounts(messages) {
-  const counts = messages.reduce(function (result, message) {
-    if (message.severity === 1) {
-      result.warningCount++;
-      if (message.fix) {
-        result.fixableWarningCount++;
+  const counts = messages.reduce(
+    function (result, message) {
+      if (message.severity === 1) {
+        result.warningCount++;
+        if (message.fix) {
+          result.fixableWarningCount++;
+        }
       }
-    }
-    if (message.severity === 2) {
-      result.errorCount++;
-      if (message.fix) {
-        result.fixableErrorCount++;
+      if (message.severity === 2) {
+        result.errorCount++;
+        if (message.fix) {
+          result.fixableErrorCount++;
+        }
       }
-    }
-    return result;
-  }, { errorCount: 0, warningCount: 0, fixableErrorCount: 0, fixableWarningCount: 0 });
+      return result;
+    },
+    { errorCount: 0, warningCount: 0, fixableErrorCount: 0, fixableWarningCount: 0 }
+  );
 
   return counts;
 }
@@ -31,20 +34,23 @@ function getCounts(messages) {
  * @return {object}          Contains the stats
  */
 function calculateStatsPerRun(results) {
-  return results.reduce((stat, result) => {
-    stat.errorCount += result.errorCount;
-    stat.fatalErrorCount += result.fatalErrorCount;
-    stat.warningCount += result.warningCount;
-    stat.fixableErrorCount += result.fixableErrorCount;
-    stat.fixableWarningCount += result.fixableWarningCount;
-    return stat;
-  }, {
-    errorCount         : 0,
-    fatalErrorCount    : 0,
-    warningCount       : 0,
-    fixableErrorCount  : 0,
-    fixableWarningCount: 0
-  });
+  return results.reduce(
+    (stat, result) => {
+      stat.errorCount += result.errorCount;
+      stat.fatalErrorCount += result.fatalErrorCount;
+      stat.warningCount += result.warningCount;
+      stat.fixableErrorCount += result.fixableErrorCount;
+      stat.fixableWarningCount += result.fixableWarningCount;
+      return stat;
+    },
+    {
+      errorCount: 0,
+      fatalErrorCount: 0,
+      warningCount: 0,
+      fixableErrorCount: 0,
+      fixableWarningCount: 0,
+    }
+  );
 }
 
 /**
@@ -67,10 +73,10 @@ function filterResults(report, msgKey, options) {
       }
 
       if (options.present) {
-        return (msg[msgKey]);
+        return msg[msgKey];
       }
       if (options.compareVal) {
-        return (msg[msgKey] === options.compareVal);
+        return msg[msgKey] === options.compareVal;
       }
       if (options.includes) {
         if (!Array.isArray(options.includes)) {
@@ -93,7 +99,7 @@ function filterResults(report, msgKey, options) {
         errorCount,
         warningCount,
         fixableErrorCount,
-        fixableWarningCount
+        fixableWarningCount,
       };
     }
     return {};
@@ -106,7 +112,6 @@ function filterResults(report, msgKey, options) {
 }
 
 module.exports = {
-
   configure(configuration) {
     cli = new ESLint(configuration);
   },
@@ -115,7 +120,7 @@ module.exports = {
     const results = await cli.lintFiles(files);
     const report = {
       results,
-      ...calculateStatsPerRun(results)
+      ...calculateStatsPerRun(results),
     };
     return report;
   },
@@ -124,7 +129,7 @@ module.exports = {
     const results = await fix(files, fixOptions, configuration);
     const report = {
       results,
-      ...calculateStatsPerRun(results)
+      ...calculateStatsPerRun(results),
     };
     return report;
   },
@@ -143,8 +148,9 @@ module.exports = {
   },
 
   getRuleResults(report, ruleName) {
-    const ruleResults = Array.isArray(ruleName)
-      ? filterResults(report, 'ruleId', { includes: ruleName })
+    const ruleResults =
+      Array.isArray(ruleName) ?
+        filterResults(report, 'ruleId', { includes: ruleName })
       : filterResults(report, 'ruleId', { compareVal: ruleName });
     return ruleResults;
   },
@@ -157,5 +163,5 @@ module.exports = {
   getFixableResults(report) {
     const ruleResults = filterResults(report, 'fix', {});
     return ruleResults;
-  }
+  },
 };

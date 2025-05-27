@@ -38,7 +38,6 @@ test('getRuleResults :: Returns correct messages', function (outer) {
     t.equal(ruleReport.warningCount, 1, 'report warningCount is 1');
   });
 
-
   outer.test('-- One file, One rule', function (t) {
     t.plan(7);
     var report = require('../fixtures/reports/one-file-two-errors-no-warnings-one-rule');
@@ -61,7 +60,11 @@ test('getRuleResults :: Returns correct messages', function (outer) {
     t.equal(ruleReport.results[0].filePath, 'path/to/file.js', 'returned correct filePath');
     t.equal(ruleReport.results[0].messages[0].ruleId, ruleName, 'filtered on correct rule');
     t.equal(ruleReport.results[0].messages[0].severity, 2, 'returned correct severity');
-    t.equal(ruleReport.results[0].messages[0].message, 'Expected \'===\' and instead saw \'==\'.', 'returned correct message');
+    t.equal(
+      ruleReport.results[0].messages[0].message,
+      "Expected '===' and instead saw '=='.",
+      'returned correct message'
+    );
     t.equal(ruleReport.results[0].messages[0].line, 1, 'returned correct line');
     t.equal(ruleReport.results[0].messages[0].column, 8, 'returned correct column');
     t.equal(ruleReport.results[0].messages[0].nodeType, 'BinaryExpression', 'returned correct nodeType');
@@ -229,7 +232,8 @@ test('getFormattedResults :: Returns formatted report for built-in formatter', a
   t.plan(2);
   var report = require('../fixtures/reports/one-file-one-error');
   var formattedResult = await nibbler.getFormattedResults(report, 'json');
-  var expectedResult = '[{"filePath":"path/to/error.js","messages":[{"ruleId":"no-unused-vars","severity":2,"message":"foo is defined but never used","line":1,"column":4,"nodeType":"Identifier","source":"var foo;"}],"errorCount":1,"warningCount":0}]';
+  var expectedResult =
+    '[{"filePath":"path/to/error.js","messages":[{"ruleId":"no-unused-vars","severity":2,"message":"foo is defined but never used","line":1,"column":4,"nodeType":"Identifier","source":"var foo;"}],"errorCount":1,"warningCount":0}]';
   t.ok(formattedResult, 'returns result');
   t.equal(formattedResult, expectedResult, 'used the correct formatter');
 });

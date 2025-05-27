@@ -9,5 +9,5 @@ const detailed = require.resolve('eslint-formatter-friendly');
 module.exports = {
   stats,
   summary,
-  detailed
+  detailed,
 };
