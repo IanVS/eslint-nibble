@@ -45,7 +45,7 @@
     "eslint-plugin-promise": "^7.2.1",
     "globals": "^16.1.0",
     "tap-difflet": "^0.7.2",
-    "tape": "^5.6.0",
+    "tape": "^5.9.0",
     "tape-catch": "^1.0.6"
   },
   "peerDependencies": {
