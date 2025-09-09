@@ -3,9 +3,9 @@
 var test = require('tape-catch');
 var summary = require('../../src/summary');
 
-const aPass = { messages: '' };
-const aWarning = { messages: 'A warning', warningCount: 1, errorCount: 0 };
-const aError = { messages: 'A error', warningCount: 0, errorCount: 1 };
+const aPass = { messages: [] };
+const aWarning = { messages: ['A warning'], warningCount: 1, errorCount: 0 };
+const aError = { messages: ['A error'], warningCount: 0, errorCount: 1 };
 
 test('summary :: A Pass', async function (t) {
   t.plan(2);
