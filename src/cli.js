@@ -153,12 +153,12 @@ const cli = {
             await inquirer.checkbox({
               message: 'Which rule(s) would you like to view?',
               choices: results,
-              pageSize: results.length,
+              pageSize: process.stdout.rows - 5,
             })
           : await inquirer.select({
               message: 'Which rule would you like to view?',
               choices: results,
-              pageSize: results.length,
+              pageSize: process.stdout.rows - 5,
             });
 
         const ruleReport = nibbler.getRuleResults(report, ruleAnswer);
