@@ -1,6 +1,7 @@
 'use strict';
 
 const test = require('tape');
+const chalk = require('chalk');
 const stats = require('../../src/stats.js');
 
 const noIssues = require('../fixtures/reports/no-issues.js');
@@ -16,93 +17,115 @@ const twoFilesTwoErrorsNoWarningsTwoRules = require('../fixtures/reports/two-fil
 
 process.stdout.columns = 100;
 
-test('group formatter :: No Issues', function (t) {
+test('stats formatter :: No Issues', function (t) {
+  chalk.level = 1;
   t.plan(2);
   const result = stats(noIssues.results);
   t.ok(result, 'returns result');
   t.deepEqual(result, []);
 });
 
-test('group formatter :: One Error, One Fixable Error', function (t) {
+test('stats group formatter :: One Error, One Fixable Error', function (t) {
+  chalk.level = 1;
   t.plan(2);
   const result = stats(oneFileOneErrorOneFixableError.results);
   t.ok(result, 'returns result');
   t.deepEqual(result, [
     {
-      name: 'semi: 1| ',
+      name: 'semi: \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m',
       value: 'semi',
       short: 'semi',
     },
   ]);
 });
 
-test('group formatter :: One Error', function (t) {
+test('stats formatter :: One Error', function (t) {
+  chalk.level = 1;
   t.plan(2);
   const result = stats(oneFileOneError.results);
   t.ok(result, 'returns result');
   t.deepEqual(result, [
     {
-      name: 'no-unused-vars: 1| ',
+      name: 'no-unused-vars: \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m',
       value: 'no-unused-vars',
       short: 'no-unused-vars',
     },
   ]);
 });
 
-test('group formatter :: One Fatal Error', function (t) {
+test('stats formatter :: One Fatal Error', function (t) {
+  chalk.level = 1;
   t.plan(2);
   const result = stats(oneFileOneFatalError.results);
   t.ok(result, 'returns result');
-  t.deepEqual(result, [{ name: 'undefined: 1| ', value: 'undefined', short: 'undefined' }]);
+  t.deepEqual(result, [
+    { name: 'undefined: \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m', value: 'undefined', short: 'undefined' },
+  ]);
 });
 
-test('group formatter :: One Warning', function (t) {
+test('stats formatter :: One Warning', function (t) {
+  chalk.level = 1;
   t.plan(2);
   const result = stats(oneFileOneWarning.results);
   t.ok(result, 'returns result');
-  t.deepEqual(result, [{ name: 'no-unused-vars: 1| ', value: 'no-unused-vars', short: 'no-unused-vars' }]);
+  t.deepEqual(result, [
+    { name: 'no-unused-vars: \x1B[35m1\x1B[39m|\x1B[43m \x1B[49m', value: 'no-unused-vars', short: 'no-unused-vars' },
+  ]);
 });
 
-test('group formatter :: One File, Two Errors, One Rule', function (t) {
+test('stats formatter :: One File, Two Errors, One Rule', function (t) {
+  chalk.level = 1;
   t.plan(2);
   const result = stats(oneFileTwoErrorsNoWarningsOneRule.results);
   t.ok(result, 'returns result');
-  t.deepEqual(result, [{ name: 'no-unused-vars: 2|  ', value: 'no-unused-vars', short: 'no-unused-vars' }]);
+  t.deepEqual(result, [
+    { name: 'no-unused-vars: \x1B[35m2\x1B[39m|\x1B[41m  \x1B[49m', value: 'no-unused-vars', short: 'no-unused-vars' },
+  ]);
 });
 
-test('group formatter :: One File, Two Errors, Two Rules', function (t) {
+test('stats formatter :: One File, Two Errors, Two Rules', function (t) {
+  chalk.level = 1;
   t.plan(2);
   const result = stats(oneFileTwoErrorsNoWarningsTwoRules.results);
   t.ok(result, 'returns result');
   t.deepEqual(result, [
-    { name: 'eqeqeq:         1| ', value: 'eqeqeq', short: 'eqeqeq' },
-    { name: 'no-unused-vars: 1| ', value: 'no-unused-vars', short: 'no-unused-vars' },
+    { name: 'eqeqeq:         \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m', value: 'eqeqeq', short: 'eqeqeq' },
+    { name: 'no-unused-vars: \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m', value: 'no-unused-vars', short: 'no-unused-vars' },
   ]);
 });
 
-test('group formatter :: One File, Two Errors, One Fixable Error', function (t) {
+test('stats formatter :: One File, Two Errors, One Fixable Error', function (t) {
+  chalk.level = 1;
   t.plan(2);
   const result = stats(oneFileTwoErrorsNoWarningsOneFixableError.results);
   t.ok(result, 'returns result');
   t.deepEqual(result, [
-    { name: 'func-name-matching: 1| ', value: 'func-name-matching', short: 'func-name-matching' },
-    { name: 'semi:               1| ', value: 'semi', short: 'semi' },
+    {
+      name: 'func-name-matching: \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m',
+      value: 'func-name-matching',
+      short: 'func-name-matching',
+    },
+    { name: 'semi:               \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m', value: 'semi', short: 'semi' },
   ]);
 });
 
-test('group formatter :: Two Files, Two Errors, One Rule', function (t) {
+test('stats formatter :: Two Files, Two Errors, One Rule', function (t) {
+  chalk.level = 1;
   t.plan(2);
   const result = stats(twoFilesTwoErrorsNoWarningsOneRule.results);
   t.ok(result, 'returns result');
-  t.deepEqual(result, [{ name: 'no-unused-vars: 2|  ', value: 'no-unused-vars', short: 'no-unused-vars' }]);
+  t.deepEqual(result, [
+    { name: 'no-unused-vars: \x1B[35m2\x1B[39m|\x1B[41m  \x1B[49m', value: 'no-unused-vars', short: 'no-unused-vars' },
+  ]);
 });
 
-test('group formatter :: Two Files, Two Errors, Two Rules', function (t) {
+test('stats formatter :: Two Files, Two Errors, Two Rules', function (t) {
+  chalk.level = 1;
   t.plan(2);
   const result = stats(twoFilesTwoErrorsNoWarningsTwoRules.results);
   t.ok(result, 'returns result');
   t.deepEqual(result, [
-    { name: 'eqeqeq:         1| ', value: 'eqeqeq', short: 'eqeqeq' },
-    { name: 'no-unused-vars: 1| ', value: 'no-unused-vars', short: 'no-unused-vars' },
+    { name: 'eqeqeq:         \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m', value: 'eqeqeq', short: 'eqeqeq' },
+    { name: 'no-unused-vars: \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m', value: 'no-unused-vars', short: 'no-unused-vars' },
   ]);
 });
