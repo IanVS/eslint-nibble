@@ -96,22 +96,7 @@ const cli = {
         }
 
         // Calculate stats array
-        const stats = await nibbler.getFormattedResults(report, fmt.stats);
-
-        // Create an array of choices from the stats
-        // (filter removes empty stat at end)
-        const results = stats
-          .split('\n')
-          .filter((stat) => stat)
-          .map((stat) => {
-            const ruleName = stat.split(':')[0];
-
-            return {
-              name: stat,
-              value: ruleName,
-              short: ruleName,
-            };
-          })
+        const results = (await nibbler.getFormattedResults(report, fmt.stats))
           // Only include allowed rules, if given
           .filter((stat) => (allowedRules ? allowedRules.includes(stat.value) : true));
 
