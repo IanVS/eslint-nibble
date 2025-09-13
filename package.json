@@ -12,8 +12,8 @@
   "scripts": {
     "test": "tape tests/src/*.js | tap-difflet",
     "lint": "eslint src tests/src",
-    "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format": "prettier . --write --experimental-cli",
+    "format:check": "prettier . --check --experimental-cli"
   },
   "keywords": [
     "eslint",
@@ -47,7 +47,7 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-promise": "^7.2.1",
     "globals": "^16.1.0",
-    "prettier": "^4.0.0-alpha.12",
+    "prettier": "^3.6.2",
     "tap-difflet": "^0.7.2",
     "tape": "^5.9.0",
     "tape-catch": "^1.0.6"
