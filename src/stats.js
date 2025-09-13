@@ -1,5 +1,5 @@
 'use strict';
-const chalk = require('chalk');
+const color = require('yoctocolors');
 
 const { bgColors, severities } = require('./config/constants.js');
 
@@ -11,11 +11,11 @@ const getBarRatio = (usedColumns, maxResult, maxWidth) => {
 function formatRow(ruleText, severity, infractionCount, maxRuleCharacters, maxRuleInfractionCount) {
   const maxRuleCountCharacters = String(maxRuleInfractionCount).length;
   const paddedRule = `${ruleText}:`.padEnd(maxRuleCharacters + 2);
-  const paddedCount = chalk.magenta(String(infractionCount).padStart(maxRuleCountCharacters));
+  const paddedCount = color.magenta(String(infractionCount).padStart(maxRuleCountCharacters));
   const maxScreen = process.stdout.columns - 3;
   const barRatio = getBarRatio(maxRuleCharacters + maxRuleCountCharacters + 3, maxRuleInfractionCount, maxScreen);
   const barLength = infractionCount * barRatio;
-  const bar = chalk[bgColors[severity]](' '.repeat(barLength));
+  const bar = color[bgColors[severity]](' '.repeat(barLength));
   return `${paddedRule}${paddedCount}|${bar}`;
 }
 

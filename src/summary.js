@@ -1,6 +1,6 @@
 'use strict';
 
-const chalk = require('chalk');
+const color = require('yoctocolors');
 const table = require('text-table');
 
 const { colors } = require('./config/constants.js');
@@ -32,14 +32,16 @@ module.exports = function (results) {
   fileCount = passCount + failureCount;
 
   const summaryLineArray = [
-    chalk.bold(fileCount + ' ' + pluralize('file', fileCount) + ' checked.'),
-    chalk.bold(passCount + ' passed.'),
-    chalk.bold(failureCount + ' failed.'),
+    color.bold(fileCount + ' ' + pluralize('file', fileCount) + ' checked.'),
+    color.bold(passCount + ' passed.'),
+    color.bold(failureCount + ' failed.'),
   ];
 
   if (warningCount || errorCount) {
-    summaryLineArray.push(chalk[colors.warning].bold(warningCount + ' ' + pluralize('warning', warningCount) + '.'));
-    summaryLineArray.push(chalk[colors.error].bold(errorCount + ' ' + pluralize('error', errorCount) + '.'));
+    summaryLineArray.push(
+      color[colors.warning](color.bold(warningCount + ' ' + pluralize('warning', warningCount) + '.'))
+    );
+    summaryLineArray.push(color[colors.error](color.bold(errorCount + ' ' + pluralize('error', errorCount) + '.')));
   }
 
   return '\n' + table([summaryLineArray]) + '\n';

@@ -2,7 +2,7 @@
 
 const nibbler = require('./nibbler');
 const fmt = require('./config/formatters');
-const chalk = require('chalk');
+const color = require('yoctocolors');
 const inquirerCheckbox = require('@inquirer/checkbox');
 const inquirerConfirm = require('@inquirer/confirm');
 const inquirerSelect = require('@inquirer/select');
@@ -103,19 +103,19 @@ const cli = {
         if (!results.length) {
           // If all stats were filtered out due to provided `--rule` options…
           if (allowedRules && allowedRules.length) {
-            console.log(chalk.yellow(`\nNo lint failures found for rule(s): ${allowedRules.join(', ')}`));
+            console.log(color.yellow(`\nNo lint failures found for rule(s): ${allowedRules.join(', ')}`));
             console.log('Try running again without "--rule"');
             return 0;
           }
           // Or maybe they were filtered out because they were all warnings,
           // and the user didn't want to check warnings
           if (!includeWarnings) {
-            console.log(chalk.green('Great job, no lint rules reporting errors.'));
+            console.log(color.green('Great job, no lint rules reporting errors.'));
             return 0;
           }
           // Or if all stats were filtered out due to a provided `--fixable` flag
           if (fixableOnly) {
-            console.log(chalk.yellow('\nNo fixable lint failures found.'));
+            console.log(color.yellow('\nNo fixable lint failures found.'));
             console.log('Try running again without "--fixable-only"');
             return 0;
           }
@@ -180,9 +180,9 @@ const cli = {
             console.log(detailed);
           } else {
             if (isMulti) {
-              console.log(chalk.green(`Fixes applied: ${ruleAnswer.join(', ')} now passing`));
+              console.log(color.green(`Fixes applied: ${ruleAnswer.join(', ')} now passing`));
             } else {
-              console.log(chalk.green(`Fixes applied, ${ruleAnswer} is now passing`));
+              console.log(color.green(`Fixes applied, ${ruleAnswer} is now passing`));
             }
           }
         } else {
@@ -193,7 +193,7 @@ const cli = {
 
         // No report or not any errors or warnings
       } else {
-        console.log(chalk.green('Great job, all lint rules passed.'));
+        console.log(color.green('Great job, all lint rules passed.'));
         return 0;
       }
     }
