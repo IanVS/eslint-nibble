@@ -3,8 +3,10 @@
 var test = require('tape-catch');
 var cli = require('../../src/cli');
 var path = require('path');
+const chalk = require('chalk');
 
 test('cli :: works with no arguments', async function (t) {
+  chalk.level = 0;
   t.plan(3);
 
   var nodeBin = process.argv[0];
@@ -32,6 +34,7 @@ test('cli :: works with no arguments', async function (t) {
 });
 
 test('cli :: returns 2 if it crashes', async function (t) {
+  chalk.level = 0;
   t.plan(1);
 
   var nodeBin = process.argv[0];
@@ -52,6 +55,7 @@ test('cli :: returns 2 if it crashes', async function (t) {
 });
 
 test('cli :: returns exit code without menu when --no-interactive is set', async function (t) {
+  chalk.level = 0;
   t.plan(11);
 
   var nodeBin = process.argv[0];
@@ -114,6 +118,7 @@ test('cli :: returns exit code without menu when --no-interactive is set', async
 });
 
 test('cli :: outputs the results using a provided formatter if not interactive', async function (t) {
+  chalk.level = 0;
   t.plan(2);
 
   var nodeBin = process.argv[0];

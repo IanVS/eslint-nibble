@@ -33,7 +33,6 @@
     "url": "https://github.com/IanVS/eslint-nibble.git"
   },
   "dependencies": {
-    "@ianvs/eslint-stats": "^2.0.0",
     "@inquirer/checkbox": "^4.2.2",
     "@inquirer/confirm": "^5.1.16",
     "@inquirer/select": "^4.3.2",

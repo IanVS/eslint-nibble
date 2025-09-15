@@ -3,15 +3,14 @@
 const chalk = require('chalk');
 const table = require('text-table');
 
+const { colors } = require('./config/constants.js');
+
 const pluralize = function (word, count) {
   const plural = count === 1 ? word : word + 's';
   return plural;
 };
 
 module.exports = function (results) {
-  const errorColor = 'red';
-  const warningColor = 'yellow';
-
   let errorCount = 0;
   let fileCount = 0;
   let failureCount = 0;
@@ -39,8 +38,8 @@ module.exports = function (results) {
   ];
 
   if (warningCount || errorCount) {
-    summaryLineArray.push(chalk[warningColor].bold(warningCount + ' ' + pluralize('warning', warningCount) + '.'));
-    summaryLineArray.push(chalk[errorColor].bold(errorCount + ' ' + pluralize('error', errorCount) + '.'));
+    summaryLineArray.push(chalk[colors.warning].bold(warningCount + ' ' + pluralize('warning', warningCount) + '.'));
+    summaryLineArray.push(chalk[colors.error].bold(errorCount + ' ' + pluralize('error', errorCount) + '.'));
   }
 
   return '\n' + table([summaryLineArray]) + '\n';
