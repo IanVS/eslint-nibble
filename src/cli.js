@@ -3,9 +3,9 @@
 const nibbler = require('./nibbler');
 const fmt = require('./config/formatters');
 const color = require('yoctocolors');
-const inquirerCheckbox = require('@inquirer/checkbox');
-const inquirerConfirm = require('@inquirer/confirm');
-const inquirerSelect = require('@inquirer/select');
+const inquirerCheckbox = require('@inquirer/checkbox').default;
+const inquirerConfirm = require('@inquirer/confirm').default;
+const inquirerSelect = require('@inquirer/select').default;
 const options = require('./config/options');
 const { version } = require('../package.json');
 
