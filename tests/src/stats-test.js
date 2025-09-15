@@ -15,6 +15,11 @@ const oneFileTwoErrorsNoWarningsOneFixableError = require('../fixtures/reports/o
 const twoFilesTwoErrorsNoWarningsOneRule = require('../fixtures/reports/two-files-two-errors-no-warnings-one-rule.js');
 const twoFilesTwoErrorsNoWarningsTwoRules = require('../fixtures/reports/two-files-two-errors-no-warnings-two-rules.js');
 
+const MAGENTA_FG = '\x1B[35m';
+const DEFAULT_FG = '\x1B[39m';
+const RED_BG = '\x1B[41m';
+const DEFAULT_BG = '\x1B[49m';
+
 process.stdout.columns = 100;
 
 test('stats formatter :: No Issues', function (t) {
@@ -32,7 +37,7 @@ test('stats group formatter :: One Error, One Fixable Error', function (t) {
   t.ok(result, 'returns result');
   t.deepEqual(result, [
     {
-      name: 'semi: \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m',
+      name: `semi: ${MAGENTA_FG}1${DEFAULT_FG}|${RED_BG} ${DEFAULT_BG}`,
       value: 'semi',
       short: 'semi',
     },
@@ -46,7 +51,7 @@ test('stats formatter :: One Error', function (t) {
   t.ok(result, 'returns result');
   t.deepEqual(result, [
     {
-      name: 'no-unused-vars: \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m',
+      name: `no-unused-vars: ${MAGENTA_FG}1${DEFAULT_FG}|${RED_BG} ${DEFAULT_BG}`,
       value: 'no-unused-vars',
       short: 'no-unused-vars',
     },
@@ -59,7 +64,7 @@ test('stats formatter :: One Fatal Error', function (t) {
   const result = stats(oneFileOneFatalError.results);
   t.ok(result, 'returns result');
   t.deepEqual(result, [
-    { name: 'undefined: \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m', value: 'undefined', short: 'undefined' },
+    { name: `undefined: ${MAGENTA_FG}1${DEFAULT_FG}|${RED_BG} ${DEFAULT_BG}`, value: 'undefined', short: 'undefined' },
   ]);
 });
 
@@ -69,7 +74,11 @@ test('stats formatter :: One Warning', function (t) {
   const result = stats(oneFileOneWarning.results);
   t.ok(result, 'returns result');
   t.deepEqual(result, [
-    { name: 'no-unused-vars: \x1B[35m1\x1B[39m|\x1B[43m \x1B[49m', value: 'no-unused-vars', short: 'no-unused-vars' },
+    {
+      name: `no-unused-vars: ${MAGENTA_FG}1${DEFAULT_FG}|\x1B[43m ${DEFAULT_BG}`,
+      value: 'no-unused-vars',
+      short: 'no-unused-vars',
+    },
   ]);
 });
 
@@ -79,7 +88,11 @@ test('stats formatter :: One File, Two Errors, One Rule', function (t) {
   const result = stats(oneFileTwoErrorsNoWarningsOneRule.results);
   t.ok(result, 'returns result');
   t.deepEqual(result, [
-    { name: 'no-unused-vars: \x1B[35m2\x1B[39m|\x1B[41m  \x1B[49m', value: 'no-unused-vars', short: 'no-unused-vars' },
+    {
+      name: `no-unused-vars: ${MAGENTA_FG}2${DEFAULT_FG}|${RED_BG}  ${DEFAULT_BG}`,
+      value: 'no-unused-vars',
+      short: 'no-unused-vars',
+    },
   ]);
 });
 
@@ -89,8 +102,12 @@ test('stats formatter :: One File, Two Errors, Two Rules', function (t) {
   const result = stats(oneFileTwoErrorsNoWarningsTwoRules.results);
   t.ok(result, 'returns result');
   t.deepEqual(result, [
-    { name: 'eqeqeq:         \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m', value: 'eqeqeq', short: 'eqeqeq' },
-    { name: 'no-unused-vars: \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m', value: 'no-unused-vars', short: 'no-unused-vars' },
+    { name: `eqeqeq:         ${MAGENTA_FG}1${DEFAULT_FG}|${RED_BG} ${DEFAULT_BG}`, value: 'eqeqeq', short: 'eqeqeq' },
+    {
+      name: `no-unused-vars: ${MAGENTA_FG}1${DEFAULT_FG}|${RED_BG} ${DEFAULT_BG}`,
+      value: 'no-unused-vars',
+      short: 'no-unused-vars',
+    },
   ]);
 });
 
@@ -101,11 +118,11 @@ test('stats formatter :: One File, Two Errors, One Fixable Error', function (t) 
   t.ok(result, 'returns result');
   t.deepEqual(result, [
     {
-      name: 'func-name-matching: \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m',
+      name: `func-name-matching: ${MAGENTA_FG}1${DEFAULT_FG}|${RED_BG} ${DEFAULT_BG}`,
       value: 'func-name-matching',
       short: 'func-name-matching',
     },
-    { name: 'semi:               \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m', value: 'semi', short: 'semi' },
+    { name: `semi:               ${MAGENTA_FG}1${DEFAULT_FG}|${RED_BG} ${DEFAULT_BG}`, value: 'semi', short: 'semi' },
   ]);
 });
 
@@ -115,7 +132,11 @@ test('stats formatter :: Two Files, Two Errors, One Rule', function (t) {
   const result = stats(twoFilesTwoErrorsNoWarningsOneRule.results);
   t.ok(result, 'returns result');
   t.deepEqual(result, [
-    { name: 'no-unused-vars: \x1B[35m2\x1B[39m|\x1B[41m  \x1B[49m', value: 'no-unused-vars', short: 'no-unused-vars' },
+    {
+      name: `no-unused-vars: ${MAGENTA_FG}2${DEFAULT_FG}|${RED_BG}  ${DEFAULT_BG}`,
+      value: 'no-unused-vars',
+      short: 'no-unused-vars',
+    },
   ]);
 });
 
@@ -125,7 +146,11 @@ test('stats formatter :: Two Files, Two Errors, Two Rules', function (t) {
   const result = stats(twoFilesTwoErrorsNoWarningsTwoRules.results);
   t.ok(result, 'returns result');
   t.deepEqual(result, [
-    { name: 'eqeqeq:         \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m', value: 'eqeqeq', short: 'eqeqeq' },
-    { name: 'no-unused-vars: \x1B[35m1\x1B[39m|\x1B[41m \x1B[49m', value: 'no-unused-vars', short: 'no-unused-vars' },
+    { name: `eqeqeq:         ${MAGENTA_FG}1${DEFAULT_FG}|${RED_BG} ${DEFAULT_BG}`, value: 'eqeqeq', short: 'eqeqeq' },
+    {
+      name: `no-unused-vars: ${MAGENTA_FG}1${DEFAULT_FG}|${RED_BG} ${DEFAULT_BG}`,
+      value: 'no-unused-vars',
+      short: 'no-unused-vars',
+    },
   ]);
 });
