@@ -34,7 +34,9 @@
   },
   "dependencies": {
     "@ianvs/eslint-stats": "^2.0.0",
-    "@inquirer/prompts": "^7.5.3",
+    "@inquirer/checkbox": "^4.2.2",
+    "@inquirer/confirm": "^5.1.16",
+    "@inquirer/select": "^4.3.2",
     "chalk": "^4.1.1",
     "eslint-filtered-fix": "^0.3.0",
     "eslint-formatter-friendly": "^7.0.0",

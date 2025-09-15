@@ -3,7 +3,9 @@
 const nibbler = require('./nibbler');
 const fmt = require('./config/formatters');
 const chalk = require('chalk');
-const inquirer = require('@inquirer/prompts');
+const inquirerCheckbox = require('@inquirer/checkbox');
+const inquirerConfirm = require('@inquirer/confirm');
+const inquirerSelect = require('@inquirer/select');
 const options = require('./config/options');
 const { version } = require('../package.json');
 
@@ -150,12 +152,12 @@ const cli = {
         // Ask user for the rule to narrow in on
         const ruleAnswer =
           isMulti ?
-            await inquirer.checkbox({
+            await inquirerCheckbox({
               message: 'Which rule(s) would you like to view?',
               choices: results,
               pageSize: process.stdout.rows - 5,
             })
-          : await inquirer.select({
+          : await inquirerSelect({
               message: 'Which rule would you like to view?',
               choices: results,
               pageSize: process.stdout.rows - 5,
@@ -165,7 +167,7 @@ const cli = {
         const hasFixableLints = ruleReport.fixableErrorCount > 0 || ruleReport.fixableWarningCount > 0;
         const fixAnswer =
           hasFixableLints ?
-            await inquirer.confirm({
+            await inquirerConfirm({
               message: 'Would you like to attempt to auto-fix?',
               default: false,
             })
@@ -174,7 +176,7 @@ const cli = {
         const hasFixableWarnings = nibbler.getRuleResults(report, ruleAnswer).fixableWarningCount > 0;
         const fixWarningsAnswer =
           hasFixableWarnings && fixAnswer ?
-            await inquirer.confirm({
+            await inquirerConfirm({
               message: 'Autofix warnings?',
               default: true,
             })
