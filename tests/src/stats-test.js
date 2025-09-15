@@ -1,7 +1,6 @@
 'use strict';
 
 const test = require('tape');
-const chalk = require('chalk');
 const stats = require('../../src/stats.js');
 
 const noIssues = require('../fixtures/reports/no-issues.js');
@@ -23,7 +22,7 @@ const DEFAULT_BG = '\x1B[49m';
 process.stdout.columns = 100;
 
 test('stats formatter :: No Issues', function (t) {
-  chalk.level = 1;
+  process.env.FORCE_COLOR = 1;
   t.plan(2);
   const result = stats(noIssues.results);
   t.ok(result, 'returns result');
@@ -31,7 +30,7 @@ test('stats formatter :: No Issues', function (t) {
 });
 
 test('stats group formatter :: One Error, One Fixable Error', function (t) {
-  chalk.level = 1;
+  process.env.FORCE_COLOR = 1;
   t.plan(2);
   const result = stats(oneFileOneErrorOneFixableError.results);
   t.ok(result, 'returns result');
@@ -45,7 +44,7 @@ test('stats group formatter :: One Error, One Fixable Error', function (t) {
 });
 
 test('stats formatter :: One Error', function (t) {
-  chalk.level = 1;
+  process.env.FORCE_COLOR = 1;
   t.plan(2);
   const result = stats(oneFileOneError.results);
   t.ok(result, 'returns result');
@@ -59,7 +58,7 @@ test('stats formatter :: One Error', function (t) {
 });
 
 test('stats formatter :: One Fatal Error', function (t) {
-  chalk.level = 1;
+  process.env.FORCE_COLOR = 1;
   t.plan(2);
   const result = stats(oneFileOneFatalError.results);
   t.ok(result, 'returns result');
@@ -69,7 +68,7 @@ test('stats formatter :: One Fatal Error', function (t) {
 });
 
 test('stats formatter :: One Warning', function (t) {
-  chalk.level = 1;
+  process.env.FORCE_COLOR = 1;
   t.plan(2);
   const result = stats(oneFileOneWarning.results);
   t.ok(result, 'returns result');
@@ -83,7 +82,7 @@ test('stats formatter :: One Warning', function (t) {
 });
 
 test('stats formatter :: One File, Two Errors, One Rule', function (t) {
-  chalk.level = 1;
+  process.env.FORCE_COLOR = 1;
   t.plan(2);
   const result = stats(oneFileTwoErrorsNoWarningsOneRule.results);
   t.ok(result, 'returns result');
@@ -97,7 +96,7 @@ test('stats formatter :: One File, Two Errors, One Rule', function (t) {
 });
 
 test('stats formatter :: One File, Two Errors, Two Rules', function (t) {
-  chalk.level = 1;
+  process.env.FORCE_COLOR = 1;
   t.plan(2);
   const result = stats(oneFileTwoErrorsNoWarningsTwoRules.results);
   t.ok(result, 'returns result');
@@ -112,7 +111,7 @@ test('stats formatter :: One File, Two Errors, Two Rules', function (t) {
 });
 
 test('stats formatter :: One File, Two Errors, One Fixable Error', function (t) {
-  chalk.level = 1;
+  process.env.FORCE_COLOR = 1;
   t.plan(2);
   const result = stats(oneFileTwoErrorsNoWarningsOneFixableError.results);
   t.ok(result, 'returns result');
@@ -127,7 +126,7 @@ test('stats formatter :: One File, Two Errors, One Fixable Error', function (t) 
 });
 
 test('stats formatter :: Two Files, Two Errors, One Rule', function (t) {
-  chalk.level = 1;
+  process.env.FORCE_COLOR = 1;
   t.plan(2);
   const result = stats(twoFilesTwoErrorsNoWarningsOneRule.results);
   t.ok(result, 'returns result');
@@ -141,7 +140,7 @@ test('stats formatter :: Two Files, Two Errors, One Rule', function (t) {
 });
 
 test('stats formatter :: Two Files, Two Errors, Two Rules', function (t) {
-  chalk.level = 1;
+  process.env.FORCE_COLOR = 1;
   t.plan(2);
   const result = stats(twoFilesTwoErrorsNoWarningsTwoRules.results);
   t.ok(result, 'returns result');
