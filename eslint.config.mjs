@@ -47,4 +47,10 @@ export default [
       semi: ['warn', 'always'],
     },
   },
+  {
+    files: ['tests/fixtures/files/multi-error/two-unused.js'],
+    rules: {
+      'no-unused-vars': 'error',
+    },
+  },
 ];
