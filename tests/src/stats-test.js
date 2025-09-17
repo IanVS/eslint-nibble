@@ -74,9 +74,9 @@ test('stats formatter :: One Warning', function (t) {
   t.ok(result, 'returns result');
   t.deepEqual(result, [
     {
-      name: `no-unused-vars: ${MAGENTA_FG}1${DEFAULT_FG}|\x1B[43m ${DEFAULT_BG}`,
-      value: 'no-unused-vars',
-      short: 'no-unused-vars',
+      name: `semi: ${MAGENTA_FG}1${DEFAULT_FG}|\x1B[43m ${DEFAULT_BG}`,
+      value: 'semi',
+      short: 'semi',
     },
   ]);
 });

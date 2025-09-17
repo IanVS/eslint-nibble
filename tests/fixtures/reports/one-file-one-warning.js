@@ -1,15 +1,20 @@
 module.exports = {
   results:
-    [ { filePath: 'path/to/warning.js',
+    [ { filePath: 'tests/fixtures/files/semi-warn/no-semi.js',
         messages:
-          [ { ruleId: 'no-unused-vars',
-              severity: 1,
-              message: 'foo is defined but never used',
-              line: 1,
-              column: 4,
-              nodeType: 'Identifier',
-              source: 'var foo;' } ],
+          [ {
+            ruleId: 'semi',
+            severity: 1,
+            message: 'Missing semicolon.',
+            line: 1,
+            column: 12,
+            nodeType: 'VariableDeclaration',
+            messageId: 'missingSemi',
+            endLine: 2,
+            endColumn: 1,
+            fix: { range: [ 11, 11 ], text: ';' }
+          } ],
          errorCount: 0,
          warningCount: 1 } ],
     errorCount: 0,
-    warningCount: 1 }
+    warningCount: 1 };

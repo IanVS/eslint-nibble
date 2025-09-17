@@ -31,7 +31,7 @@ test('getRuleResults :: Returns correct messages', function (outer) {
   outer.test('-- One warning', function (t) {
     t.plan(3);
     var report = require('../fixtures/reports/one-file-one-warning');
-    var ruleName = 'no-unused-vars';
+    var ruleName = 'semi';
     var ruleReport = nibbler.getRuleResults(report, ruleName);
     t.ok(ruleReport.warningCount, 'report has a warningCount');
     t.equal(ruleReport.errorCount, 0, 'report errorCount is 0');
@@ -45,11 +45,11 @@ test('getRuleResults :: Returns correct messages', function (outer) {
     var ruleReport = nibbler.getRuleResults(report, ruleName);
     t.equal(ruleReport.results[0].messages[0].ruleId, ruleName, 'filtered on correct rule');
     t.equal(ruleReport.results[0].messages[0].severity, 2, 'returned correct severity');
-    t.equal(ruleReport.results[0].messages[0].message, 'foo is defined but never used', 'returned correct message');
-    t.equal(ruleReport.results[0].messages[0].line, 5, 'returned correct line');
-    t.equal(ruleReport.results[0].messages[0].column, 4, 'returned correct column');
+    t.equal(ruleReport.results[0].messages[0].message, "'bar' is defined but never used.", 'returned correct message');
+    t.equal(ruleReport.results[0].messages[0].line, 1, 'returned correct line');
+    t.equal(ruleReport.results[0].messages[0].column, 5, 'returned correct column');
     t.equal(ruleReport.results[0].messages[0].nodeType, 'Identifier', 'returned correct nodeType');
-    t.equal(ruleReport.results[0].messages[0].source, 'var foo;', 'returned correct source');
+    t.equal(ruleReport.results[0].messages[0].source, 'var bar;\nvar foo;', 'returned correct source');
   });
 
   outer.test('-- One file, Two rules', function (t) {
@@ -233,7 +233,7 @@ test('getFormattedResults :: Returns formatted report for built-in formatter', a
   var report = require('../fixtures/reports/one-file-one-error');
   var formattedResult = await nibbler.getFormattedResults(report, 'json');
   var expectedResult =
-    '[{"filePath":"path/to/error.js","messages":[{"ruleId":"no-unused-vars","severity":2,"message":"foo is defined but never used","line":1,"column":4,"nodeType":"Identifier","source":"var foo;"}],"errorCount":1,"warningCount":0}]';
+    '[{"filePath":"tests/fixtures/files/semi-error/no-semi.js","messages":[{"ruleId":"no-unused-vars","severity":2,"message":"foo is defined but never used","line":1,"column":4,"nodeType":"Identifier","source":"var foo;"}],"errorCount":1,"warningCount":0}]';
   t.ok(formattedResult, 'returns result');
   t.equal(formattedResult, expectedResult, 'used the correct formatter');
 });
