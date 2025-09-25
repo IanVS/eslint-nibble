@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const detailed = require('eslint-formatter-friendly');
+const detailed = require('../../src/detailed.js');
 
 const noIssues = require('../fixtures/reports/no-issues.js');
 const oneFileOneErrorOneFixableError = require('../fixtures/reports/one-file-one-error-one-fixable-error.js');
