@@ -4,8 +4,12 @@ var test = require('tape-catch');
 var cli = require('../../src/cli');
 var path = require('path');
 
+const DIM = '\x1B[2m';
+const BOLD_OFF = '\x1B[22m';
+const RED_FG = '\x1B[31m';
+const DEFAULT_FG = '\x1B[39m';
+
 test('cli :: works with no arguments', async function (t) {
-  process.env.FORCE_COLOR = 0;
   t.plan(3);
 
   var nodeBin = process.argv[0];
@@ -33,7 +37,6 @@ test('cli :: works with no arguments', async function (t) {
 });
 
 test('cli :: returns 2 if it crashes', async function (t) {
-  process.env.FORCE_COLOR = 0;
   t.plan(1);
 
   var nodeBin = process.argv[0];
@@ -54,7 +57,6 @@ test('cli :: returns 2 if it crashes', async function (t) {
 });
 
 test('cli :: returns exit code without menu when --no-interactive is set', async function (t) {
-  process.env.FORCE_COLOR = 0;
   t.plan(11);
 
   var nodeBin = process.argv[0];
@@ -81,7 +83,7 @@ test('cli :: returns exit code without menu when --no-interactive is set', async
   t.equal(await cli.execute([nodeBin, nibbleBin, okayPath, '--no-interactive']), 0, 'exits with 0 if no problems');
   console.log = function (input) {
     console.log = origConsoleLog;
-    t.ok(input.includes('No lint failures found for rule(s): prefer-const', 'Warns user'));
+    t.ok(input.includes('No lint failures found for rule(s): prefer-const'), 'Warns user');
     // Ignore second call to console.log
     mockLogOnce(origConsoleLog);
   };
@@ -92,8 +94,11 @@ test('cli :: returns exit code without menu when --no-interactive is set', async
   );
   console.log = function (input) {
     console.log = origConsoleLog;
-    t.ok(input.includes('1:12  error  Missing semicolon', 'Reports semi error'));
-    t.ok(input.includes("2:1   error  Unary operator '++' used", 'Reports plusplus error'));
+    t.ok(input.includes(`1:12${BOLD_OFF}  ${RED_FG}error${DEFAULT_FG}  Missing semicolon`), 'Reports semi error');
+    t.ok(
+      input.includes(`2:1${BOLD_OFF}   ${RED_FG}error${DEFAULT_FG}  Unary operator '++' used`),
+      'Reports plusplus error'
+    );
   };
   t.equal(
     await cli.execute([nodeBin, nibbleBin, multiErrorPath, '--no-interactive']),
@@ -102,7 +107,7 @@ test('cli :: returns exit code without menu when --no-interactive is set', async
   );
   console.log = function (input) {
     console.log = origConsoleLog;
-    t.ok(input.includes('1:12  error  Missing semicolon', 'Reports semi error'));
+    t.ok(input.includes(`1:12${BOLD_OFF}  ${RED_FG}error${DEFAULT_FG}  Missing semicolon`), 'Reports semi error');
     t.ok(!input.includes("Unary operator '++' used"), 'Does not report plusplus error');
   };
   t.equal(
@@ -117,7 +122,6 @@ test('cli :: returns exit code without menu when --no-interactive is set', async
 });
 
 test('cli :: outputs the results using a provided formatter if not interactive', async function (t) {
-  process.env.FORCE_COLOR = 0;
   t.plan(2);
 
   var nodeBin = process.argv[0];
@@ -132,7 +136,7 @@ test('cli :: outputs the results using a provided formatter if not interactive',
   console.log = function (input) {
     console.log = origConsoleLog;
     t.ok(
-      input.includes('1:12  error  Missing semicolon  semi'),
+      input.includes(`1:12${BOLD_OFF}  ${RED_FG}error${DEFAULT_FG}  Missing semicolon  ${DIM}semi`),
       'Default eslint formatter is used if none is specified'
     );
   };
