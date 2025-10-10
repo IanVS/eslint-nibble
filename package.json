@@ -7,7 +7,7 @@
     "eslint-nibble": "./bin/eslint-nibble.js"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "test": "FORCE_COLOR=1 tape tests/src/*.js | tap-difflet",
