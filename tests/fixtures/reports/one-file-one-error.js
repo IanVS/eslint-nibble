@@ -1,6 +1,6 @@
 module.exports = {
   results:
-    [ { filePath: 'path/to/error.js',
+    [ { filePath: 'tests/fixtures/files/semi-error/no-semi.js',
         messages:
           [ { ruleId: 'no-unused-vars',
               severity: 2,

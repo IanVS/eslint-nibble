@@ -10,7 +10,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "test": "tape tests/src/*.js | tap-difflet",
+    "test": "FORCE_COLOR=1 tape tests/src/*.js | tap-difflet",
     "lint": "eslint src tests/src",
     "format": "prettier . --write --experimental-cli",
     "format:check": "prettier . --check --experimental-cli"
@@ -33,12 +33,13 @@
     "url": "https://github.com/IanVS/eslint-nibble.git"
   },
   "dependencies": {
+    "@babel/code-frame": "^7.27.1",
     "@inquirer/checkbox": "^4.2.2",
     "@inquirer/confirm": "^5.1.16",
     "@inquirer/select": "^4.3.2",
     "eslint-filtered-fix": "^0.3.0",
-    "eslint-formatter-friendly": "^7.0.0",
     "optionator": "^0.9.1",
+    "terminal-link": "^5.0.0",
     "text-table": "^0.2.0",
     "yoctocolors": "^2.1.2"
   },

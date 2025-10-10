@@ -95,7 +95,7 @@ function filterResults(report, msgKey, options) {
       return {
         filePath: result.filePath,
         messages: filteredMessages,
-
+        suppressedMessages: result.suppressedMessages,
         errorCount,
         warningCount,
         fixableErrorCount,

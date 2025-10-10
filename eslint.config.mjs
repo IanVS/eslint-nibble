@@ -18,6 +18,7 @@ export default [
   },
   {
     languageOptions: {
+      ecmaVersion: 'latest',
       globals: {
         ...globals.node,
       },
@@ -45,6 +46,12 @@ export default [
     files: ['tests/fixtures/files/semi-warn/no-semi.js'],
     rules: {
       semi: ['warn', 'always'],
+    },
+  },
+  {
+    files: ['tests/fixtures/files/multi-error/two-unused.js'],
+    rules: {
+      'no-unused-vars': 'error',
     },
   },
 ];
