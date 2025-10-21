@@ -39,7 +39,6 @@
     "@inquirer/select": "^4.3.2",
     "eslint-filtered-fix": "^0.3.0",
     "optionator": "^0.9.1",
-    "terminal-link": "^5.0.0",
     "text-table": "^0.2.0",
     "yoctocolors": "^2.1.2"
   },
