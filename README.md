@@ -71,10 +71,10 @@ If there are lint warnings, you will also be asked whether you want those to be 
 
 <img src="docs/autofix-applied.png" width="500px"/>
 
-If you decide not to make autofixes, or the autofix completes but cannot fix all the errors, then a detailed list of the errors will be presented, using [eslint-friendly-formatter](https://github.com/royriojas/eslint-friendly-formatter).  
+If you decide not to make autofixes, or the autofix completes but cannot fix all the errors, then a detailed list of the errors will be presented.
 If you are using iTerm2 or Guake, you can set them up so that your text editor opens to the correct line when you click on the filename.
 
-![eslint-friendly-formatter-screenshot](docs/eslint-friendly-formatter-screenshot.png)
+![eslint-formatter-screenshot](docs/eslint-formatter-screenshot.png)
 
 ## Options
 

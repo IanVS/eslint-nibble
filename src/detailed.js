@@ -1,7 +1,6 @@
 'use strict';
 
 const { codeFrameColumns } = require('@babel/code-frame');
-const link = require('terminal-link').default;
 const colors = require('yoctocolors');
 const table = require('text-table');
 const fs = require('node:fs');
@@ -144,7 +143,7 @@ function formatMessage(message) {
   const { filePath, severity, ruleId, ruleUrl } = message;
 
   let output = `
-${colors.cyanBright(filePath)}:${colors.yellowBright(message.line)}:${colors.yellowBright(message.column)} - ${colors[severityColors[severities[severity]]](severities[severity])} ${colors.dim(`${link(ruleId, ruleUrl)}`)}
+${colors.cyanBright(filePath)}:${colors.yellowBright(message.line)}:${colors.yellowBright(message.column)} - ${colors[severityColors[severities[severity]]](severities[severity])} ${colors.dim(`${ruleId} ${ruleUrl}`)}
 ${message.message}
 
 `;
